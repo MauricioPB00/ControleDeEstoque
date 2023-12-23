@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { LoginService } from './AuthService/login.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgxSpinnerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

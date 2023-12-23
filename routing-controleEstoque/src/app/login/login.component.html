@@ -13,19 +13,19 @@
 
       <div class="inputBox"> 
 
-        <input type="text" id="username" name="username" [(ngModel)]="loginData.username" required>
+        <input type="text" id="username" name="username" [(ngModel)]="dados.username" required>
         <i>Username</i>
       </div> 
 
       <div class="inputBox"> 
 
-        <input type="password" id="password" name="password" [(ngModel)]="loginData.password" required>
+        <input type="password" id="password" name="password" [(ngModel)]="dados.password" required>
         <i>Password</i>
 
       </div> 
 
       <div class="inputBox"> 
-       <input type="submit" (click)="onSubmit()" value="Login" [ngStyle]="{ 'background-color': getButtonBackgroundColor() }">
+       <button type="button" (click)="logar()" value="Login" [ngStyle]="{ 'background-color': getButtonBackgroundColor() }">Login</button>
 
       </div> 
 
