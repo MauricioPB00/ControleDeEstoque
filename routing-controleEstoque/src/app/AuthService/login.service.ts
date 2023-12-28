@@ -35,14 +35,11 @@ export class LoginService {
 
   login(username: string, password: string): Observable<any> {
     console.log('eawye')
-    return this.http.post(`${API_CONFIG.baseUrl}/login_check`, { username, password }, this.httpOptions)
+    return this.http.post(`${API_CONFIG.baseUrl}/login`, { username, password }, this.httpOptions)
       .pipe(map((data: any) => {
-        // let ControleUsuarioLogado = {
-        //   //username: data['username'],
-        // };
         localStorage.setItem('jwt', JSON.stringify(data.token));
-        //localStorage.setItem('ControleUsuarioLogado', JSON.stringify(ControleUsuarioLogado));
-        console.log('aaaaaaaaaaaaaaaa',data);
+        localStorage.setItem('ControleUsuarioLogado', JSON.stringify(data.permi));
+        localStorage.setItem('ControleUsuarioLogado', JSON.stringify(data.ip));
         return data;
       }));
   }
