@@ -10,12 +10,16 @@ import { LoginService } from './AuthService/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SideBarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

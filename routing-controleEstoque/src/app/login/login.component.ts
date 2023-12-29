@@ -33,7 +33,7 @@ export class LoginComponent {
   isLoginValid() {
     return (
       //this.loginData.username.includes('@') &&
-      //this.loginData.username.length >= 10 &&
+      this.dados.username.length >= 8 &&
       this.dados.password.length >= 6
     );
   }
@@ -48,30 +48,31 @@ export class LoginComponent {
       this.loginService.login(this.dados.username, this.dados.password).pipe(take(1)).subscribe(
         data => {
           console.log('Resposta do servidor:', data);
-          // this.showAlert(data);
-          this.router.navigateByUrl('/');
+          this.showAlert(data); // data //
+          this.router.navigateByUrl('/home');
           this.spinner.hide();
         },
         error => {
           console.error('Erro ao fazer a chamada para o servidor:', error);
-          // this.showAlert(error.error);
+           this.showAlert(error.error);
           this.logout();
           this.spinner.hide();
         })
     }
   }
 
-  // showAlert(data) {
-  //   if(data != undefined){
-  //     if (data.erro == true) {
-  //       this.toastr.error(data.mensagem);
-  //     } else if (data.erro == false) {
-  //       this.toastr.success(data.mensagem);
-  //     } else {
-  //       this.toastr.error(JSON.stringify(data));
-  //     }
-  //   }
-  // }
+  showAlert(data:any) {
+    this.toastr.success('aaaa');
+    if(data != undefined){
+      if (data.erro == true) {
+        this.toastr.error(data.mensagem);
+      } else if (data.erro == false) {
+        this.toastr.success(data.mensagem);
+      } else {
+        this.toastr.error(JSON.stringify(data));
+      }
+    }
+  }
 
   logout() {
     // remove user from local storage to log user out

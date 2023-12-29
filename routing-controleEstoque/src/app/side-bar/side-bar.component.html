@@ -1,0 +1,42 @@
+<div class="wrapper d-flex align-items-stretch">
+  <nav id="sidebar" [ngClass]="{ 'active': isSidebarActive }">
+    <div class="custom-menu">
+      <button type="button" class="btn btn-primary" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+        <span class="sr-only">Toggle Menu</span>
+      </button>
+    </div>
+    <div class="container">
+      <img src="../../assets/img/logo.jpg" class="logo-img">
+      <div class="line"></div>
+      <ul class="list-unstyled">
+        <li>
+          <i class="fas fa-cubes"></i> Estoque
+        </li>
+        <li>
+          <i class="fa fa-user-plus"></i> Cadastro
+        </li>
+        <li>
+          <i class="fas fa-user"></i> Clientes
+        </li>
+        <li>
+          <i class="fa fa-folder-open"></i> Condicional
+        </li>
+        <li>
+          <i class="fa fa-pie-chart"></i> Resultado
+        </li>
+        <li>
+          <i class="fa fa-shopping-cart"></i>Vendas
+        </li>
+      </ul>
+      <div class="line"></div>
+      <img src="../../assets/img/user.jpg" class="profile-image">
+      <div class="Email">
+        <h2>( Email )</h2>
+      </div>
+      <div class="logout">
+        <button>Logout</button>
+      </div>
+    </div>
+  </nav>
+</div>

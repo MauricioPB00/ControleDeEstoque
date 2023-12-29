@@ -38,8 +38,8 @@ export class LoginService {
     return this.http.post(`${API_CONFIG.baseUrl}/login`, { username, password }, this.httpOptions)
       .pipe(map((data: any) => {
         localStorage.setItem('jwt', JSON.stringify(data.token));
-        localStorage.setItem('ControleUsuarioLogado', JSON.stringify(data.permi));
-        localStorage.setItem('ControleUsuarioLogado', JSON.stringify(data.ip));
+        localStorage.setItem('ControleUsuarioPermi', JSON.stringify(data.permi));
+        localStorage.setItem('ControleUsuarioIP', JSON.stringify(data.ip));        
         return data;
       }));
   }

@@ -1,0 +1,228 @@
+#sidebar {
+    min-width: 270px;
+    max-width: 270px;
+    background: #ffffff;
+    color: #fff;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    position: relative;
+}
+
+
+#sidebar.active {
+    margin-left: -270px;
+}
+
+#sidebar h1 {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+
+@media (max-width: 991.98px) {
+    #sidebar {
+        margin-left: -270px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+#sidebar .custom-menu {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    margin-right: -40px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #sidebar .custom-menu {
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none;
+    }
+}
+
+#sidebar .custom-menu .btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+#sidebar .custom-menu .btn i {
+    margin-right: -40px;
+    font-size: 18px;
+}
+
+#sidebar .custom-menu .btn.btn-primary {
+    background: transparent;
+    border-color: transparent;
+}
+
+#sidebar .custom-menu .btn.btn-primary:after {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+#sidebar .custom-menu .btn.btn-primary:hover,
+#sidebar .custom-menu .btn.btn-primary:focus {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+
+
+.container {
+    background-color: #FFFF;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    /* Altura máxima igual à altura da viewport */
+    position: relative;
+    z-index: 2;
+}
+
+.container img {
+    display: block;
+    /* Garante que a imagem não tenha espaços em branco ao redor */
+    margin: 0 auto;
+    /* Centraliza a imagem horizontalmente */
+    height: auto;
+}
+
+.logo-img {
+    padding-top: 15%;
+    max-width: 15%;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 40px;
+}
+
+
+
+/* Estilos para a lista */
+.container ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 30px;
+    margin-left: 30%;
+}
+
+.container ul li {
+    margin-bottom: 10px;
+    font-family: 'Anton', sans-serif;
+    font-weight: 200;
+    color: black;
+    font-size: 1.2em;
+    height: 40px;
+    margin-left: auto;
+    /* Centraliza horizontalmente */
+    margin-right: auto;
+    /* Centraliza horizontalmente */
+}
+
+.container ul li i {
+    font-size: 24px;
+    color: black;
+    margin-right: 20px;
+    width: 24px;
+    height: 24px;
+    line-height: 40px;
+}
+
+
+/* Estilos adicionais para o ícone de cubos */
+.fa-cubes:before {
+    content: "\f1b3";
+    /* Código do ícone de cubos do FontAwesome */
+    color: black;
+    /* Define a cor do ícone de cubos como preto */
+    font-size: 24px;
+    /* Ajusta o tamanho do ícone */
+}
+
+.profile-image {
+    border-radius: 60%;
+    object-fit: cover;
+    /* Garantir que a imagem mantenha suas proporções */
+    max-width: 35%;
+    position: relative;
+    /* Define a posição relativa para a imagem */
+    top: 20px;
+    /* Move a imagem para baixo em relação à sua posição original */
+}
+
+.Email {
+    color: black;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logout {
+    text-align: center;
+    /* Centraliza o conteúdo do contêiner */
+}
+
+.logout button {
+    /* Estilos do botão (já definidos anteriormente) */
+    padding: 8px 15px;
+    background-color: #090909;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* .logout button:hover {
+    background-color: #050505;
+    color: #fbe70b;
+} */
+@media screen and (max-width: 600px) {
+    .logout button {
+      font-size: 14px; /* Reduz o tamanho da fonte para telas menores */
+      padding: 6px 10px; /* Reduz o padding interno */
+      max-width: 150px; /* Ajusta o tamanho máximo para telas menores */
+    }
+    .profile-image {
+        max-width: 30%; /* Reduz o tamanho máximo da imagem em telas menores */
+        top: 10px; /* Ajusta a posição da imagem */
+      }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    /* Ajuste do botão de logout */
+    .logout button {
+      padding: 10px 20px; /* Altera o preenchimento interno */
+      max-width: 250px; /* Ajusta o tamanho máximo do botão */
+      font-size: 16px; /* Ajusta o tamanho da fonte */
+    }
+  
+    /* Ajuste da imagem do perfil */
+    .profile-image {
+      max-width: 30%; /* Reduz o tamanho máximo da imagem */
+      top: 15px; /* Ajusta a posição da imagem */
+    }
+  }
