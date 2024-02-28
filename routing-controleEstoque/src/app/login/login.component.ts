@@ -55,7 +55,6 @@ export class LoginComponent {
         error => {
           console.error('Erro ao fazer a chamada para o servidor:', error);
            this.showAlert(error.error);
-          this.logout();
           this.spinner.hide();
         })
     }
@@ -73,12 +72,4 @@ export class LoginComponent {
       }
     }
   }
-
-  logout(): void {
-    // remove user from local storage to log user out
-    localStorage.removeItem('pgsUsuarioLogado');
-    localStorage.removeItem('jwt');
-    this.router.navigate(['/']);
-  }
-
 }

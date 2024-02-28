@@ -33,15 +33,32 @@ export class LoginService {
     }),
   }
 
+
+
   login(username: string, password: string): Observable<any> {
-    console.log('eawye')
+    console.log('eawye');
     return this.http.post(`${API_CONFIG.baseUrl}/login`, { username, password }, this.httpOptions)
-      .pipe(map((data: any) => {
-        localStorage.setItem('jwt', JSON.stringify(data.token));
-        localStorage.setItem('ControleUsuarioPermi', JSON.stringify(data.permi));
-        localStorage.setItem('ControleUsuarioIP', JSON.stringify(data.ip));        
-        return data;
-      }));
+      .pipe(
+        map((data: any) => {
+          if (data && data.token) {
+            localStorage.setItem('jwt', JSON.stringify(data.token));
+            localStorage.setItem('ControleUsuarioPermi', JSON.stringify(data.permi));
+            localStorage.setItem('ControleUsuarioIP', JSON.stringify(data.ip));
+          }
+          return data; 
+        }),
+        tap(() => {
+          if (this.isLoggedIn()) {
+            console.log('Usuário autenticado.');
+          } else {
+            console.log('Falha ao autenticar o usuário.');
+          }
+        })
+      );
+  }
+   isLoggedIn(): boolean {
+    // Verifica se o token JWT está presente no localStorage
+    return !!localStorage.getItem('jwt');
   }
   logout() {
     localStorage.removeItem('ControleUsuarioLogado');

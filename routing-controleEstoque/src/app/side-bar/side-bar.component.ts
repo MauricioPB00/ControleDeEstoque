@@ -18,11 +18,7 @@ export class SideBarComponent {
 
 
     logout(): void {
-      // remove user from local storage to log user out
-      localStorage.removeItem('pgsUsuarioLogado');
-      localStorage.removeItem('jwt');
-      localStorage.removeItem('ControleUsuarioIP');
-      localStorage.removeItem('ControleUsuarioPermi');
+      localStorage.clear()
       this.router.navigate(['/']);
     }
 
