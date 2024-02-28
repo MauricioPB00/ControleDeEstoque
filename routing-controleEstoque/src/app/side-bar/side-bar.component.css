@@ -126,31 +126,28 @@
 /* Estilos para a lista */
 .container ul {
     list-style: none;
-    padding-left: 0;
     margin-top: 30px;
-    margin-left: 30%;
+    padding-left: 30px;
 }
 
 .container ul li {
     margin-bottom: 10px;
-    font-family: 'Anton', sans-serif;
-    font-weight: 200;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
     color: black;
     font-size: 1.2em;
     height: 40px;
-    margin-left: auto;
     /* Centraliza horizontalmente */
-    margin-right: auto;
     /* Centraliza horizontalmente */
 }
 
 .container ul li i {
     font-size: 24px;
     color: black;
-    margin-right: 20px;
     width: 24px;
     height: 24px;
     line-height: 40px;
+    margin-right: 20px;
 }
 
 
