@@ -12,6 +12,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HomeComponent } from './home/home.component';
+import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     SideBarComponent,
     HomeComponent,
+    CadastroEstoqueComponent,
   ],
   imports: [
     BrowserModule,

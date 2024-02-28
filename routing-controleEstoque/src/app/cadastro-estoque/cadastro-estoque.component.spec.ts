@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CadastroEstoqueComponent } from './cadastro-estoque.component';
+
+describe('CadastroEstoqueComponent', () => {
+  let component: CadastroEstoqueComponent;
+  let fixture: ComponentFixture<CadastroEstoqueComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CadastroEstoqueComponent]
+    });
+    fixture = TestBed.createComponent(CadastroEstoqueComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

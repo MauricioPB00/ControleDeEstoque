@@ -74,10 +74,11 @@ export class LoginComponent {
     }
   }
 
-  logout() {
+  logout(): void {
     // remove user from local storage to log user out
     localStorage.removeItem('pgsUsuarioLogado');
     localStorage.removeItem('jwt');
+    this.router.navigate(['/']);
   }
 
 }

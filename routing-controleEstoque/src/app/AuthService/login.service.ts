@@ -48,25 +48,16 @@ export class LoginService {
     localStorage.removeItem('jwt');
     this.currentUserSubject.next(null);
   }
-  // showAlert(data) {
-  //   if (data.erro) {
-  //     if (data.erro == true) {
-  //       this.toastr.error(data.mensagem);
-  //     }
-  //     if (data.erro == false) {
-  //       this.toastr.success(data.mensagem);
-  //     }
-  //   }
-  // }
+
 
     // Manipulação de erros
     handleError(error: HttpErrorResponse) {
       let errorMessage = '';
       if (error.error instanceof ErrorEvent) {
-        // Erro ocorreu no lado do client
+        // Erro client
         errorMessage = error.error.message;
       } else {
-        // Erro ocorreu no lado do servidor
+        // Erro servidor
         errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
       }
       return throwError(errorMessage);

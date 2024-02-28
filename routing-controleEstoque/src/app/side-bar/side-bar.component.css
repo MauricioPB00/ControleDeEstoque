@@ -123,7 +123,6 @@
 
 
 
-/* Estilos para a lista */
 .container ul {
     list-style: none;
     margin-top: 30px;
@@ -132,16 +131,23 @@
 
 .container ul li {
     margin-bottom: 10px;
+}
+
+.container ul li button {
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     color: black;
     font-size: 1.2em;
     height: 40px;
-    /* Centraliza horizontalmente */
-    /* Centraliza horizontalmente */
+    line-height: 40px;
+    padding: 0 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
 }
 
-.container ul li i {
+.container ul li button i {
     font-size: 24px;
     color: black;
     width: 24px;
@@ -149,6 +155,7 @@
     line-height: 40px;
     margin-right: 20px;
 }
+
 
 
 /* Estilos adicionais para o ícone de cubos */

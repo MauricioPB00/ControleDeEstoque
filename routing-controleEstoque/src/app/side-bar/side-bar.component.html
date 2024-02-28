@@ -11,31 +11,32 @@
       <div class="line"></div>
       <ul class="list-unstyled">
         <li>
-          <i class="fas fa-cubes"></i>Estoque
+          <button onclick="window.location.href='#';"><i class="fas fa-cubes"></i>Estoque</button>
         </li>
         <li>
-          <i class="fa fa-user-plus"></i>Cadastro
+          <button onclick="window.location.href='#';"><i class="fa fa-user-plus"></i>Cadastro</button>
         </li>
         <li>
-          <i class="fas fa-user"></i>Clientes
+          <button onclick="window.location.href='#';"><i class="fas fa-user"></i>Clientes</button>
         </li>
         <li>
-          <i class="fa fa-folder-open"></i>Condicional
+          <button onclick="window.location.href='#';"><i class="fa fa-folder-open"></i>Condicional</button>
         </li>
         <li>
-          <i class="fa fa-pie-chart"></i>Resultado
+          <button onclick="window.location.href='#';"><i class="fa fa-pie-chart"></i>Resultado</button>
         </li>
         <li>
-          <i class="fa fa-shopping-cart"></i>Vendas
+          <button onclick="window.location.href='#';"><i class="fa fa-shopping-cart"></i>Vendas</button>
         </li>
       </ul>
+    
       <div class="line"></div>
       <img src="../../assets/img/user.jpg" class="profile-image">
       <div class="Email">
         <h2>( Email )</h2>
       </div>
       <div class="logout">
-        <button>Logout</button>
+        <button (click)="logout()">Logout</button>
       </div>
     </div>
   </nav>
