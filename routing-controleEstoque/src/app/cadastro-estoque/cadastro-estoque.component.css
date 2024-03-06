@@ -1,0 +1,34 @@
+.container{
+    display: flex;
+    background-color: rgb(250, 247, 247);
+}
+.container2{
+    width: 100%;
+    height: 100%;
+    margin-left: 45px;
+}
+
+
+
+
+  /* Media query para telas de até 600px */
+@media (max-width: 600px) {
+    .busca {
+        top: 5%; /* Ajuste conforme necessário para telas menores */
+    }
+    
+    .input-busca {
+        width: 100%; /* Ajuste conforme necessário para telas menores */
+    }
+}
+
+/* Media query para telas de até 1200px */
+@media (max-width: 800px) {
+    .busca {
+        top: 8%; /* Ajuste conforme necessário para telas médias */
+    }
+
+    .input-busca {
+        width: 90%; /* Ajuste conforme necessário para telas médias */
+    }
+}

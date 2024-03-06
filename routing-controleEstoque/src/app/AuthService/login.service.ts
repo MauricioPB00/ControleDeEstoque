@@ -25,15 +25,11 @@ export class LoginService {
       return this.currentUserSubject.value;
     }
 
-
-  // Headers
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     }),
   }
-
-
 
   login(username: string, password: string): Observable<any> {
     console.log('eawye');
@@ -57,7 +53,6 @@ export class LoginService {
       );
   }
    isLoggedIn(): boolean {
-    // Verifica se o token JWT está presente no localStorage
     return !!localStorage.getItem('jwt');
   }
   logout() {
@@ -66,8 +61,6 @@ export class LoginService {
     this.currentUserSubject.next(null);
   }
 
-
-    // Manipulação de erros
     handleError(error: HttpErrorResponse) {
       let errorMessage = '';
       if (error.error instanceof ErrorEvent) {

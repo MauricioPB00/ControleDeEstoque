@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { LoginService } from '../AuthService/login.service';
 
 @Injectable({
@@ -9,10 +9,21 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: LoginService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      return true;
+      console.log(this.authService.isLoggedIn());
+      const permi = JSON.parse(localStorage.getItem('ControleUsuarioPermi') || '{}');
+      
+      if(route.data["roles"] && route.data["roles"].includes(Number(permi))) {
+        console.log('tem permi');
+        return true;
+      }else{
+        console.log('n tem permi');
+        this.router.navigate(['/home']);
+        return false;
+      }
     } else {
+      console.log(this.authService.isLoggedIn());
       this.router.navigate(['/']);
       return false;
     }
