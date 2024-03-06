@@ -4,3 +4,4 @@ export const API_CONFIG = {
    tipo: 1,
    baseUrl: environment.API
 }
+

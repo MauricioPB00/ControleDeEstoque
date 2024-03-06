@@ -1,0 +1,28 @@
+
+                <div class="form">
+
+                    <div class="inputBox">
+                        <input type="text" id="username" name="username" [(ngModel)]="dados.username" required>
+                        <i>Username</i>
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="password" id="password" name="password" [(ngModel)]="dados.password" required>
+                        <i>Password</i>
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" id="email" name="email" [(ngModel)]="dados.email" required>
+                        <i>email</i>
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" id="permi" name="permi" [(ngModel)]="dados.permi" required>
+                        <i>permi</i>
+                    </div>
+                    <div class="inputBox">
+                        <button type="button" (click)="cadastrar()" value="Register">Register</button>
+
+                    </div>
+
+                </div>
+
+           

@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HomeComponent } from './home/home.component';
 import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.co
     SideBarComponent,
     HomeComponent,
     CadastroEstoqueComponent,
+    CadastroComponent,
   ],
   imports: [
     BrowserModule,
