@@ -7,13 +7,13 @@ import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.co
 import { AuthGuard } from './guard/auth.guard';
 import { authGuardMatch } from './guard/auth2.guard';
 
-enum Permi{admin=1,operador=2}
+enum Permi { admin = 1, operador = 2 }
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'sidebar', component: SideBarComponent, canActivate: [AuthGuard],data:{roles:[Permi.operador,Permi.admin]} },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],data:{roles:[Permi.operador,Permi.admin]} },
-  { path: 'estoque', component: CadastroEstoqueComponent, canActivate: [AuthGuard], data:{roles:[Permi.operador]}},
+  { path: 'sidebar', component: SideBarComponent, canActivate: [AuthGuard], data: { roles: [Permi.operador, Permi.admin] } },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard], data: { roles: [Permi.operador, Permi.admin] } },
+  { path: 'estoque', component: CadastroEstoqueComponent, canActivate: [AuthGuard], data: { roles: [Permi.operador] } },
   { path: '**', component: LoginComponent, canActivate: [AuthGuard] },
 
 ];

@@ -42,7 +42,6 @@ export class LoginComponent {
     return this.isLoginValid() ? '#0f0' : '#464646';
   }
   logar() {
-    console.log('aaaa');
     this.spinner.show();
     if (this.isLoginValid()) {
       this.loginService.login(this.dados.username, this.dados.password).pipe(take(1)).subscribe(
@@ -54,15 +53,15 @@ export class LoginComponent {
         },
         error => {
           console.error('Erro ao fazer a chamada para o servidor:', error);
-           this.showAlert(error.error);
+          this.showAlert(error.error);
           this.spinner.hide();
         })
     }
   }
 
-  showAlert(data:any) {
+  showAlert(data: any) {
     this.toastr.success('aaaa');
-    if(data != undefined){
+    if (data != undefined) {
       if (data.erro == true) {
         this.toastr.error(data.mensagem);
       } else if (data.erro == false) {

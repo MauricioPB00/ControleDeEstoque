@@ -16,14 +16,14 @@ export class LoginService {
 
   constructor(private http: HttpClient,
     private toastr: ToastrService
-    ) {
-      this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('ControleUsuarioLogado') || '{}'));
-      this.currentUser = this.currentUserSubject.asObservable();
-    }
+  ) {
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('ControleUsuarioLogado') || '{}'));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-    public get currentUserValue(): any {
-      return this.currentUserSubject.value;
-    }
+  public get currentUserValue(): any {
+    return this.currentUserSubject.value;
+  }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -32,7 +32,6 @@ export class LoginService {
   }
 
   login(username: string, password: string): Observable<any> {
-    console.log('eawye');
     return this.http.post(`${API_CONFIG.baseUrl}/login`, { username, password }, this.httpOptions)
       .pipe(
         map((data: any) => {
@@ -41,7 +40,7 @@ export class LoginService {
             localStorage.setItem('ControleUsuarioPermi', JSON.stringify(data.permi));
             localStorage.setItem('ControleUsuarioIP', JSON.stringify(data.ip));
           }
-          return data; 
+          return data;
         }),
         tap(() => {
           if (this.isLoggedIn()) {
@@ -52,7 +51,7 @@ export class LoginService {
         })
       );
   }
-   isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('jwt');
   }
   logout() {
@@ -61,15 +60,15 @@ export class LoginService {
     this.currentUserSubject.next(null);
   }
 
-    handleError(error: HttpErrorResponse) {
-      let errorMessage = '';
-      if (error.error instanceof ErrorEvent) {
-        // Erro client
-        errorMessage = error.error.message;
-      } else {
-        // Erro servidor
-        errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-      }
-      return throwError(errorMessage);
-    };
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Erro client
+      errorMessage = error.error.message;
+    } else {
+      // Erro servidor
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  };
 }

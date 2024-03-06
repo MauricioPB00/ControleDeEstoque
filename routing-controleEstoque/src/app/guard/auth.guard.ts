@@ -7,18 +7,14 @@ import { LoginService } from '../AuthService/login.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: LoginService, private router: Router) {}
+  constructor(private authService: LoginService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      console.log(this.authService.isLoggedIn());
       const permi = JSON.parse(localStorage.getItem('ControleUsuarioPermi') || '{}');
-      
-      if(route.data["roles"] && route.data["roles"].includes(Number(permi))) {
-        console.log('tem permi');
+      if (route.data["roles"] && route.data["roles"].includes(Number(permi))) {
         return true;
-      }else{
-        console.log('n tem permi');
+      } else {
         this.router.navigate(['/home']);
         return false;
       }
