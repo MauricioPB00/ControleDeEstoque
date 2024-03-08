@@ -1,28 +1,85 @@
-
-                <div class="form">
-
-                    <div class="inputBox">
-                        <input type="text" id="username" name="username" [(ngModel)]="dados.username" required>
-                        <i>Username</i>
-                    </div>
-
-                    <div class="inputBox">
-                        <input type="password" id="password" name="password" [(ngModel)]="dados.password" required>
-                        <i>Password</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="text" id="email" name="email" [(ngModel)]="dados.email" required>
-                        <i>email</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="text" id="permi" name="permi" [(ngModel)]="dados.permi" required>
-                        <i>permi</i>
-                    </div>
-                    <div class="inputBox">
-                        <button type="button" (click)="cadastrar()" value="Register">Register</button>
-
-                    </div>
-
-                </div>
-
-           
+<div class="container">
+  <div class="wrapper">
+    <ul class="steps">
+      <li [ngClass]="{ 'is-active': currentStep === 0 }">Web</li>
+      <li [ngClass]="{ 'is-active': currentStep === 1 }">Usu</li>
+      <li [ngClass]="{ 'is-active': currentStep === 2 }">Job</li>
+      <li [ngClass]="{ 'is-active': currentStep === 3 }">Fto</li>
+    </ul>
+    <form class="form-wrapper">
+      <fieldset class="section" [ngClass]="{ 'is-active': currentStep === 0 }">
+        <h3>Cadastro Tela Web</h3>
+        <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="formData.username"
+          autocomplete="off">
+        <input type="password" name="password" id="password" placeholder="Password" [(ngModel)]="formData.password">
+        <input type="password" name="password2" id="password2" placeholder="Re-enter Password"
+          [(ngModel)]="formData.password2">
+        <div class="button" (click)="nextStep()">Next</div>
+      </fieldset>
+      <fieldset class="section" [ngClass]="{ 'is-active': currentStep === 1 }">
+        <h3>Cadastro Pessoal</h3>
+        <div class="row cf">
+          <!-- <div class="four col">
+              <input type="radio" name="accountType" id="designer" value="Designer" [(ngModel)]="formData.accountType">
+              <label for="designer"><h4>Designer</h4></label>
+            </div>
+            <div class="four col">
+              <input type="radio" name="accountType" id="developer" value="Developer" [(ngModel)]="formData.accountType">
+              <label for="developer"><h4>Developer</h4></label>
+            </div>
+            <div class="four col">
+              <input type="radio" name="accountType" id="projectManager" value="Project Manager" [(ngModel)]="formData.accountType">
+              <label for="projectManager"><h4>Project Manager</h4></label>
+            </div> -->
+          <input type="text" name="name" id="name" placeholder="Name" [(ngModel)]="formData.name" autocomplete="off">
+          <input type="text" name="email" id="email" placeholder="Email" [(ngModel)]="formData.email"
+            autocomplete="off">
+          <input type="text" name="cpf" id="cpf" placeholder="Cpf" [(ngModel)]="formData.cpf" autocomplete="off">
+          <input type="text" name="rg" id="rg" placeholder="Rg" [(ngModel)]="formData.rg" autocomplete="off">
+          <input type="text" name="datNasc" id="datNasc" placeholder="Nascimento" [(ngModel)]="formData.datNasc"
+            autocomplete="off">
+          <input type="text" name="cidade" id="cidade" placeholder="Cidade" [(ngModel)]="formData.cidade"
+            autocomplete="off">
+        </div>
+        <div class="button-group">
+          <div class="button" *ngIf="currentStep >= 0" (click)="previousStep()">Back</div>
+          <div class="button" (click)="nextStep()">Next</div>
+        </div>
+      </fieldset>
+      <fieldset class="section" [ngClass]="{ 'is-active': currentStep === 2 }">
+        <h3>Trabalho</h3>
+        <input type="text" name="job" id="job" placeholder="Job" [(ngModel)]="formData.job" autocomplete="off">
+        <input type="text" name="wage" id="wage" placeholder="Wage" [(ngModel)]="formData.wage" autocomplete="off">
+        <input type="text" name="horTrab" id="horTrab" placeholder="HorasTrab" [(ngModel)]="formData.horTrab"
+          autocomplete="off">
+        <input type="text" name="horini1" id="horini1" placeholder="horini1" [(ngModel)]="formData.horini1"
+          autocomplete="off">
+        <input type="text" name="horini2" id="horini2" placeholder="horini2" [(ngModel)]="formData.horini2"
+          autocomplete="off">
+        <input type="text" name="horini3" id="horini3" placeholder="horini3" [(ngModel)]="formData.horini3"
+          autocomplete="off">
+        <input type="text" name="horini4" id="horini4" placeholder="horini4" [(ngModel)]="formData.horini4"
+          autocomplete="off">
+        <div class="button-group">
+          <div class="button" *ngIf="currentStep >= 0" (click)="previousStep()">Back</div>
+          <div class="button" (click)="nextStep()">Next</div>
+        </div>
+      </fieldset>
+      <fieldset class="section" [ngClass]="{ 'is-active': currentStep === 3 }">
+        <div class="selectImg">
+          <div class="buttonImg">
+            <h1 class="h1Upload">Upload file</h1>
+        <input class="file" type="file" (change)="onFileSelected($event)" accept="image/*">
+      </div>
+      </div>
+        <div *ngIf="imageUrl" id="imagePreview">
+          <img [src]="imageUrl" alt="Imagem Selecionada">
+        </div>
+        <div class="button-group">
+          <div class="button" *ngIf="currentStep >= 0" (click)="previousStep()">Back</div>
+          <input class="submit button" type="submit" (click)="finish()">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
