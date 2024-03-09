@@ -288,14 +288,14 @@ fieldset {
   margin-left: 100px;
   margin-right: 110px;
   background-color: rgb(244, 250, 252);
-  border-radius: 5px;
+  border-radius: 38px;
 }
 
 .buttonImg {
   position: relative;
   /* background-color: rgb(231, 246, 250); */
   display: inline-block;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .file {
@@ -317,6 +317,7 @@ fieldset {
   font-weight: 300;
   border: 2px solid black;
   padding: 20px 30px;
+  border-radius: 5px;
 }
 
 #imagePreview img {
