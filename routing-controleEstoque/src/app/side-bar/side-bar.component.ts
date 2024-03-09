@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router  } from '@angular/router';
 
 @Component({
@@ -7,10 +7,22 @@ import { Router  } from '@angular/router';
   styleUrls: ['./side-bar.component.css']
 })
 
-export class SideBarComponent {
+export class SideBarComponent implements OnInit, AfterViewInit{
   isSidebarActive: boolean = false;
+  admin: boolean = false;
   
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    const permiValue = JSON.parse(localStorage.getItem('ControleUsuarioPermi') || '{}');
+    if (permiValue === '1') { 
+      this.admin = true;
+      console.log(this.admin);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    } 
 
   toggleSidebar(): void {
     this.isSidebarActive = !this.isSidebarActive;

@@ -46,13 +46,11 @@ export class LoginComponent {
     if (this.isLoginValid()) {
       this.loginService.login(this.dados.username, this.dados.password).pipe(take(1)).subscribe(
         data => {
-          console.log('Resposta do servidor:', data);
-          this.showAlert(data); // data //
+          this.toastr.success('Logado com sucesso') 
           this.router.navigateByUrl('/home');
           this.spinner.hide();
         },
         error => {
-          console.error('Erro ao fazer a chamada para o servidor:', error);
           this.showAlert(error.error);
           this.spinner.hide();
         })
@@ -60,14 +58,13 @@ export class LoginComponent {
   }
 
   showAlert(data: any) {
-    this.toastr.success('aaaa');
     if (data != undefined) {
+      this.toastr.error(JSON.stringify(data));
       if (data.erro == true) {
         this.toastr.error(data.mensagem);
       } else if (data.erro == false) {
         this.toastr.success(data.mensagem);
       } else {
-        this.toastr.error(JSON.stringify(data));
       }
     }
   }
