@@ -16,6 +16,10 @@
           <input type="password" name="password" id="password" placeholder="Password" [(ngModel)]="formData.password">
           <input type="password" name="password2" id="password2" placeholder="Re-enter Password"
             [(ngModel)]="formData.password2">
+            <select name="permi" [(ngModel)]="formData.permi" class="form-control">
+              <option *ngFor="let option of permiOptions" [value]="option.value" [selected]="option.value === '2'">{{ option.label }}</option>
+            </select>
+            
           <div class="button" (click)="nextStep()">Next</div>
         </fieldset>
         <fieldset class="section" [ngClass]="{ 'is-active': currentStep === 1 }">

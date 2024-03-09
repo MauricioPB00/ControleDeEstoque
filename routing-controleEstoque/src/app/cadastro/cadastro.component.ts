@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CadastroService } from '../AuthService/cadastro.service';
 
 interface FormData {
   name: string;
@@ -17,8 +18,9 @@ interface FormData {
   horini2: string;
   horini3: string;
   horini4: string;
-
+  permi: string;
 }
+
 
 @Component({
   selector: 'app-cadastro',
@@ -27,8 +29,12 @@ interface FormData {
 })
 export class CadastroComponent {
 
+  constructor(
+    private cadastroService: CadastroService
+  ) { }
 
   imageUrl: string | ArrayBuffer | null = null;
+
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -40,6 +46,10 @@ export class CadastroComponent {
 
     reader.readAsDataURL(file);
   }
+  permiOptions = [
+    { value: '1', label: 'Admin' },
+    { value: '2', label: 'Operador' }
+  ];
 
   formData: FormData = {
     name: '',
@@ -51,13 +61,14 @@ export class CadastroComponent {
     rg: '',
     datNasc: '',
     cidade: '',
-    horTrab: '',
+    horTrab: '8:30',
     wage: '',
     job: '',
-    horini1: '',
-    horini2: '',
-    horini3: '',
-    horini4: '',
+    horini1: '8:00',
+    horini2: '12:00',
+    horini3: '13:30',
+    horini4: '18:00',
+    permi: '2',
   };
 
   currentStep: number = 0;
@@ -73,10 +84,15 @@ export class CadastroComponent {
 
   }
   finish() {
-    console.log('Form Data:', this.formData);
-    console.log('Arquivo selecionado:', this.imageUrl);
-    const formDataWithFile = { ...this.formData, imageUrl: this.imageUrl };
-    console.log('Form Dataaaaaaaaa:', formDataWithFile);
+    const formDataWithFile = { ...this.formData, imageUrl: this.imageUrl};
+    this.cadastroService.cadastrar(formDataWithFile).pipe().subscribe(
+      data => {
+        console.log('Resposta do servidor:', data);
+      },
+      error => {
+        console.error('Erro ao fazer a chamada para o servidor:', error);
+      })
+
   }
 
   resetForm() {
@@ -98,6 +114,7 @@ export class CadastroComponent {
       horini2: '',
       horini3: '',
       horini4: '',
+      permi: '',
     };
   }
 }

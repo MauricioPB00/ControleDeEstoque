@@ -325,3 +325,36 @@ fieldset {
   width: auto;
   height: auto;
 }
+
+.form-wrapper select {
+  display: block;
+  padding: 10px;
+  margin: 10px auto;
+  background-color: #f1f1f1;
+  border: none;
+  width: 53%;
+  outline: none;
+  font-size: 14px !important;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.form-wrapper select:focus {
+  outline: none; /* Remove a borda de foco padrão */
+  border-color: #007bff; /* Cor da borda quando está focado */
+  background-color: #f1f1f1; /* Cor de fundo quando está focado */
+}
+
+/* Estilo para as setas do seletor (seta para baixo) */
+.form-wrapper select::-ms-expand {
+  display: none; /* Remove a seta do seletor no Internet Explorer */
+}
+
+/* Estilo para as setas do seletor (seta para baixo) */
+.form-wrapper select::-webkit-inner-spin-button,
+.form-wrapper select::-webkit-outer-spin-button {
+  appearance: none; /* Remove a seta do seletor nos navegadores WebKit (Safari, Chrome) */
+  display: none; /* Remove a seta do seletor nos navegadores WebKit (Safari, Chrome) */
+}
+
+
+

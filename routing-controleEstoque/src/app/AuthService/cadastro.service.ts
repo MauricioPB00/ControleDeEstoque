@@ -21,8 +21,8 @@ export class CadastroService {
         })
     }
 
-    cadastrar(username: string, password: string, email: string, permi: string): Observable<any> {
-        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/register`, { username, password, email, permi }, this.httpOptions)
+    cadastrar(formDataWithFile:any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/register`, formDataWithFile, this.httpOptions)
             .pipe(
                 retry(0),
                 catchError(this.handleError)
