@@ -36,6 +36,7 @@ fieldset {
 .container {
   display: flex;
   overflow: hidden;
+  background-color: rgb(250, 247, 247);
 }
 
 .container2 {
@@ -130,7 +131,7 @@ fieldset {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: rgb(250, 247, 247);
   text-align: center;
 }
 
@@ -138,13 +139,13 @@ fieldset {
 .steps li {
   display: inline-block;
   margin: 20px;
-  color: #ccc;
+  color: #9f9d9d;
   padding-bottom: 5px;
 }
 
 .steps li.is-active {
-  border-bottom: 1px solid #3498db;
-  color: #3498db;
+  border-bottom: 1px solid #67d2fc;
+  color: #67d2fc;
 }
 
 
@@ -153,7 +154,7 @@ fieldset {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: rgb(250, 247, 247);
   opacity: 0;
   -webkit-transform: translateX(100%);
   -ms-transform: translateX(100%);
@@ -287,13 +288,12 @@ fieldset {
   padding-bottom: 20px;
   margin-left: 100px;
   margin-right: 110px;
-  background-color: rgb(244, 250, 252);
+  background-color: rgb(236, 249, 254);
   border-radius: 38px;
 }
 
 .buttonImg {
   position: relative;
-  /* background-color: rgb(231, 246, 250); */
   display: inline-block;
   border-radius: 15px;
 }

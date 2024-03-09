@@ -121,8 +121,6 @@
     margin-top: 40px;
 }
 
-
-
 .container ul {
     list-style: none;
     margin-top: 30px;
@@ -133,7 +131,8 @@
     margin-bottom: 10px;
 }
 
-.container ul li button {
+.container ul li a {
+    text-decoration: none;
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     color: black;
@@ -147,7 +146,7 @@
     display: inline-block;
 }
 
-.container ul li button i {
+.container ul li a i {
     font-size: 24px;
     color: black;
     width: 24px;
@@ -179,14 +178,9 @@
     /* Move a imagem para baixo em relação à sua posição original */
 }
 
-.Email {
-    color: black;
-    font-size: 15px;
-    text-align: center;
-    margin-top: 30px;
-}
 
 .logout {
+    margin-top: 30px;
     text-align: center;
     /* Centraliza o conteúdo do contêiner */
 }
