@@ -14,6 +14,8 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { HomeComponent } from './home/home.component';
 import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
     FormsModule,
     HttpClientModule,
     NgxSpinnerModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
   providers: [LoginService],

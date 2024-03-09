@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CadastroService } from '../AuthService/cadastro.service';
 import { UploadService } from '../AuthService/upload.service';
+import { firstValueFrom } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 
 interface FormData {
   name: string;
@@ -32,14 +35,17 @@ export class CadastroComponent {
 
   constructor(
     private cadastroService: CadastroService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private toastr: ToastrService,
   ) { }
 
   imageUrl: string;
   imageUrl2: string | ArrayBuffer | null = null;
-  
+  fotoa: File;
+
   onFileSelected(event: any) {
     const foto: File = event.target.files[0];
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -48,23 +54,10 @@ export class CadastroComponent {
 
     reader.readAsDataURL(foto);
 
-    this.uploadService.uploadFile(foto).subscribe(
-      response => {
-        console.log('File uploaded successfully:', response);
-        console.log(response.file_path);
-      },
-      error => {
-        console.error('File upload failed:', error);
-      }
-    );
-   }
+    this.fotoa = foto
+  }
 
 
-
-
-
-
-  
   permiOptions = [
     { value: '1', label: 'Admin' },
     { value: '2', label: 'Operador' }
@@ -102,20 +95,20 @@ export class CadastroComponent {
   teste() {
 
   }
-  finish() {
-    //const formDataWithFile = { ...this.formData, imageUrl: this.imageUrl};
-    const formDataWithFile = { ...this.formData};
-    this.cadastroService.cadastrar(formDataWithFile).pipe().subscribe(
-      data => {
-        console.log('Resposta do servidor:', data);
-        this.resetForm();
-      },
-      error => {
-        console.error('Erro ao fazer a chamada para o servidor:', error);
-      })
+  async finish() {
+    try {
+      const foto = await firstValueFrom(this.uploadService.uploadFile(this.fotoa))
 
-  }
+      const formDataWithFile = { ...this.formData, foto: foto.file_path };
 
+      await firstValueFrom(this.cadastroService.cadastrar(formDataWithFile))
+      this.resetForm();
+      this.toastr.success('Sucesso ao cadastrar');
+    }
+    catch(erro){
+      this.toastr.error('Erro ao Cadastrar');
+    }
+}
   resetForm() {
     this.currentStep = 0;
     this.formData = {
