@@ -17,7 +17,6 @@ export class SideBarComponent implements OnInit, AfterViewInit{
     const permiValue = JSON.parse(localStorage.getItem('ControleUsuarioPermi') || '{}');
     if (permiValue === '1') { 
       this.admin = true;
-      console.log(this.admin);
     }
   }
 
