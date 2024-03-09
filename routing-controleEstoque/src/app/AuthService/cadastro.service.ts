@@ -28,13 +28,6 @@ export class CadastroService {
                 catchError(this.handleError)
             );
     }
-
-
-
-
-
-
-
     handleError(error: HttpErrorResponse) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {

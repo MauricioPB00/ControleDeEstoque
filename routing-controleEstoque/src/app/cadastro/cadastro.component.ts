@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CadastroService } from '../AuthService/cadastro.service';
+import { UploadService } from '../AuthService/upload.service';
 
 interface FormData {
   name: string;
@@ -30,22 +31,41 @@ interface FormData {
 export class CadastroComponent {
 
   constructor(
-    private cadastroService: CadastroService
+    private cadastroService: CadastroService,
+    private uploadService: UploadService
   ) { }
 
-  imageUrl: string | ArrayBuffer | null = null;
-
+  imageUrl: string;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    const reader = new FileReader();
 
-    reader.onload = () => {
-      this.imageUrl = reader.result;
-    };
+    this.uploadService.uploadFile(file).subscribe(
+      response => {
+        console.log('File uploaded successfully:', response);
+        this.imageUrl = '/assets/' + response.file_path; 
+      },
+      error => {
+        console.error('File upload failed:', error);
+      }
+    );
+   }
 
-    reader.readAsDataURL(file);
-  }
+
+
+  // imageUrl: string | ArrayBuffer | null = null;
+
+
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   const reader = new FileReader();
+
+  //   reader.onload = () => {
+  //     this.imageUrl = reader.result;
+  //   };
+
+  //   reader.readAsDataURL(file);
+  // }
   permiOptions = [
     { value: '1', label: 'Admin' },
     { value: '2', label: 'Operador' }
@@ -84,10 +104,12 @@ export class CadastroComponent {
 
   }
   finish() {
-    const formDataWithFile = { ...this.formData, imageUrl: this.imageUrl};
+    //const formDataWithFile = { ...this.formData, imageUrl: this.imageUrl};
+    const formDataWithFile = { ...this.formData};
     this.cadastroService.cadastrar(formDataWithFile).pipe().subscribe(
       data => {
         console.log('Resposta do servidor:', data);
+        this.resetForm();
       },
       error => {
         console.error('Erro ao fazer a chamada para o servidor:', error);
@@ -107,14 +129,14 @@ export class CadastroComponent {
       rg: '',
       datNasc: '',
       cidade: '',
-      horTrab: '',
+      horTrab: '8:30',
       wage: '',
       job: '',
-      horini1: '',
-      horini2: '',
-      horini3: '',
-      horini4: '',
-      permi: '',
+      horini1: '8:00',
+      horini2: '12:00',
+      horini3: '13:30',
+      horini4: '18:00',
+      permi: '2',
     };
   }
 }
