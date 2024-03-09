@@ -17,7 +17,7 @@ interface FormData {
   horini2: string;
   horini3: string;
   horini4: string;
-  teste: string;
+
 }
 
 @Component({
@@ -58,7 +58,6 @@ export class CadastroComponent {
     horini2: '',
     horini3: '',
     horini4: '',
-    teste: ''
   };
 
   currentStep: number = 0;
@@ -70,7 +69,7 @@ export class CadastroComponent {
   previousStep() {
     this.currentStep--;
   }
-  teste(){
+  teste() {
 
   }
   finish() {
@@ -84,9 +83,9 @@ export class CadastroComponent {
     this.currentStep = 0;
     this.formData = {
       name: '',
-      username: '', 
-      email: '',    
-      password: '', 
+      username: '',
+      email: '',
+      password: '',
       password2: '',
       cpf: '',
       rg: '',
@@ -99,8 +98,6 @@ export class CadastroComponent {
       horini2: '',
       horini3: '',
       horini4: '',
-      teste: ''
-
     };
   }
 }
