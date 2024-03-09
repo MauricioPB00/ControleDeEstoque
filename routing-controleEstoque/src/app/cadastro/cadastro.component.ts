@@ -38,12 +38,12 @@ export class CadastroComponent {
   imageUrl: string;
 
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
+    const foto: File = event.target.files[0];
 
-    this.uploadService.uploadFile(file).subscribe(
+    this.uploadService.uploadFile(foto).subscribe(
       response => {
         console.log('File uploaded successfully:', response);
-        this.imageUrl = '/assets/' + response.file_path; 
+        console.log(response.file_path);
       },
       error => {
         console.error('File upload failed:', error);
@@ -66,6 +66,7 @@ export class CadastroComponent {
 
   //   reader.readAsDataURL(file);
   // }
+  
   permiOptions = [
     { value: '1', label: 'Admin' },
     { value: '2', label: 'Operador' }

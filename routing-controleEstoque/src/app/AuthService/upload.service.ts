@@ -16,10 +16,12 @@ export class UploadService {
         "Content-Type": "multipart/form-data"
     })
 }
-  uploadFile(file: File): Observable<any> {
+  uploadFile(foto: File): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file);
-    return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/upload-file`, formData, this.httpOptions)
+    formData.append('foto', foto);
+    console.log(formData);
+    return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/upload-file`, formData 
+    )
     .pipe(
         retry(0),
         catchError(this.handleError)
