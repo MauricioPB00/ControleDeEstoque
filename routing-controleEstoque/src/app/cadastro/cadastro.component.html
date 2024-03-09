@@ -78,8 +78,8 @@
               <input class="file" type="file" (change)="onFileSelected($event)">
             </div>
           </div>
-          <div *ngIf="imageUrl" id="imagePreview">
-            <img [src]="imageUrl" alt="Imagem Selecionada">
+          <div *ngIf="imageUrl2" id="imagePreview">
+            <img [src]="imageUrl2" alt="Imagem Selecionada">
           </div>
           <div class="button-group">
             <div class="button" *ngIf="currentStep >= 0" (click)="previousStep()">Back</div>

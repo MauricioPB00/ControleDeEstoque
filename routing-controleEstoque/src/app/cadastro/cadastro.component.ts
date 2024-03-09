@@ -36,9 +36,17 @@ export class CadastroComponent {
   ) { }
 
   imageUrl: string;
-
+  imageUrl2: string | ArrayBuffer | null = null;
+  
   onFileSelected(event: any) {
     const foto: File = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imageUrl2 = reader.result;
+    };
+
+    reader.readAsDataURL(foto);
 
     this.uploadService.uploadFile(foto).subscribe(
       response => {
@@ -53,19 +61,9 @@ export class CadastroComponent {
 
 
 
-  // imageUrl: string | ArrayBuffer | null = null;
 
 
-  // onFileSelected(event: any) {
-  //   const file: File = event.target.files[0];
-  //   const reader = new FileReader();
 
-  //   reader.onload = () => {
-  //     this.imageUrl = reader.result;
-  //   };
-
-  //   reader.readAsDataURL(file);
-  // }
   
   permiOptions = [
     { value: '1', label: 'Admin' },
