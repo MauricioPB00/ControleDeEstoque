@@ -12,9 +12,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HomeComponent } from './home/home.component';
-import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { PontoComponent } from './ponto/ponto.component';
 
 
 
@@ -24,8 +24,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     LoginComponent,
     SideBarComponent,
     HomeComponent,
-    CadastroEstoqueComponent,
     CadastroComponent,
+    PontoComponent,
   ],
   imports: [
     BrowserModule,

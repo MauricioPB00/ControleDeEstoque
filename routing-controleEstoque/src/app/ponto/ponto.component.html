@@ -1,0 +1,9 @@
+<div class="container">
+    <app-side-bar></app-side-bar>
+    <div class="container2">
+        <div class="clock-container">
+            <div class="clock">{{ currentDateTime | date: 'HH:mm:ss' }}</div>
+            <div class="date">{{ currentDateTime | date: 'dd/MM/yyyy' }}</div>
+        </div> 
+    </div>
+</div>
