@@ -36,8 +36,15 @@ export class LoginService {
       .pipe(
         map((data: any) => {
           if (data && data.token) {
+            var userData = {
+              permi: data.permi,
+              id: data.id,
+              username: data.username
+            }
+            console.log(data.id)
             localStorage.setItem('jwt', JSON.stringify(data.token));
             localStorage.setItem('ControleUsuarioPermi', JSON.stringify(data.permi));
+            localStorage.setItem('ControleUsuario', JSON.stringify(userData));
             localStorage.setItem('ControleUsuarioIP', JSON.stringify(data.ip));
           }
           return data;
