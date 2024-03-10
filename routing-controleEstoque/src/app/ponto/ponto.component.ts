@@ -20,4 +20,7 @@ export class PontoComponent implements OnInit {
   updateDateTime() {
     this.currentDateTime = new Date();
   }
+  registrar(){
+    console.log('a');
+  }
 }

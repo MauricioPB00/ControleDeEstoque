@@ -18,15 +18,35 @@
     align-items: center;
     padding-top: 220px;
 }
+.clock-container h1{
+    font-size: 18px;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
 
 .clock{
     font-family: Arial, sans-serif;
-    font-size: 72px;
+    font-size: 80px;
     color: #333;
 }
 .date {
     font-family: Arial, sans-serif;
-    font-size: 24px; 
-    margin-top: 20px; 
+    font-size: px; 
+    margin-top: 10px; 
     color: #333;
+  }
+
+  .registro{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+   .registro button{
+    font-family: Arial, sans-serif;
+    padding: 10px 60px;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(118, 246, 49);
+    border: none;
   }

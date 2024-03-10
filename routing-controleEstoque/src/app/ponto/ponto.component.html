@@ -2,8 +2,13 @@
     <app-side-bar></app-side-bar>
     <div class="container2">
         <div class="clock-container">
+            <h1>Bem vindo</h1>
             <div class="clock">{{ currentDateTime | date: 'HH:mm:ss' }}</div>
             <div class="date">{{ currentDateTime | date: 'dd/MM/yyyy' }}</div>
         </div> 
+        <div class="registro">
+           
+            <button class="registrar" (click)="registrar()">Registrar</button>
+        </div>
     </div>
 </div>
