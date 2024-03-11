@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PontoComponent } from './ponto/ponto.component';
+import { AjusteComponent } from './ajuste/ajuste.component';
 
 
 
@@ -26,6 +27,7 @@ import { PontoComponent } from './ponto/ponto.component';
     HomeComponent,
     CadastroComponent,
     PontoComponent,
+    AjusteComponent,
   ],
   imports: [
     BrowserModule,
