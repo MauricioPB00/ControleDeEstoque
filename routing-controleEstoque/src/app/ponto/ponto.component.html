@@ -5,10 +5,28 @@
             <h1>Bem vindo</h1>
             <div class="clock">{{ currentDateTime | date: 'HH:mm:ss' }}</div>
             <div class="date">{{ currentDateTime | date: 'dd/MM/yyyy' }}</div>
-        </div> 
+        </div>
         <div class="registro">
-           
             <button class="registrar" (click)="registrar()">Registrar</button>
+        </div>
+        <div class="data">
+            <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+        </div>
+        <div class="registros">
+            <table class="table" *ngIf="response">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let registro of response">
+                        <td class="text-center">{{ registro.date }}</td>
+                        <td class="text-center">{{ registro.time }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
