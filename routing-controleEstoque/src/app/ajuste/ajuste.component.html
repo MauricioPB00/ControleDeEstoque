@@ -1,21 +1,58 @@
 <div class="container">
-    <app-side-bar></app-side-bar>
-    <div class="container2">
-        <div class="registros">
-            <table class="table" *ngIf="response">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Hora</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let registro of response">
-                        <td class="text-center">{{ registro.date }}</td>
-                        <td class="text-center">{{ registro.time }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <app-side-bar></app-side-bar>
+  <div class="container2">
+    <div class="registros">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th [attr.colspan]="4">Horário</th>
+            <th>Editar</th>
+            <th>Criar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let group of registrosPorDia; let i = index">
+            <tr>
+              <td>{{ group.date }}</td>
+              <td *ngFor="let registro of group.registros; let j = index">{{ registro.time }}</td>
+              <td *ngFor="let _ of [].constructor(4 - group.registros.length)">&nbsp;</td>
+              <td>
+                <button class="edit-button" (click)="openModal(editModal, i)">
+                  <i class="fas fa-bars"></i>
+                </button>
+              </td>
+              <td>
+                <!-- <button class="edit-button" (click)="openModal(editModal, i)">
+                  <i class="fas fa-plus"></i>
+                </button> -->
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
+
+
+
+<ng-template #editModal>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Horários - {{diaSelecionado[0]}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" *ngFor="let _ of [].constructor(4); let i = index">
+          <input type="text" class="form-control" id="time{{i + 1}}" [(ngModel)]="horasDoDiaSelecionado[i]"
+            [readonly]="!horasDoDiaSelecionado[i]" [ngClass]="{ 'readonly-input': !horasDoDiaSelecionado[i] }">
+        </div>
+        <button class="btn btn-primary" (click)="salvarHoras(diaSelecionado[0], horasDoDiaSelecionado)">Salvar</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

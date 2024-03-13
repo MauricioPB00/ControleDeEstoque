@@ -16,6 +16,8 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PontoComponent } from './ponto/ponto.component';
 import { AjusteComponent } from './ajuste/ajuste.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 
 
@@ -37,6 +39,7 @@ import { AjusteComponent } from './ajuste/ajuste.component';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]
