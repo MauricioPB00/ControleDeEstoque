@@ -8,7 +8,6 @@
             <th>Data</th>
             <th [attr.colspan]="4">Horário</th>
             <th>Editar</th>
-            <th>Criar</th>
           </tr>
         </thead>
         <tbody>
@@ -21,11 +20,6 @@
                 <button class="edit-button" (click)="openModal(editModal, i)">
                   <i class="fas fa-bars"></i>
                 </button>
-              </td>
-              <td>
-                <!-- <button class="edit-button" (click)="openModal(editModal, i)">
-                  <i class="fas fa-plus"></i>
-                </button> -->
               </td>
             </tr>
           </ng-container>
@@ -47,11 +41,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group" *ngFor="let _ of [].constructor(4); let i = index">
-          <input type="text" class="form-control" id="time{{i + 1}}" [(ngModel)]="horasDoDiaSelecionado[i]"
-            [readonly]="!horasDoDiaSelecionado[i]" [ngClass]="{ 'readonly-input': !horasDoDiaSelecionado[i] }">
+        <div class="form-group" *ngFor="let horas of horasDoDiaSelecionado; let i = index">
+          <input type="text" class="form-control" [(ngModel)] = "horas.time">
+          <!-- <input type="text" class="form-control" id="time{{i + 1}}" [(ngModel)]="horasDoDiaSelecionado[i]"
+            [readonly]="!horasDoDiaSelecionado[i]" [ngClass]="{ 'readonly-input': !horasDoDiaSelecionado[i] }"> -->
         </div>
-        <button class="btn btn-primary" (click)="salvarHoras(diaSelecionado[0], horasDoDiaSelecionado)">Salvar</button>
+        <button class="btn btn-primary" (click)="salvarHoras()">Salvar</button>
       </div>
     </div>
   </div>

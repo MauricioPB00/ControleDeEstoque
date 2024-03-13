@@ -125,11 +125,6 @@ label {
   border-color: #007bff;
 }
 
-.readonly-input {
-  background-color: #f2f2f2;
-  color: #666;
-}
-
 .edit-button {
   border: none;
   background-color: transparent;

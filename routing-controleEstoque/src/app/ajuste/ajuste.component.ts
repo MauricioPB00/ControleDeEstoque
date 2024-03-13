@@ -29,7 +29,7 @@ export class AjusteComponent {
     private modalService: BsModalService) { }
 
   registrosPorDia: RegistroGroup[] = [];
-  horasDoDiaSelecionado: string[] = [];
+  horasDoDiaSelecionado: Registro[] = [];
   diaSelecionado: string[] = [];
   editModal: TemplateRef<any>;
 
@@ -60,41 +60,33 @@ export class AjusteComponent {
       const dateKey = registro.date;
       if (!registrosPorDiaMap.has(dateKey)) {
         registrosPorDiaMap.set(dateKey, { date: dateKey, registros: [] });
-      }
+       }
       registrosPorDiaMap.get(dateKey)!.registros.push(registro);
     });
     this.registrosPorDia = Array.from(registrosPorDiaMap.values());
+    console.log('registrosPorDia',this.registrosPorDia);
   }
 
   openModal(template: TemplateRef<any>, index: number) {
     this.disableSideBar();
     const group = this.registrosPorDia[index];
-    const date = group.date;
+    console.log('group',group)
     const registrosdata = group.registros.map(registro => registro.date);
     const registros = group.registros.map(registro => registro.time);
 
     this.modalRef = this.modalService.show(template);
-    this.horasDoDiaSelecionado = registros;
-    this.diaSelecionado = registrosdata;
-  }
-
-  salvarHoras(dataSelecionada: string, horasSelecionadas: string[]) {
-    const idsSelecionados: number[] = [];
-    const horasSelecionadasStr: string[] = [];
-    horasSelecionadas.forEach(horaSelecionada => {
-      const registro = this.registrosPorDia.find(group => group.registros.some(registro => registro.time === horaSelecionada));
-      if (registro) {
-        const registroSelecionado = registro.registros.find(registro => registro.time === horaSelecionada);
-        if (registroSelecionado) {
-          idsSelecionados.push(registroSelecionado.id);
-          horasSelecionadasStr.push(registroSelecionado.time);
-        }
+    console.log('registros', registros);
+    this.horasDoDiaSelecionado = Array.from({length:4},(_,i)=> {
+      return group.registros[i] || {
+        id:-1,date: registrosdata[0], time: '',
       }
-    });
-    console.log('Data Selecionada:', dataSelecionada);
-    console.log('IDs das horas selecionadas:', idsSelecionados);
-    console.log('Horas selecionadas:', horasSelecionadasStr);
+    } );
+    console.log('horasDoDiaSelecionado',this.horasDoDiaSelecionado);
   }
+  
+  salvarHoras() {
+    console.log(this.horasDoDiaSelecionado);
+}
 
   disableSideBar() {
     const sideBar = document.querySelector('.container');
