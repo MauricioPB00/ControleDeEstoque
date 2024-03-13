@@ -55,7 +55,7 @@
 
 .side-bar-disabled {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .modal-dialog {
@@ -64,7 +64,7 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
+  width: 50%;
   max-width: 800px;
   height: auto;
   max-height: 80%;
@@ -73,7 +73,7 @@
 .modal-content {
   background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 13px 13px 20px 20px rgba(0, 0, 0, 0.1);
 }
 
 .modal-header {
@@ -129,4 +129,31 @@ label {
   border: none;
   background-color: transparent;
   font-size: 20px;
+}
+
+.data {
+  width: 60%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  padding-top: 5px;
+}
+
+.success-message {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  padding: 16px;
+  border: 1px solid green;
+  border-radius: 5px;
+  background-color: #dff0d8;
+}
+
+.alert-message {
+  text-align: center;
+  color: #949406;
+  font-weight: bold;
+  padding: 16px;
+  border: 1px solid #949406;
+  border-radius: 5px;
+  background-color: #f6f8ad;
 }

@@ -25,11 +25,13 @@
           </ng-container>
         </tbody>
       </table>
+      <div class="data">
+        <p *ngIf="successMessage" class="alert-message">Enviada para aprovação</p>
+        <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+      </div>
     </div>
   </div>
 </div>
-
-
 
 <ng-template #editModal>
   <div class="modal-dialog" role="document">
@@ -42,9 +44,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group" *ngFor="let horas of horasDoDiaSelecionado; let i = index">
-          <input type="text" class="form-control" [(ngModel)] = "horas.time">
-          <!-- <input type="text" class="form-control" id="time{{i + 1}}" [(ngModel)]="horasDoDiaSelecionado[i]"
-            [readonly]="!horasDoDiaSelecionado[i]" [ngClass]="{ 'readonly-input': !horasDoDiaSelecionado[i] }"> -->
+          <input type="text" class="form-control" [(ngModel)]="horas.time">
         </div>
         <button class="btn btn-primary" (click)="salvarHoras()">Salvar</button>
       </div>

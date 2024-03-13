@@ -27,13 +27,24 @@ export class AjusteService {
                 catchError(this.handleError)
             );
     }
-    // postRegistroAjuste(userId: any): Observable<any> {
-    //     return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/${userId}/`, {}, this.httpOptions)
-    //         .pipe(
-    //             retry(0),
-    //             catchError(this.handleError)
-    //         );
-    // }
+
+    postRegistrar(userId: any, date: any, time: any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/${userId}/datetime/modify`, { date, time }, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+    
+    postRegistrarUpdate(userId: any, date: any, time: any, id: any): Observable<any> {
+        console.log(id)
+        return this.httpClient.put<any>(`${API_CONFIG.baseUrl}/user/${userId}/datetime/modify/update`, { date, time, id }, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+
     handleError(error: HttpErrorResponse) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {
@@ -43,5 +54,4 @@ export class AjusteService {
         }
         return throwError(errorMessage);
     };
-
 }
