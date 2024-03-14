@@ -154,7 +154,35 @@
     line-height: 40px;
     margin-right: 20px;
 }
-
+ .sub-menu {
+    padding: 0;
+    margin: 0;
+  }
+  ul .sub-menu{
+    padding-top: 10px;
+    padding-left: 43px;
+    margin: 0;
+  }
+  .sub-menu li {
+    padding: 0;
+    margin: 0;
+  }
+  .sub-menu li ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sub-menu li a {
+    text-decoration: none;
+    color: #333; 
+    display: block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sub-menu li a:hover {
+    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+  }
+  
 
 
 /* Estilos adicionais para o ícone de cubos */

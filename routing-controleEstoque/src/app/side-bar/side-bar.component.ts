@@ -10,6 +10,7 @@ import { Router  } from '@angular/router';
 export class SideBarComponent implements OnInit, AfterViewInit{
   isSidebarActive: boolean = false;
   admin: boolean = false;
+  showApprovalItems: boolean = false;
   
   constructor(private router: Router) {}
 
@@ -27,6 +28,9 @@ export class SideBarComponent implements OnInit, AfterViewInit{
     this.isSidebarActive = !this.isSidebarActive;
   }
 
+  toggleApprovalItems() {
+    this.showApprovalItems = !this.showApprovalItems;
+  }
 
     logout(): void {
       localStorage.clear()

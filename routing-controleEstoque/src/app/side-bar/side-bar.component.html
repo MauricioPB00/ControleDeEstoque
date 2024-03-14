@@ -20,10 +20,15 @@
           <a href="/cadastro"><i class="fa fa-user-plus"></i>Cadastro</a>
         </li>
         <li *ngIf="admin">
-          <a href="/aprovar"><i class="fa fa-tasks"></i>Aprovar</a>
+          <a (click)="toggleApprovalItems()">
+            <i class="fa fa-tasks"></i>Aprovar
+          </a>
+          <ul *ngIf="showApprovalItems" class="sub-menu">
+            <li><a href="/aprovar/update">Update</a></li>
+            <li><a href="/aprovar/insert">Insert</a></li>
+          </ul>
         </li>
       </ul>
-    
       <div class="line"></div>
       <img src="../../assets/img/user.jpg" class="profile-image">
       <div class="logout">

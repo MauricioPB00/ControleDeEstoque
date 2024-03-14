@@ -18,6 +18,7 @@ import { PontoComponent } from './ponto/ponto.component';
 import { AjusteComponent } from './ajuste/ajuste.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AprovarComponent } from './aprovar/aprovar.component';
+import { AprovarUpdateComponent } from './aprovar-update/aprovar-update.component';
 
 
 
@@ -32,6 +33,7 @@ import { AprovarComponent } from './aprovar/aprovar.component';
     PontoComponent,
     AjusteComponent,
     AprovarComponent,
+    AprovarUpdateComponent,
   ],
   imports: [
     BrowserModule,

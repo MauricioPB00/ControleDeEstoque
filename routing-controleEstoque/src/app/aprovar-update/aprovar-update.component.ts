@@ -12,18 +12,17 @@ interface Registro {
 }
 
 @Component({
-  selector: 'app-aprovar',
-  templateUrl: './aprovar.component.html',
-  styleUrls: ['./aprovar.component.css']
+  selector: 'app-aprovar-update',
+  templateUrl: './aprovar-update.component.html',
+  styleUrls: ['./aprovar-update.component.css']
 })
-export class AprovarComponent {
-
+export class AprovarUpdateComponent {
   constructor(
     private aprovarService: AprovarService,
     private toastr: ToastrService,) { }
 
   registros: Registro[] = [];
-  registrosAtualizadosInsert: Registro[] = [];
+  registrosAtualizadosUpdate: Registro[] = [];
   mostrarTodasAsLinhas = false;
 
   ngOnInit(): void {
@@ -58,12 +57,9 @@ export class AprovarComponent {
   }
 
   processarRegistrosInsert() {
-    this.registrosAtualizadosInsert = this.registros.filter(registro => {
-      return registro.editado === 'Insert'
+    this.registrosAtualizadosUpdate = this.registros.filter(registro => {
+      return registro.editado === 'Update' && registro.time !== registro.horaeditada
     });
   }
 
 }
-
-
-

@@ -24,7 +24,6 @@ export class AprovarService {
             );
     }
     patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual:any): Observable<any> {
-        console.log(idsRegistrosAtualizadosComHoraIgual);
         const body = { ids: idsRegistrosAtualizadosComHoraIgual }; 
         return this.httpClient.patch<any>(`${API_CONFIG.baseUrl}/user/approve/patch`, body ,this.httpOptions)
             .pipe(
