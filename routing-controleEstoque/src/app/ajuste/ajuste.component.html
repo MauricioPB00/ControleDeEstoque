@@ -46,8 +46,11 @@
         <div class="form-group" *ngFor="let horas of horasDoDiaSelecionado; let i = index">
           <input type="text" class="form-control" [(ngModel)]="horas.time">
         </div>
-        <button class="btn btn-primary" (click)="salvarHoras()">Salvar</button>
+        <div class="button">
+        <button class="buttonCancel" (click)="closeModal()">Cancelar</button>
+        <button class="buttonSave" (click)="salvarHoras()">Salvar</button>
       </div>
+    </div>
     </div>
   </div>
 </ng-template>

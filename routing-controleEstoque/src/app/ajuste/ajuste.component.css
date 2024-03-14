@@ -42,6 +42,34 @@
   background-color: #f4f4f4;
 }
 
+.button{
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonSave{
+  background-color: #08dc24;
+  padding: 8px 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  right: 20px;
+  bottom: 20px;
+  border: none;
+}
+.buttonCancel{
+  background-color:rgb(253, 27, 27);
+  padding: 8px 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  right: 20px;
+  bottom: 20px;
+  border: none;
+}
+
 .horarios-list {
   list-style-type: none;
   padding: 0;
@@ -95,8 +123,10 @@
   top: 15px;
   right: 15px;
   font-size: 24px;
-  color: #6c757d;
   cursor: pointer;
+  background-color:rgb(255, 115, 115);
+  border: none;
+  color: white;
 }
 
 .close:hover {
