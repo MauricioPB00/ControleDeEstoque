@@ -8,7 +8,7 @@
           <tr>
             <th (click)="mostrarTodasAsLinhas = !mostrarTodasAsLinhas">Date</th>
             <th (click)="mostrarTodasAsLinhas = !mostrarTodasAsLinhas">Time</th>
-            <th (click)="mostrarTodasAsLinhas = !mostrarTodasAsLinhas">Editado</th>
+            <th (click)="mostrarTodasAsLinhas = !mostrarTodasAsLinhas">insert</th>
             <th (click)="mostrarTodasAsLinhas = !mostrarTodasAsLinhas">User ID</th>
             <th (click)="mostrarTodasAsLinhas = !mostrarTodasAsLinhas">#</th>
           </tr>
@@ -18,7 +18,7 @@
             [hidden]="!mostrarTodasAsLinhas && i >= 0">
             <td>{{ registro.date }}</td>
             <td>{{ registro.time }}</td>
-            <td>{{ registro.editado }}</td>
+            <td>{{ registro.insert }}</td>
             <td>{{ registro.user_id }}</td>
             <td><button class="deletar"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
           </tr>

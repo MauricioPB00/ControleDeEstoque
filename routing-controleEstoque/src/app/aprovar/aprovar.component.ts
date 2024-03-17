@@ -6,9 +6,10 @@ interface Registro {
   id: number;
   date: string;
   time: string;
-  editado: string;
+  insert: string;
   user_id: string;
   horaeditada: string;
+  update: string
 }
 
 @Component({
@@ -44,7 +45,7 @@ export class AprovarComponent {
 
   processarRegistros() {
     const registrosAtualizadosComHoraIgual = this.registros.filter(registro => {
-      return registro.editado === 'Update' && registro.time === registro.horaeditada;
+      return registro.update === 'Update' && registro.time === registro.horaeditada && registro.insert === null;
     });
     const idsRegistrosAtualizadosComHoraIgual = registrosAtualizadosComHoraIgual.map(registro => registro.id);
     this.aprovarService.patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual).subscribe(
@@ -59,7 +60,7 @@ export class AprovarComponent {
 
   processarRegistrosInsert() {
     this.registrosAtualizadosInsert = this.registros.filter(registro => {
-      return registro.editado === 'Insert'
+      return registro.insert === 'Insert'
     });
   }
 

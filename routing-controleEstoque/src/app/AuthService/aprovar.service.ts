@@ -16,6 +16,7 @@ export class AprovarService {
             "Content-Type": "application/json"
         })
     }
+    // get all 
     getTimeApprove(): Observable<any> {
         return this.httpClient.get<any>(`${API_CONFIG.baseUrl}/user/approve/time`, this.httpOptions)
             .pipe(
@@ -23,6 +24,7 @@ export class AprovarService {
                 catchError(this.handleError)
             );
     }
+    // patch para time === horaedata 
     patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual:any): Observable<any> {
         const body = { ids: idsRegistrosAtualizadosComHoraIgual }; 
         return this.httpClient.patch<any>(`${API_CONFIG.baseUrl}/user/approve/patch`, body ,this.httpOptions)
