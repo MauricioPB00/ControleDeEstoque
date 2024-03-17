@@ -35,9 +35,8 @@ export class AjusteService {
                 catchError(this.handleError)
             );
     }
-    
+
     postRegistrarUpdate(userId: any, date: any, time: any, id: any): Observable<any> {
-        console.log(id)
         return this.httpClient.put<any>(`${API_CONFIG.baseUrl}/user/${userId}/datetime/modify/update`, { date, time, id }, this.httpOptions)
             .pipe(
                 retry(0),

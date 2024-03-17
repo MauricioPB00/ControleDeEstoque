@@ -66,7 +66,6 @@ export class AjusteComponent {
       registrosPorDiaMap.get(dateKey)!.registros.push(registro);
     });
     this.registrosPorDia = Array.from(registrosPorDiaMap.values());
-    console.log('registrosPorDia', this.registrosPorDia);
   }
 
   openModal(template: TemplateRef<any>, index: number) {
@@ -116,7 +115,6 @@ export class AjusteComponent {
           this.ajusteService.postRegistrarUpdate(userId, date, time, id)
             .subscribe(
               (data) => {
-                console.log(data)
                 this.toastr.success('Hora Editada');
                 const dateTime = data.dateTime;
                 this.successMessage = `Hora Ajustada com sucesso!`;

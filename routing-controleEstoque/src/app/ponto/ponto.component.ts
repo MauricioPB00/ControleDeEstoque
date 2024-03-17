@@ -72,7 +72,6 @@ export class PontoComponent implements OnInit {
     if (userId) {
       this.pontoService.getRegistros(userId).subscribe(
         (data) => {
-          console.log('Dados recebidos:', data);
           this.response = data;
         },
         (error) => {

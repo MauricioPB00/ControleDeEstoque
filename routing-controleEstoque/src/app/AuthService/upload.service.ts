@@ -13,31 +13,30 @@ export class UploadService {
 
   httpOptions = {
     headers: new HttpHeaders({
-        "Content-Type": "multipart/form-data"
+      "Content-Type": "multipart/form-data"
     })
-}
+  }
   uploadFile(foto: File): Observable<any> {
     const formData = new FormData();
     formData.append('foto', foto);
-    console.log(formData);
-    return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/upload-file`, formData 
+    return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/upload-file`, formData
     )
-    .pipe(
+      .pipe(
         retry(0),
         catchError(this.handleError)
-    );
+      );
   }
-  
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
-        // Erro client
-        errorMessage = error.error.message;
+      // Erro client
+      errorMessage = error.error.message;
     } else {
-        // Erro servidor
-        errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      // Erro servidor
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
     return throwError(errorMessage);
-};
+  };
 
 }

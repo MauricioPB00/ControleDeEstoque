@@ -41,7 +41,6 @@ export class LoginService {
               id: data.id,
               username: data.username
             }
-            console.log(data.id)
             localStorage.setItem('jwt', JSON.stringify(data.token));
             localStorage.setItem('ControleUsuarioPermi', JSON.stringify(data.permi));
             localStorage.setItem('ControleUsuario', JSON.stringify(userData));

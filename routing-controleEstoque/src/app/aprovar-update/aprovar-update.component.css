@@ -59,3 +59,24 @@ h2 {
     bottom: 20px;
     border: none;
 }
+
+tr.linha-vermelha {
+    background-color: red !important;
+}
+
+button.salvar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
+
+button.salvar:hover {
+    background-color: #45a049;
+}

@@ -10,6 +10,7 @@ interface Registro {
   user_id: string;
   horaeditada: string;
   insert: string;
+  removerLinha?: boolean;
 }
 
 @Component({
@@ -24,7 +25,8 @@ export class AprovarUpdateComponent {
 
   registros: Registro[] = [];
   registrosAtualizadosUpdate: Registro[] = [];
-  mostrarTodasAsLinhas = false;
+  mostrarTodasAsLinhas = true;
+  idsRemovidos: number[] = [];
 
   ngOnInit(): void {
     this.getTimeApprove();
@@ -59,8 +61,37 @@ export class AprovarUpdateComponent {
 
   processarRegistrosInsert() {
     this.registrosAtualizadosUpdate = this.registros.filter(registro => {
-      return registro.update === 'Update' && registro.time !== registro.horaeditada
+      return registro.update === 'Update' && registro.time !== registro.horaeditada && registro.insert === null;
     });
   }
 
+  removerIdGrid(index: number) {
+    const idRemovido = this.registrosAtualizadosUpdate[index].id;
+    const idIndex = this.idsRemovidos.indexOf(idRemovido);
+
+    if (idIndex !== -1) {
+      this.idsRemovidos.splice(idIndex, 1);
+      this.registrosAtualizadosUpdate[index].removerLinha = false;
+    } else {
+      this.idsRemovidos.push(idRemovido);
+      this.registrosAtualizadosUpdate[index].removerLinha = true;
+    }
+
+  }
+
+  aprovar() {
+    const idsRegistrosAtualizadosComHoraIgual: number[] = [];
+    const idsNaoDeletados: number[] = [];
+
+    this.registrosAtualizadosUpdate.forEach((registro, index) => {
+      if (registro.removerLinha) {
+        idsRegistrosAtualizadosComHoraIgual.push(registro.id);
+      } else {
+        idsNaoDeletados.push(registro.id);
+      }
+    });
+    this.aprovarService.patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual)
+    this.aprovarService.approveUpdate(idsNaoDeletados)
+    this.getTimeApprove();
+  }
 }

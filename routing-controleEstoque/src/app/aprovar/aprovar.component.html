@@ -1,7 +1,7 @@
 <div class="container">
   <app-side-bar></app-side-bar>
   <div class="container2">
-    <div class="registros" *ngIf="registrosAtualizadosInsert.length > 0">
+    <div class="registros" *ngIf="registrosAtualizadosInsert.length >= 0">
       <h2 class="titulo">Registros para aprovação | Insert |</h2>
       <table class="table">
         <thead>
@@ -15,18 +15,17 @@
         </thead>
         <tbody>
           <tr *ngFor="let registro of registrosAtualizadosInsert; let i = index"
-            [hidden]="!mostrarTodasAsLinhas && i >= 0">
+            [hidden]="!mostrarTodasAsLinhas && i >= 0" [class.linha-vermelha]="registro.removerLinha">
             <td>{{ registro.date }}</td>
             <td>{{ registro.time }}</td>
             <td>{{ registro.insert }}</td>
             <td>{{ registro.user_id }}</td>
-            <td><button class="deletar"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            <td><button class="deletar" (click)="removerIdGrid(i)"><i class="fa fa-trash"
+                  aria-hidden="true"></i></button></td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div *ngIf="registrosAtualizadosInsert.length === 0">
-      <p>Nenhum registro atualizado (Insert) encontrado.</p>
+      <button class="salvar" (click)="aprovar()">DELETAR E APROVAR </button>
     </div>
   </div>
 </div>

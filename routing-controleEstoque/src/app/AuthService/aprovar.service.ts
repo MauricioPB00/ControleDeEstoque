@@ -24,14 +24,39 @@ export class AprovarService {
                 catchError(this.handleError)
             );
     }
-    // patch para time === horaedata 
-    patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual:any): Observable<any> {
-        const body = { ids: idsRegistrosAtualizadosComHoraIgual }; 
-        return this.httpClient.patch<any>(`${API_CONFIG.baseUrl}/user/approve/patch`, body ,this.httpOptions)
+    // patch para time === horaedata && horas deletadas pelo adm 
+    patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual: any): Observable<any> {
+        const body = { ids: idsRegistrosAtualizadosComHoraIgual };
+        return this.httpClient.patch<any>(`${API_CONFIG.baseUrl}/user/approve/patch`, body, this.httpOptions)
             .pipe(
                 retry(0),
                 catchError(this.handleError)
             );
+    }
+    //aprovar alteração de horas do usuario
+    approveUpdate(idsNaoDeletados: any): Observable<any> {
+        const body = { ids: idsNaoDeletados };
+        return this.httpClient.patch<any>(`${API_CONFIG.baseUrl}/user/approve/patch/update`, body, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+    approveInsert(idsNaoDeletados: any): Observable<any> {
+        const body = { ids: idsNaoDeletados };
+        return this.httpClient.patch<any>(`${API_CONFIG.baseUrl}/user/approve/patch/insert`, body, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+
+    deleteInsertNoApprove(idsNaoDeletados: any): Observable<any> {
+        const url = `${API_CONFIG.baseUrl}/user/approve/delete/insert`;
+        const body = { ids: idsNaoDeletados };
+        return this.httpClient.post<any>(url, body, this.httpOptions).pipe(
+            catchError(this.handleError)
+        );
     }
 
     handleError(error: HttpErrorResponse) {

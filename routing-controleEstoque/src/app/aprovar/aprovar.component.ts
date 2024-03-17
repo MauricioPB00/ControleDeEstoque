@@ -9,7 +9,8 @@ interface Registro {
   insert: string;
   user_id: string;
   horaeditada: string;
-  update: string
+  update: string;
+  removerLinha?: boolean;
 }
 
 @Component({
@@ -25,7 +26,8 @@ export class AprovarComponent {
 
   registros: Registro[] = [];
   registrosAtualizadosInsert: Registro[] = [];
-  mostrarTodasAsLinhas = false;
+  mostrarTodasAsLinhas = true;
+  idsRemovidos: number[] = [];
 
   ngOnInit(): void {
     this.getTimeApprove();
@@ -64,6 +66,35 @@ export class AprovarComponent {
     });
   }
 
+  removerIdGrid(index: number) {
+    const idRemovido = this.registrosAtualizadosInsert[index].id;
+    const idIndex = this.idsRemovidos.indexOf(idRemovido);
+    
+    if (idIndex !== -1) {
+      this.idsRemovidos.splice(idIndex, 1);
+      this.registrosAtualizadosInsert[index].removerLinha = false;
+    } else {
+      this.idsRemovidos.push(idRemovido);
+      this.registrosAtualizadosInsert[index].removerLinha = true;
+    }
+
+  }
+
+  aprovar() {
+    const idsRegistrosAtualizadosComHoraIgual: number[] = [];
+    const idsNaoDeletados: number[] = [];
+
+    this.registrosAtualizadosInsert.forEach((registro, index) => {
+      if (registro.removerLinha) {
+        idsRegistrosAtualizadosComHoraIgual.push(registro.id);
+      } else {
+        idsNaoDeletados.push(registro.id);
+      }
+    });
+    this.aprovarService.deleteInsertNoApprove(idsRegistrosAtualizadosComHoraIgual)
+    this.aprovarService.approveInsert(idsNaoDeletados)
+    this.getTimeApprove();
+  }
 }
 
 
