@@ -69,7 +69,7 @@ export class AprovarComponent {
   removerIdGrid(index: number) {
     const idRemovido = this.registrosAtualizadosInsert[index].id;
     const idIndex = this.idsRemovidos.indexOf(idRemovido);
-    
+
     if (idIndex !== -1) {
       this.idsRemovidos.splice(idIndex, 1);
       this.registrosAtualizadosInsert[index].removerLinha = false;
@@ -91,9 +91,25 @@ export class AprovarComponent {
         idsNaoDeletados.push(registro.id);
       }
     });
-    this.aprovarService.deleteInsertNoApprove(idsRegistrosAtualizadosComHoraIgual)
-    this.aprovarService.approveInsert(idsNaoDeletados)
-    this.getTimeApprove();
+
+
+    this.aprovarService.deleteInsertNoApprove(idsRegistrosAtualizadosComHoraIgual).subscribe(
+      (response) => {
+        this.getTimeApprove();
+      },
+      (error) => {
+        console.error('Erro ao aprovar registros:', error);
+      }
+    );
+    this.aprovarService.approveInsert(idsNaoDeletados).subscribe(
+      (response) => {
+        this.getTimeApprove();
+      },
+      (error) => {
+        console.error('Erro ao aprovar registros:', error);
+      }
+    )
+
   }
 }
 

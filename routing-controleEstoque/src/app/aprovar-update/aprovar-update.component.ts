@@ -90,8 +90,23 @@ export class AprovarUpdateComponent {
         idsNaoDeletados.push(registro.id);
       }
     });
-    this.aprovarService.patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual)
-    this.aprovarService.approveUpdate(idsNaoDeletados)
-    this.getTimeApprove();
+
+    this.aprovarService.patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual).subscribe(
+      (response) => {
+        this.getTimeApprove();
+      },
+      (error) => {
+        console.error('Erro ao aprovar registros:', error);
+      }
+    );
+    this.aprovarService.approveUpdate(idsNaoDeletados).subscribe(
+      (response) => {
+        this.getTimeApprove();
+      },
+      (error) => {
+        console.error('Erro ao aprovar registros:', error);
+      }
+    )
+
   }
 }
