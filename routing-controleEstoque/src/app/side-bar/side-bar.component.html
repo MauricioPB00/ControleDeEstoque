@@ -30,7 +30,7 @@
         </li>
       </ul>
       <div class="line"></div>
-      <img src="../../assets/img/user.jpg" class="profile-image">
+      <img [src]="'../../assets/img/' + data.file_path" class="profile-image">
       <div class="logout">
         <button (click)="logout()">Logout</button>
       </div>
