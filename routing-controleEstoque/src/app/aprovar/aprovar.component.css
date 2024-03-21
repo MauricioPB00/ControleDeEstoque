@@ -5,14 +5,17 @@
 
 .container2 {
     width: 100%;
-    height: 100%;
-    margin-left: 45px;
 }
 
 .registros {
-    margin-left: 30px;
-    margin-top: 130px;
+    margin-left: 0px;
     font-family: Arial, sans-serif;
+}
+
+.table-wrapper {
+    overflow-y: auto;
+    max-height: 800px;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -21,10 +24,10 @@ h2 {
 }
 
 .table {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    overflow-x: auto;
 }
 
 .table th {
@@ -38,8 +41,10 @@ h2 {
 }
 
 .table td {
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid #b8b8b8;
+    border-left: 0.1px solid #eaeaea;
+    border-right: 0.1px solid #eaeaea;
     font-family: Arial, sans-serif;
     text-align: center;
 }
@@ -49,23 +54,28 @@ h2 {
 }
 
 .deletar {
-    background-color: transparent;
+    background-color: rgb(255, 96, 96);
+    color: rgb(254, 254, 254);
     padding: 8px 15px;
-    color: rgb(0, 0, 0);
     cursor: pointer;
     font-size: 14px !important;
     font-family: 'Open Sans', sans-serif !important;
     right: 20px;
     bottom: 20px;
+    border-radius: 5px;
     border: none;
 }
 
+.deletar:hover {
+    color: rgb(0, 0, 0);
+}
+
 tr.linha-vermelha {
-    background-color: red !important;
+    background-color: rgb(255, 149, 149) !important;
 }
 
 button.salvar {
-    background-color: #4CAF50;
+    background-color: #5bd05f;
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -74,9 +84,26 @@ button.salvar {
     border-radius: 5px;
     display: block;
     margin: 0 auto;
-    width: 60%;
+    width: 30%;
 }
 
 button.salvar:hover {
-    background-color: #45a049;
+    background-color: rgb(118, 246, 49);
+}
+
+.rounded-photo {
+    border-radius: 30%;
+    width: 40px;
+    height: 35px;
+    transition: transform 0.3s ease;
+}
+
+.rounded-photo:hover {
+    transform: scale(1.2);
+}
+
+.table td:nth-child(1) {
+    width: 400px;
+    text-align: left;
+    vertical-align: middle;
 }

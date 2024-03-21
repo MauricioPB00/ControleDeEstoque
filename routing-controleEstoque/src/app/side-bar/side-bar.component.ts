@@ -25,7 +25,7 @@ export class SideBarComponent implements OnInit, AfterViewInit{
     userId = userId.id;
     this.sidebarService.getBuscarFoto(userId).subscribe(
       (data) => {
-        this.data = data;
+        this.data = data.file;
       },
       (error) => {
       }

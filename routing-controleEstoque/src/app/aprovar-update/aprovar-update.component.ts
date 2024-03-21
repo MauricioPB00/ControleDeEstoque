@@ -11,6 +11,8 @@ interface Registro {
   horaeditada: string;
   insert: string;
   removerLinha?: boolean;
+  file: string;
+  name: string;
 }
 
 @Component({
@@ -51,7 +53,7 @@ export class AprovarUpdateComponent {
     const idsRegistrosAtualizadosComHoraIgual = registrosAtualizadosComHoraIgual.map(registro => registro.id);
     this.aprovarService.patchTimeApproveUpdateIquals(idsRegistrosAtualizadosComHoraIgual).subscribe(
       (response) => {
-        this.processarRegistrosInsert()
+        this.processarRegistrosUpdate()
       },
       (error) => {
         console.error('Erro na solicitação PATCH:', error);
@@ -59,9 +61,14 @@ export class AprovarUpdateComponent {
     );
   }
 
-  processarRegistrosInsert() {
+  processarRegistrosUpdate() {
     this.registrosAtualizadosUpdate = this.registros.filter(registro => {
       return registro.update === 'Update' && registro.time !== registro.horaeditada && registro.insert === null;
+    });
+    this.registrosAtualizadosUpdate.sort((a, b) => {
+      const userIdA = parseInt(a.user_id);
+      const userIdB = parseInt(b.user_id);
+      return userIdA - userIdB;
     });
   }
 

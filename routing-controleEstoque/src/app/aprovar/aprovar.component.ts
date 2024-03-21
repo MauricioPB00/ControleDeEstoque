@@ -11,6 +11,8 @@ interface Registro {
   horaeditada: string;
   update: string;
   removerLinha?: boolean;
+  file:string;
+  name:string;
 }
 
 @Component({
@@ -63,6 +65,11 @@ export class AprovarComponent {
   processarRegistrosInsert() {
     this.registrosAtualizadosInsert = this.registros.filter(registro => {
       return registro.insert === 'Insert'
+    });
+    this.registrosAtualizadosInsert.sort((a, b) => {
+      const userIdA = parseInt(a.user_id);
+      const userIdB = parseInt(b.user_id);
+      return userIdA - userIdB;
     });
   }
 
