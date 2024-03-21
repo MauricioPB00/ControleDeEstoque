@@ -46,86 +46,10 @@ fieldset {
   position: relative;
 }
 
-.twelve {
-  width: 100%;
-}
-
-.eleven {
-  width: 91.53%;
-}
-
-.ten {
-  width: 83.06%;
-}
-
-.nine {
-  width: 74.6%;
-}
-
-.eight {
-  width: 66.13%;
-}
-
-.seven {
-  width: 57.66%;
-}
-
-.six {
-  width: 49.2%;
-}
-
-.five {
-  width: 40.73%;
-}
-
-.four {
-  width: 32.26%;
-}
-
-.three {
-  width: 23.8%;
-}
-
-.two {
-  width: 15.33%;
-}
-
-.one {
-  width: 6.866%;
-}
-
-.col {
-  display: block;
-  float: left;
-  margin: 0 0 0 1.6%;
-}
-
-.col:first-of-type {
-  margin-left: 0;
-}
-
-
-
-.cf:before,
-.cf:after {
-  content: " ";
-  display: table;
-}
-
-.cf:after {
-  clear: both;
-}
-
-.cf {
-  zoom: 1;
-  ;
-}
-
 .wrapper {
   width: 100%;
   margin: 30px 0;
 }
-
 
 .steps {
   list-style-type: none;
@@ -224,78 +148,44 @@ fieldset {
 .form-wrapper input[type="text"],
 .form-wrapper input[type="password"] {
   display: block;
-  padding: 10px;
+  padding: 15px;
   margin: 10px auto;
-  background-color: #f1f1f1;
   border: none;
   width: 50%;
   outline: none;
   font-size: 14px !important;
   font-family: 'Open Sans', sans-serif !important;
+  border-radius: 4px;
 }
 
-.form-wrapper input[type="radio"] {
-  display: none;
-}
-
-.form-wrapper input[type="radio"]+label {
+.form-wrapper select {
   display: block;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 100%;
-  padding: 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  cursor: pointer;
-  position: relative;
+  padding: 15px;
+  margin: 10px auto;
+  color: #858383;
+  border: none;
+  width: 55%;
+  outline: none;
+  font-size: 14px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  border-radius: 4px;
 }
 
-.form-wrapper input[type="radio"]+label:before {
-  content: "✔";
-  position: absolute;
-  right: -10px;
-  top: -10px;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 100%;
-  background-color: #3498db;
-  color: #fff;
-  display: none;
-}
-
-.form-wrapper input[type="radio"]:checked+label:before {
-  display: block;
-}
-
-.form-wrapper input[type="radio"]+label h4 {
-  margin: 15px;
-  color: #ccc;
-}
-
-.form-wrapper input[type="radio"]:checked+label {
-  border: 1px solid #3498db;
-}
-
-.form-wrapper input[type="radio"]:checked+label h4 {
-  color: #3498db;
+.form-wrapper select:focus {
+  background-color: #fff;
 }
 
 .selectImg {
   position: relative;
-  padding-top: 20px;
-  padding-bottom: 20px;
   margin-left: 100px;
   margin-right: 110px;
-  background-color: rgb(236, 249, 254);
   border-radius: 38px;
 }
 
 .buttonImg {
   position: relative;
   display: inline-block;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 .file {
@@ -326,36 +216,3 @@ fieldset {
   width: auto;
   height: auto;
 }
-
-.form-wrapper select {
-  display: block;
-  padding: 10px;
-  margin: 10px auto;
-  background-color: #f1f1f1;
-  border: none;
-  width: 53%;
-  outline: none;
-  font-size: 14px !important;
-  font-family: 'Open Sans', sans-serif !important;
-}
-
-.form-wrapper select:focus {
-  outline: none; /* Remove a borda de foco padrão */
-  border-color: #007bff; /* Cor da borda quando está focado */
-  background-color: #f1f1f1; /* Cor de fundo quando está focado */
-}
-
-/* Estilo para as setas do seletor (seta para baixo) */
-.form-wrapper select::-ms-expand {
-  display: none; /* Remove a seta do seletor no Internet Explorer */
-}
-
-/* Estilo para as setas do seletor (seta para baixo) */
-.form-wrapper select::-webkit-inner-spin-button,
-.form-wrapper select::-webkit-outer-spin-button {
-  appearance: none; /* Remove a seta do seletor nos navegadores WebKit (Safari, Chrome) */
-  display: none; /* Remove a seta do seletor nos navegadores WebKit (Safari, Chrome) */
-}
-
-
-
