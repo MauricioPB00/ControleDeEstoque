@@ -9,6 +9,7 @@ import { PontoComponent } from './ponto/ponto.component';
 import { AjusteComponent } from './ajuste/ajuste.component';
 import { AprovarComponent } from './aprovar/aprovar.component';
 import { AprovarUpdateComponent } from './aprovar-update/aprovar-update.component';
+import { ProfileComponent } from './profile/profile.component';
 
 enum Permi { admin = 1, operador = 2 }
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'ajuste', component: AjusteComponent, canActivate: [AuthGuard], data: { roles: [Permi.operador, Permi.admin] } },
   { path: 'aprovar/insert', component: AprovarComponent, canActivate: [AuthGuard], data: { roles: [Permi.admin] } },
   { path: 'aprovar/update', component: AprovarUpdateComponent, canActivate: [AuthGuard], data: { roles: [Permi.admin] } },
+  { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard],data: { roles: [Permi.operador, Permi.admin]}},
   { path: '**', component: LoginComponent, canActivate: [AuthGuard] },
 
 ];

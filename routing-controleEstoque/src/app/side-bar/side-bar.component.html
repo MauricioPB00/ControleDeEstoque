@@ -28,8 +28,12 @@
             <li><a href="/aprovar/insert">Insert</a></li>
           </ul>
         </li>
+        <li>
+          <a href="/profile"><i class="fa fa-user"></i>Profile</a>
+        </li>
       </ul>
       <div class="line"></div>
+        <h2>{{ name }}</h2>
       <img [src]="'../../assets/img/' + data" class="profile-image">
       <div class="logout">
         <button (click)="logout()">Logout</button>

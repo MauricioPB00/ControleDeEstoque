@@ -1,0 +1,32 @@
+<div class="container">
+    <app-side-bar></app-side-bar>
+    <div class="container2">
+        <div class="container3">
+        <div class="user-card" *ngFor="let user of registros; let i = index">
+            <div class="user-info">
+                <div class="user-image">
+                    <img [src]="'../../assets/img/' + user.file" class="profile-image" alt="User Image">
+                </div>
+                <div class="user-details">
+                    <p>ID: {{user.id}}</p>
+                    <p>Name: {{user.name}}</p>
+                    <p>Email: {{user.email}}</p>
+                    <button (click)="openEditModal(editModal, user.id)">Edit</button>
+                </div>
+            </div>
+            <div *ngIf="(i + 1) % 2 === 0" class="break"></div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<ng-template #editModal>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Horários </h5>
+         
+        </div>
+      </div>
+    </div>
+  </ng-template>

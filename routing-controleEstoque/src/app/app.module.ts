@@ -19,6 +19,7 @@ import { AjusteComponent } from './ajuste/ajuste.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AprovarComponent } from './aprovar/aprovar.component';
 import { AprovarUpdateComponent } from './aprovar-update/aprovar-update.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -34,6 +35,7 @@ import { AprovarUpdateComponent } from './aprovar-update/aprovar-update.componen
     AjusteComponent,
     AprovarComponent,
     AprovarUpdateComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

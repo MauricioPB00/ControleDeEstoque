@@ -182,7 +182,15 @@
   .sub-menu li a:hover {
     background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
   }
+
   
+  h2 {
+    text-align: center; 
+    font-family: "Open Sans", sans-serif;
+    font-size: 19px; /* Tamanho da fonte */
+    color: #333; 
+   margin-top:30px;
+  }
 
 
 /* Estilos adicionais para o ícone de cubos */
@@ -246,9 +254,8 @@
       font-size: 16px; /* Ajusta o tamanho da fonte */
     }
   
-    /* Ajuste da imagem do perfil */
     .profile-image {
-      max-width: 30%; /* Reduz o tamanho máximo da imagem */
-      top: 15px; /* Ajusta a posição da imagem */
+      max-width: 30%; 
+      top: 15px; 
     }
   }

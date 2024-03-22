@@ -13,6 +13,7 @@ export class SideBarComponent implements OnInit, AfterViewInit{
   admin: boolean = false;
   showApprovalItems: boolean = false;
   data: any;
+  name: string | undefined;
   
   constructor(private router: Router, private sidebarService: SidebarService) {}
 
@@ -23,6 +24,10 @@ export class SideBarComponent implements OnInit, AfterViewInit{
     }
     var userId = JSON.parse(localStorage.getItem('ControleUsuario') || '{}');
     userId = userId.id;
+
+    var user = JSON.parse(localStorage.getItem('ControleUsuario') || '{}');
+    this.name = user.name;
+    
     this.sidebarService.getBuscarFoto(userId).subscribe(
       (data) => {
         this.data = data.file;
