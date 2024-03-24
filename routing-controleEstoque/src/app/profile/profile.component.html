@@ -8,10 +8,9 @@
                     <img [src]="'../../assets/img/' + user.file" class="profile-image" alt="User Image">
                 </div>
                 <div class="user-details">
-                    <p>ID: {{user.id}}</p>
                     <p>Name: {{user.name}}</p>
                     <p>Email: {{user.email}}</p>
-                    <button (click)="openEditModal(editModal, user.id)">Edit</button>
+                    <button class="editButton" (click)="openEditModal(editModal, user.id)">Edit</button>
                 </div>
             </div>
             <div *ngIf="(i + 1) % 2 === 0" class="break"></div>
@@ -21,12 +20,23 @@
 </div>
 
 <ng-template #editModal>
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Editar Horários </h5>
-         
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title">Editar Horários - {{diaSelecionado[0]}}</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="form-group" *ngFor="let horas of horasDoDiaSelecionado; let i = index">
+          <input type="text" class="form-control" [(ngModel)]="horas.time">
+        </div> -->
+        <div class="button">
+        <button class="buttonCancel" (click)="closeModal()">Cancelar</button>
+        <!-- <button class="buttonSave" (click)="salvarHoras()">Salvar</button> -->
       </div>
     </div>
-  </ng-template>
+    </div>
+  </div>
+</ng-template>

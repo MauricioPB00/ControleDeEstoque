@@ -47,4 +47,8 @@ export class ProfileComponent {
     console.log("Abrir modal para edição do usuário com ID:", userId);
      this.modalRef = this.modalService.show(template);
   }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
 }

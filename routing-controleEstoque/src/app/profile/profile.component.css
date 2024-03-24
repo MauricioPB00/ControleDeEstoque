@@ -25,7 +25,6 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     margin-bottom: 20px;
-    padding: 20px;
     box-sizing: border-box;
     transition: transform 0.3s ease;
     display: flex; 
@@ -48,14 +47,34 @@
 
 .user-details {
     flex: 1; 
+    margin: 0;
+    padding: 0;
+    margin-top: 7px;
+}
+.user-details p {
+    margin-top: 4px;
+    margin-bottom: 0;
 }
 
 .profile-image {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     margin-top: 10px;
+    margin-left: 15px;
+}
+
+.editButton{
+    margin-top: 5px;
+    border: none;
+    background-color: rgb(254, 254, 105);
+    border-radius: 5px;
+    color: black;
+    width: 100px;
+    text-align: center;
+    padding: 5px 15px;
+    cursor: pointer;
 }
 
 
