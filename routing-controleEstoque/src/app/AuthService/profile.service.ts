@@ -36,6 +36,18 @@ export class ProfileService {
             );
     }
 
+    saveUpdateUser(userId :any, data :any ): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/${userId}/profile/edit`, data, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+    buscarPorNome(nome: string): Observable<any[]> {
+        console.log(nome)
+        return this.httpClient.get<any[]>(`${API_CONFIG.baseUrl}/usuarios?name=${nome}`);
+      }
+
     handleError(error: HttpErrorResponse) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {

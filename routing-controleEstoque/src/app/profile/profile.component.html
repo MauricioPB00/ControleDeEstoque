@@ -1,92 +1,109 @@
 <div class="container">
-    <app-side-bar></app-side-bar>
-    <div class="container2">
-        <div class="container3">
-        <div class="user-card" *ngFor="let user of registros; let i = index">
-            <div class="user-info">
-                <div class="user-image">
-                    <img [src]="'../../assets/img/' + user.file" class="profile-image" alt="User Image">
-                </div>
-                <div class="user-details">
-                    <p>Name: {{user.name}}</p>
-                    <p>Email: {{user.email}}</p>
-                    <button class="editButton" (click)="openEditModal(editModal, user.id)">Edit</button>
-                </div>
-            </div>
-            <div *ngIf="(i + 1) % 2 === 0" class="break"></div>
+  <app-side-bar></app-side-bar>
+  <div class="container2">
+    <div class="busca">
+      <div class="buscaNome">
+        <input type="text" name="" id="" [(ngModel)]="inputValue" placeholder="Nome">
+        <button (click)="buscarPorNome()"><i class="fa fa-search"></i></button>
+        <button (click)="limparFiltro()"><i class="fa fa-trash"></i></button>
+      </div>
+    </div>
+    <div class="container3">
+      <div class="user-card" *ngFor="let user of registros; let i = index">
+        <div class="user-info">
+          <div class="user-image">
+            <img [src]="'../../assets/img/' + user.file" class="profile-image" alt="User Image">
+          </div>
+          <div class="user-details">
+            <p>Name: {{user.name}}</p>
+            <p>Email: {{user.email}}</p>
+            <button [hidden]="userPermi === '2'" class="editButton"
+              (click)="openEditModal(editModal, user.id)">Edit</button>
+          </div>
         </div>
+        <div *ngIf="(i + 1) % 2 === 0" class="break"></div>
+      </div>
     </div>
-    </div>
+  </div>
 </div>
 <ng-template #editModal>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Detalhes do Usuário - {{usuario.id}} - {{ usuario.name }} </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body">
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="name" name="name" autocomplete="off" [(ngModel)]="usuario.name" required>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="name" name="name" autocomplete="off" [(ngModel)]="usuario.name"
+            required>
           <i>Name</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="username" name="username" autocomplete="off" [(ngModel)]="usuario.username" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="username" name="username" autocomplete="off"
+            [(ngModel)]="usuario.username" required>
           <i>Username</i>
         </div>
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="datNasc" name="datNasc" autocomplete="off" [(ngModel)]="usuario.datNasc" required>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="datNasc" name="datNasc" autocomplete="off"
+            [(ngModel)]="usuario.datNasc" required>
           <i>Birth Date</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="email" name="email" autocomplete="off" [(ngModel)]="usuario.email" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="email" name="email" autocomplete="off" [(ngModel)]="usuario.email"
+            required>
           <i>Email</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off" [(ngModel)]="usuario.cpf" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off" [(ngModel)]="usuario.cpf"
+            required>
           <i>Cpf</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="rg" name="rg" autocomplete="off" [(ngModel)]="usuario.rg" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="rg" name="rg" autocomplete="off" [(ngModel)]="usuario.rg"
+            required>
           <i>Rg</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="cidade" name="cidade" autocomplete="off" [(ngModel)]="usuario.cidade" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="cidade" name="cidade" autocomplete="off"
+            [(ngModel)]="usuario.cidade" required>
           <i>City</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="horTrab" name="horTrab" autocomplete="off" [(ngModel)]="usuario.horTrab" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="horTrab" name="horTrab" autocomplete="off"
+            [(ngModel)]="usuario.horTrab" required>
           <i>Work Time</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="horaIni" name="horaIni" autocomplete="off" [(ngModel)]="usuario.horaIni" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="horaIni" name="horaIni" autocomplete="off"
+            [(ngModel)]="usuario.horaIni" required>
           <i>Start of Work AM</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="horIniFim" name="horIniFim" autocomplete="off" [(ngModel)]="usuario.horIniFim" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="horIniFim" name="horIniFim" autocomplete="off"
+            [(ngModel)]="usuario.horIniFim" required>
           <i>End of Work AM</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="horFimAft" name="horFimAft" autocomplete="off" [(ngModel)]="usuario.horIniAft" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="horFimAft" name="horFimAft" autocomplete="off"
+            [(ngModel)]="usuario.horIniAft" required>
           <i>Start of Work PM</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="horIniAft" name="horIniAft" autocomplete="off" [(ngModel)]="usuario.horFimAft" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="horIniAft" name="horIniAft" autocomplete="off"
+            [(ngModel)]="usuario.horFimAft" required>
           <i>End of Work PM</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="wage" name="wage" autocomplete="off" [(ngModel)]="usuario.wage" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="wage" name="wage" autocomplete="off" [(ngModel)]="usuario.wage"
+            required>
           <i>Wage</i>
-        </div> 
-        <div class="inputBox"> 
-          <input type="text" class="form-control" id="job" name="job" autocomplete="off" [(ngModel)]="usuario.job" required>
+        </div>
+        <div class="inputBox">
+          <input type="text" class="form-control" id="job" name="job" autocomplete="off" [(ngModel)]="usuario.job"
+            required>
           <i>Job</i>
-        </div>  
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="buttonCancel" (click)="closeModal()">Fechar</button>
+      <div class="button">
+        <button type="button" class="buttonCancel" (click)="closeModal()">Cancel</button>
+        <button type="button" class="buttonSave" (click)="saveModal()">Save</button>
       </div>
     </div>
   </div>
