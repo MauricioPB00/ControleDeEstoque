@@ -224,6 +224,7 @@
 .logout button {
     /* Estilos do botão (já definidos anteriormente) */
     padding: 8px 15px;
+    font-family: "Open Sans", sans-serif;
     background-color: #090909;
     color: #fff;
     border: none;

@@ -72,16 +72,24 @@ export class AjusteComponent {
     this.disableSideBar();
     const group = this.registrosPorDia[index];
     const registrosdata = group.registros.map(registro => registro.date);
-    const registros = group.registros.map(registro => registro.time);
+
+    const horasDoDiaLength = Math.max(group.registros.length, 4); 
+
+    this.horasDoDiaSelecionado = Array.from({ length: horasDoDiaLength }, (_, i) => {
+        return group.registros[i] || { id: -1, date: registrosdata[0], time: '' };
+    });
 
     this.modalRef = this.modalService.show(template);
-    this.horasDoDiaSelecionado = Array.from({ length: 4 }, (_, i) => {
-      return group.registros[i] || {
-        id: -1, date: registrosdata[0], time: '',}
-    });
     this.diaSelecionado = registrosdata;
-  }
+}
 
+  ajusteData(registros:Registro[]){
+    console.log('a');
+    console.log(registros)
+    const registrosFormat = registros.map(registro => registro.time).join(' | ')
+    return registrosFormat;
+
+  }
   salvarHoras() {
     const elementosVazioInsert = this.horasDoDiaSelecionado.filter(item => item.time.trim() !== '' && item.id < 0);
     const elementoEditadoUpdate = this.horasDoDiaSelecionado.filter(item => item.time.trim() !== '' && item.id > 0);

@@ -6,7 +6,7 @@
         <thead>
           <tr>
             <th>Data</th>
-            <th [attr.colspan]="4">Horário</th>
+            <th [attr.colspan]="1">Horário</th>
             <th>Editar</th>
           </tr>
         </thead>
@@ -14,8 +14,8 @@
           <ng-container *ngFor="let group of registrosPorDia; let i = index">
             <tr>
               <td>{{ group.date }}</td>
-              <td *ngFor="let registro of group.registros; let j = index">{{ registro.time }}</td>
-              <td *ngFor="let _ of [].constructor(4 - group.registros.length)">&nbsp;</td>
+              <td>  {{ ajusteData(group.registros) }}</td>
+              <!-- <td *ngFor="let _ of [].constructor(4 - group.registros.length)">&nbsp;</td> -->
               <td>
                 <button class="edit-button" (click)="openModal(editModal, i)">
                   <i class="fas fa-bars"></i>
