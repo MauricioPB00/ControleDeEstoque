@@ -8,6 +8,8 @@
             <th>Data</th>
             <th [attr.colspan]="1">Horário</th>
             <th>Editar</th>
+            <th>#</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -15,11 +17,14 @@
             <tr>
               <td>{{ group.date }}</td>
               <td>  {{ ajusteData(group.registros) }}</td>
-              <!-- <td *ngFor="let _ of [].constructor(4 - group.registros.length)">&nbsp;</td> -->
               <td>
                 <button class="edit-button" (click)="openModal(editModal, i)">
                   <i class="fas fa-bars"></i>
                 </button>
+              </td>
+              <td>{{ group.totalHorasTrabalhadas }}</td>
+              <td>
+                <i *ngIf="group.mostrarAviso" class="fa fa-exclamation-triangle warning-icon" [ngClass]="{'yellow': group.classeAviso === 'yellow'}" aria-hidden="true"></i>
               </td>
             </tr>
           </ng-container>

@@ -9,11 +9,15 @@ interface Registro {
   id: number;
   date: string;
   time: string;
+  hor_trab: string;
 }
 
 interface RegistroGroup {
   date: string;
   registros: Registro[];
+  totalHorasTrabalhadas?: string;
+  mostrarAviso?: boolean;
+  classeAviso?: string;
 }
 
 @Component({
@@ -23,6 +27,7 @@ interface RegistroGroup {
 })
 export class AjusteComponent {
   modalRef: BsModalRef;
+
 
   constructor(
     private ajusteService: AjusteService,
@@ -66,6 +71,40 @@ export class AjusteComponent {
       registrosPorDiaMap.get(dateKey)!.registros.push(registro);
     });
     this.registrosPorDia = Array.from(registrosPorDiaMap.values());
+    this.calculaHora();
+  }
+
+  calculaHora() {
+    this.registrosPorDia.forEach(dia => {
+      let horasTrabalhadas = 0;
+  
+      if (dia.registros.length % 2 !== 0) {
+        console.log('Número ímpar de registros para o dia:', dia);
+        return;
+      }
+  
+      const registros = dia.registros.map(registro => new Date('1970-01-01T' + registro.time));
+  
+      for (let i = 0; i < registros.length; i += 2) {
+        const horaEntrada = registros[i];
+        const horaSaida = registros[i + 1];
+        const diferencaMillisegundos = horaSaida.getTime() - horaEntrada.getTime();
+        const horas = Math.floor(diferencaMillisegundos / (1000 * 60 * 60));
+        const minutos = Math.floor((diferencaMillisegundos % (1000 * 60 * 60)) / (1000 * 60));
+        horasTrabalhadas += horas + minutos / 60;
+      }
+  
+      dia.totalHorasTrabalhadas = `${Math.floor(horasTrabalhadas)}:${Math.round(horasTrabalhadas % 1 * 60)}`;
+  
+      if (dia.totalHorasTrabalhadas === dia.registros[0]?.hor_trab) {
+        dia.mostrarAviso = false; 
+      } else if  (dia.totalHorasTrabalhadas > dia.registros[0]?.hor_trab) {
+        dia.mostrarAviso = true; 
+      }else if  (dia.totalHorasTrabalhadas < dia.registros[0]?.hor_trab) {
+        dia.mostrarAviso = true; 
+        dia.classeAviso = 'yellow';
+      }
+    });
   }
 
   openModal(template: TemplateRef<any>, index: number) {
@@ -73,23 +112,21 @@ export class AjusteComponent {
     const group = this.registrosPorDia[index];
     const registrosdata = group.registros.map(registro => registro.date);
 
-    const horasDoDiaLength = Math.max(group.registros.length, 4); 
+    const horasDoDiaLength = Math.max(group.registros.length, 4);
 
     this.horasDoDiaSelecionado = Array.from({ length: horasDoDiaLength }, (_, i) => {
-        return group.registros[i] || { id: -1, date: registrosdata[0], time: '' };
+      return group.registros[i] || { id: -1, date: registrosdata[0], time: '' };
     });
 
     this.modalRef = this.modalService.show(template);
     this.diaSelecionado = registrosdata;
-}
+  }
 
   ajusteData(registros:Registro[]){
-    console.log('a');
-    console.log(registros)
     const registrosFormat = registros.map(registro => registro.time).join(' | ')
     return registrosFormat;
-
   }
+
   salvarHoras() {
     const elementosVazioInsert = this.horasDoDiaSelecionado.filter(item => item.time.trim() !== '' && item.id < 0);
     const elementoEditadoUpdate = this.horasDoDiaSelecionado.filter(item => item.time.trim() !== '' && item.id > 0);

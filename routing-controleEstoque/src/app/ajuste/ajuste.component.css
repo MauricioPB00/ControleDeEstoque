@@ -187,3 +187,9 @@ label {
   border-radius: 5px;
   background-color: #f6f8ad;
 }
+.warning-icon {
+  color: rgb(0, 0, 0);
+}
+.warning-icon.yellow {
+  color: rgb(255, 0, 0); /* Defina a cor amarela para as condições falsas */
+}
