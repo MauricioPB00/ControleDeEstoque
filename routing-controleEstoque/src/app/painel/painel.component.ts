@@ -102,49 +102,73 @@ export class PainelComponent implements OnInit {
       if (a.registros[0].date > b.registros[0].date) return 1;
       return 0;
     });
-
-    // console.log('Registros organizados por dia e usuário:', this.registrosPorUsuario);
     this.calcularHorasTrabalhadasPorDia();
   }
 
-  calcularHorasTrabalhadasPorDia(): void {
-
-    this.registrosPorUsuario.forEach(registrosPorUsuario => {
+  async calcularHorasTrabalhadasPorDia(): Promise<void> {
+    this.registrosPorUsuario.forEach(async registrosPorUsuario => {
       let totalMilissegundos = 0;
-
+  
       registrosPorUsuario.registros.sort((a, b) => {
         const horaA = new Date('1970-01-01T' + a.time).getTime();
         const horaB = new Date('1970-01-01T' + b.time).getTime();
         return horaA - horaB;
       });
-
+  
       const registros = registrosPorUsuario.registros;
-
+  
       if (registros.length % 2 !== 0) {
-        //console.error('Número ímpar de registros para o usuário', registrosPorUsuario.userId);
+        console.error('Número ímpar de registros para o usuário', registrosPorUsuario.userId);
         return;
       }
-
+  
       for (let i = 0; i < registros.length; i += 2) {
         const horaEntrada = new Date('1970-01-01T' + registros[i].time).getTime();
         const horaSaida = new Date('1970-01-01T' + registros[i + 1].time).getTime();
-
+  
         totalMilissegundos += Math.abs(horaSaida - horaEntrada);
       }
-
+  
       const horas = Math.floor(totalMilissegundos / (1000 * 60 * 60));
       const minutos = Math.floor((totalMilissegundos % (1000 * 60 * 60)) / (1000 * 60));
-
+  
       registrosPorUsuario.totalHorasTrabalhadas = `${horas}:${minutos < 10 ? '0' : ''}${minutos}`;
-
-      const data = registros[0].date;
+  
+      const date = registros[0].date;
       const usuario = registrosPorUsuario.userId;
-      const hora = registrosPorUsuario.totalHorasTrabalhadas
-
-      console.log(`Dia: ${data}, Horas trabalhadas para o usuário ${registrosPorUsuario.userId}: ${registrosPorUsuario.totalHorasTrabalhadas}`);
-      console.log(usuario, data, hora);
+      const hora = registrosPorUsuario.totalHorasTrabalhadas;
+  
+      console.log(usuario, date, hora);
+  
+      this.salvarHoraCalculada(date, usuario, hora); // Aguarda a conclusão da operação de salvamento
     });
+  
+    await this.getHorasCalculadas(); // Aguarda a conclusão da função getHorasCalculadas
   }
 
+  salvarHoraCalculada(date: any, usuario: any, hora: any) {
+    this.painelService.postHorasCalculadas(date, usuario, hora).subscribe(
+      (data) => {
+        this.response = data;
+        this.toastr.success('Usuario Atualizado');
+      },
+      (error) => {
+        this.toastr.error('Usuario Ja atualizado');
+      }
+    );
+  }
+
+  async getHorasCalculadas(): Promise<void>{
+    console.log('aaaaaa');
+    this.painelService.getHorasCalculadas().subscribe(
+      (data) => {
+        this.response = data;
+        console.log(this.response);
+      },
+      (error) => {
+        this.toastr.error('Erro ao buscar');
+      }
+    );
+  }
 
 }

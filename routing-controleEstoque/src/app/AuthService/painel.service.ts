@@ -27,6 +27,22 @@ export class PainelService {
                 catchError(this.handleError)
             );
     }
+    postHorasCalculadas(date: any, usuario: any, hora: any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarhoras`, { date, usuario, hora }, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+
+    getHorasCalculadas(): Observable<any> {
+        return this.httpClient.get<any>(`${API_CONFIG.baseUrl}/user/painel/buscahorasCalculadas`, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+
 
     handleError(error: HttpErrorResponse) {
         let errorMessage = '';
