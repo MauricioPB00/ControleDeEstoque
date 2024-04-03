@@ -11,7 +11,7 @@ import { SidebarService } from '../AuthService/sidebar.service';
 export class SideBarComponent implements OnInit, AfterViewInit{
   isSidebarActive: boolean = false;
   admin: boolean = false;
-  showApprovalItems: boolean = false;
+  showApprovalItems: boolean[] = [false, false];
   data: any;
   name: string | undefined;
   
@@ -44,10 +44,9 @@ export class SideBarComponent implements OnInit, AfterViewInit{
     this.isSidebarActive = !this.isSidebarActive;
   }
 
-  toggleApprovalItems() {
-    this.showApprovalItems = !this.showApprovalItems;
+  toggleApprovalItems(index: number) {
+    this.showApprovalItems[index] = !this.showApprovalItems[index];
   }
-
     logout(): void {
       localStorage.clear()
       this.router.navigate(['/']);

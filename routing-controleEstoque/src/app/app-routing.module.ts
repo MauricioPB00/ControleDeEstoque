@@ -10,6 +10,8 @@ import { AjusteComponent } from './ajuste/ajuste.component';
 import { AprovarComponent } from './aprovar/aprovar.component';
 import { AprovarUpdateComponent } from './aprovar-update/aprovar-update.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PainelComponent } from './painel/painel.component';
+import { EmpresaComponent } from './empresa/empresa.component';
 
 enum Permi { admin = 1, operador = 2 }
 
@@ -23,6 +25,9 @@ const routes: Routes = [
   { path: 'aprovar/insert', component: AprovarComponent, canActivate: [AuthGuard], data: { roles: [Permi.admin] } },
   { path: 'aprovar/update', component: AprovarUpdateComponent, canActivate: [AuthGuard], data: { roles: [Permi.admin] } },
   { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard],data: { roles: [Permi.operador, Permi.admin]}},
+  { path: 'painel', component: PainelComponent, canActivate: [AuthGuard], data: { roles: [Permi.admin] } },
+  { path: 'empresa', component: EmpresaComponent, canActivate: [AuthGuard], data: { roles: [Permi.admin] } },
+
   { path: '**', component: LoginComponent, canActivate: [AuthGuard] },
 
 ];

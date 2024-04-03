@@ -20,6 +20,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AprovarComponent } from './aprovar/aprovar.component';
 import { AprovarUpdateComponent } from './aprovar-update/aprovar-update.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PainelComponent } from './painel/painel.component';
+import { EmpresaComponent } from './empresa/empresa.component';
 
 
 
@@ -36,6 +38,8 @@ import { ProfileComponent } from './profile/profile.component';
     AprovarComponent,
     AprovarUpdateComponent,
     ProfileComponent,
+    PainelComponent,
+    EmpresaComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,16 +20,26 @@
           <a href="/cadastro"><i class="fa fa-user-plus"></i>Cadastro</a>
         </li>
         <li *ngIf="admin">
-          <a (click)="toggleApprovalItems()">
+          <a (click)="toggleApprovalItems(0)">
             <i class="fa fa-tasks"></i>Aprovar
           </a>
-          <ul *ngIf="showApprovalItems" class="sub-menu">
+          <ul *ngIf="showApprovalItems[0]" class="sub-menu">
             <li><a href="/aprovar/update">Update</a></li>
             <li><a href="/aprovar/insert">Insert</a></li>
           </ul>
         </li>
         <li>
           <a href="/profile"><i class="fa fa-user"></i>Profile</a>
+        </li>
+
+        <li *ngIf="admin">
+          <a (click)="toggleApprovalItems(1)">
+            <i class="fa-solid fa-folder"></i>Painel
+          </a>
+          <ul *ngIf="showApprovalItems[1]" class="sub-menu">
+            <li><a href="/empresa">Empresa</a></li>
+            <li><a href="/painel">Painel</a></li>
+          </ul>
         </li>
       </ul>
       <div class="line"></div>
