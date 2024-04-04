@@ -87,7 +87,7 @@ export class PainelComponent implements OnInit {
 
         registrosPorDiaMap.get(date)!.push(registro);
       });
-
+      
       const registrosPorDia: RegistroPorUsuario[] = [];
 
       registrosPorDiaMap.forEach((registros, date) => {
@@ -128,7 +128,6 @@ export class PainelComponent implements OnInit {
 
         totalMilissegundos += Math.abs(horaSaida - horaEntrada);
       }
-
       const horas = Math.floor(totalMilissegundos / (1000 * 60 * 60));
       const minutos = Math.floor((totalMilissegundos % (1000 * 60 * 60)) / (1000 * 60));
 
@@ -140,10 +139,10 @@ export class PainelComponent implements OnInit {
 
       console.log(usuario, date, hora);
 
-      this.salvarHoraCalculada(date, usuario, hora); // Aguarda a conclusão da operação de salvamento
+      this.salvarHoraCalculada(date, usuario, hora);
     });
 
-    await this.getHorasCalculadas(); // Aguarda a conclusão da função getHorasCalculadas
+    await this.getHorasCalculadas();
   }
 
   salvarHoraCalculada(date: any, usuario: any, hora: any) {
@@ -159,7 +158,6 @@ export class PainelComponent implements OnInit {
   }
 
   async getHorasCalculadas(): Promise<void> {
-    console.log('aaaaaa');
     this.painelService.getHorasCalculadas().subscribe(
       (data) => {
         this.response = data;
@@ -174,55 +172,47 @@ export class PainelComponent implements OnInit {
   calcularHoraMes() {
     console.log('calcula hora mes');
     const registrosPorUsuarioMap = new Map<string, any[]>();
-    
-    // Criação do mapa de registros por usuário
+
     this.response.forEach(registro => {
       const userId = registro.user_id;
-    
+
       if (!registrosPorUsuarioMap.has(userId)) {
         registrosPorUsuarioMap.set(userId, []);
       }
-    
       registrosPorUsuarioMap.get(userId)!.push(registro);
     });
-    
-    // Array para armazenar resultados
-    const resultados: any[] = [];
-    
-    // Itera sobre os registros de cada usuário
+
     registrosPorUsuarioMap.forEach((registros, userId) => {
       let totalHorasTrabalhadas = 0;
-    
+
       registros.forEach(registro => {
-        // Converte a hora trabalhada em minutos
         const horaTrabalhada = registro.horTrab.split(':').map(Number);
         const minutosTrabalhados = horaTrabalhada[0] * 60 + horaTrabalhada[1];
-    
-        // Converte o horário registrado em minutos
         const horaRegistrada = registro.time.split(':').map(Number);
         const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
-    
-        // Calcula a diferença em minutos
         const diferencaMinutos = minutosRegistrados - minutosTrabalhados;
-    
+
         totalHorasTrabalhadas += diferencaMinutos;
       });
-    
-      // Converte o total de minutos de volta para horas, minutos e segundos
+
       const horas = Math.floor(totalHorasTrabalhadas / 60);
       const minutos = totalHorasTrabalhadas % 60;
       const segundos = 0;
-    
-      // Formata o tempo como uma string no formato HH:MM:SS
       const tempoFormatado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-    
-      resultados.push({ userId, horasExtras: tempoFormatado });
+      const mesRegistro = this.obterMes(registros[0].date);
+
+      console.log('testetset', tempoFormatado, userId, mesRegistro)
+      this.salvarHoraMesTrabalhada(tempoFormatado, userId)
     });
-    
-    // Transforma o resultado em string JSON
-    const resultadoString = JSON.stringify(resultados);
-    
-    console.log(resultadoString);
+
+  }
+  obterMes(data: string): number {
+    console.log('obtermes', data)
+    const [ano, mes, dia] = data.split('-');
+    return parseInt(mes);
   }
 
+  salvarHoraMesTrabalhada(tempoFormatado: any, userId: any) {
+    console.log('testetset', tempoFormatado, userId);
+  }
 }
