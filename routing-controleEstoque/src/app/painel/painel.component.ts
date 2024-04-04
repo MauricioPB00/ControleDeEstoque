@@ -87,7 +87,7 @@ export class PainelComponent implements OnInit {
 
         registrosPorDiaMap.get(date)!.push(registro);
       });
-      
+
       const registrosPorDia: RegistroPorUsuario[] = [];
 
       registrosPorDiaMap.forEach((registros, date) => {
@@ -172,47 +172,59 @@ export class PainelComponent implements OnInit {
   calcularHoraMes() {
     console.log('calcula hora mes');
     const registrosPorUsuarioMap = new Map<string, any[]>();
-
+    
     this.response.forEach(registro => {
       const userId = registro.user_id;
-
+  
       if (!registrosPorUsuarioMap.has(userId)) {
         registrosPorUsuarioMap.set(userId, []);
       }
+  
       registrosPorUsuarioMap.get(userId)!.push(registro);
     });
-
+  
     registrosPorUsuarioMap.forEach((registros, userId) => {
-      let totalHorasTrabalhadas = 0;
-
+      let totalMinutosTrabalhados = 0;
+  
       registros.forEach(registro => {
         const horaTrabalhada = registro.horTrab.split(':').map(Number);
         const minutosTrabalhados = horaTrabalhada[0] * 60 + horaTrabalhada[1];
         const horaRegistrada = registro.time.split(':').map(Number);
         const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
         const diferencaMinutos = minutosRegistrados - minutosTrabalhados;
-
-        totalHorasTrabalhadas += diferencaMinutos;
+  
+        totalMinutosTrabalhados += diferencaMinutos;
       });
-
-      const horas = Math.floor(totalHorasTrabalhadas / 60);
-      const minutos = totalHorasTrabalhadas % 60;
+  
+      const horas = Math.floor(totalMinutosTrabalhados / 60);
+      const minutos = totalMinutosTrabalhados % 60;
       const segundos = 0;
-      const tempoFormatado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-      const mesRegistro = this.obterMes(registros[0].date);
-
-      console.log('testetset', tempoFormatado, userId, mesRegistro)
-      this.salvarHoraMesTrabalhada(tempoFormatado, userId)
+      const mes = this.obterMes(registros[0].date);
+      let hora = `${Math.abs(horas).toString().padStart(2, '0')}:${Math.abs(minutos).toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+  
+      if (horas < 0 || minutos < 0) {
+        hora = '-' + hora;
+      }
+   
+      this.salvarHoraMesTrabalhada(hora, userId, mes);
     });
-
   }
+  
   obterMes(data: string): number {
-    console.log('obtermes', data)
     const [ano, mes, dia] = data.split('-');
     return parseInt(mes);
   }
 
-  salvarHoraMesTrabalhada(tempoFormatado: any, userId: any) {
-    console.log('testetset', tempoFormatado, userId);
+  salvarHoraMesTrabalhada(hora: any, userId: any, mes: any) {
+    console.log('testetset', hora, userId, mes);
+
+    this.painelService.salvarHoraMesTrabalhado(hora, userId, mes).subscribe(
+      (data) => {
+        this.toastr.success('Sucesso ! Horas calculadas');
+      },
+      (error) => {
+        this.toastr.error('Horas calculadas ja Salvas');
+      }
+    );
   }
 }
