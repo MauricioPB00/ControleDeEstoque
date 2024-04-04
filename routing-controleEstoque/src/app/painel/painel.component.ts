@@ -173,31 +173,56 @@ export class PainelComponent implements OnInit {
   }
   calcularHoraMes() {
     console.log('calcula hora mes');
-    const registrosPorUsuarioMap = new Map<string, Registro[]>();
-
+    const registrosPorUsuarioMap = new Map<string, any[]>();
+    
+    // Criação do mapa de registros por usuário
     this.response.forEach(registro => {
       const userId = registro.user_id;
-
+    
       if (!registrosPorUsuarioMap.has(userId)) {
         registrosPorUsuarioMap.set(userId, []);
       }
-
+    
       registrosPorUsuarioMap.get(userId)!.push(registro);
     });
-
-    const registrosOrganizados: RegistroPorUsuario[] = [];
-
+    
+    // Array para armazenar resultados
+    const resultados: any[] = [];
+    
+    // Itera sobre os registros de cada usuário
     registrosPorUsuarioMap.forEach((registros, userId) => {
-      registrosOrganizados.push({ userId, registros });
+      let totalHorasTrabalhadas = 0;
+    
+      registros.forEach(registro => {
+        // Converte a hora trabalhada em minutos
+        const horaTrabalhada = registro.horTrab.split(':').map(Number);
+        const minutosTrabalhados = horaTrabalhada[0] * 60 + horaTrabalhada[1];
+    
+        // Converte o horário registrado em minutos
+        const horaRegistrada = registro.time.split(':').map(Number);
+        const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
+    
+        // Calcula a diferença em minutos
+        const diferencaMinutos = minutosRegistrados - minutosTrabalhados;
+    
+        totalHorasTrabalhadas += diferencaMinutos;
+      });
+    
+      // Converte o total de minutos de volta para horas, minutos e segundos
+      const horas = Math.floor(totalHorasTrabalhadas / 60);
+      const minutos = totalHorasTrabalhadas % 60;
+      const segundos = 0;
+    
+      // Formata o tempo como uma string no formato HH:MM:SS
+      const tempoFormatado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    
+      resultados.push({ userId, horasExtras: tempoFormatado });
     });
-
-    this.registrosPorUsuario = registrosOrganizados.sort((a, b) => {
-      if (a.userId < b.userId) return -1;
-      if (a.userId > b.userId) return 1;
-      return 0;
-    });
-
-    console.log(this.registrosPorUsuario);
+    
+    // Transforma o resultado em string JSON
+    const resultadoString = JSON.stringify(resultados);
+    
+    console.log(resultadoString);
   }
 
 }
