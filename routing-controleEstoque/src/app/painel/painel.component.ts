@@ -140,7 +140,11 @@ export class PainelComponent implements OnInit {
       const usuario = registrosPorUsuario.userId;
       const hora = registrosPorUsuario.totalHorasTrabalhadas;
 
+
       console.log(usuario, date, hora);
+
+      // aqui colocar verificação de final de semana //
+
 
       this.salvarHoraCalculada(date, usuario, hora);
     });
@@ -159,14 +163,6 @@ export class PainelComponent implements OnInit {
       }
     );
   }
-
-
-
-
-
-
-
-
 
   //async getHorasCalculadas(): Promise<void> {
   getHorasCalculadas() {
@@ -222,7 +218,7 @@ export class PainelComponent implements OnInit {
       const horTrab = registros[0].horTrab;
       const barradeProgresso = this.getProgressBar(hora, horTrab);
       this.registros.push({ userId, mes, hora, barradeProgresso });
-      this.salvarHoraMesTrabalhada(userId, hora, mes);
+      this.salvarHoraMesTrabalhada(hora, userId, mes);
     });
   }
   getProgressBar(hora: string, horTrab: string) {
@@ -255,8 +251,6 @@ export class PainelComponent implements OnInit {
   }
 
   salvarHoraMesTrabalhada(hora: any, userId: any, mes: any) {
-    console.log('testetset', hora, userId, mes);
-
     this.painelService.salvarHoraMesTrabalhado(hora, userId, mes).subscribe(
       (data) => {
         this.toastr.success('Sucesso ! Horas calculadas');
