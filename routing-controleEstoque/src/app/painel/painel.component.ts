@@ -9,6 +9,8 @@ interface Registro {
   date: string;
   time: string;
   user_id: string;
+  horTrab: string;
+  barradeProgresso: string;
 }
 
 interface RegistroPorUsuario {
@@ -24,6 +26,7 @@ interface RegistroPorUsuario {
 })
 export class PainelComponent implements OnInit {
   response: Registro[] = [];
+  registros: any[] = [];
   registrosPorUsuario: RegistroPorUsuario[] = [];
 
   constructor(
@@ -142,7 +145,7 @@ export class PainelComponent implements OnInit {
       this.salvarHoraCalculada(date, usuario, hora);
     });
 
-    await this.getHorasCalculadas();
+    //await this.getHorasCalculadas();
   }
 
   salvarHoraCalculada(date: any, usuario: any, hora: any) {
@@ -157,11 +160,20 @@ export class PainelComponent implements OnInit {
     );
   }
 
-  async getHorasCalculadas(): Promise<void> {
+
+
+
+
+
+
+
+
+  //async getHorasCalculadas(): Promise<void> {
+  getHorasCalculadas() {
     this.painelService.getHorasCalculadas().subscribe(
       (data) => {
         this.response = data;
-        console.log(this.response);
+        console.log('response getHorasCalculadas', this.response);
         this.calcularHoraMes();
       },
       (error) => {
@@ -169,47 +181,74 @@ export class PainelComponent implements OnInit {
       }
     );
   }
+
+
   calcularHoraMes() {
     console.log('calcula hora mes');
     const registrosPorUsuarioMap = new Map<string, any[]>();
-    
+
     this.response.forEach(registro => {
       const userId = registro.user_id;
-  
+
       if (!registrosPorUsuarioMap.has(userId)) {
         registrosPorUsuarioMap.set(userId, []);
       }
-  
+
       registrosPorUsuarioMap.get(userId)!.push(registro);
     });
-  
+
     registrosPorUsuarioMap.forEach((registros, userId) => {
       let totalMinutosTrabalhados = 0;
-  
+
       registros.forEach(registro => {
         const horaTrabalhada = registro.horTrab.split(':').map(Number);
         const minutosTrabalhados = horaTrabalhada[0] * 60 + horaTrabalhada[1];
         const horaRegistrada = registro.time.split(':').map(Number);
         const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
         const diferencaMinutos = minutosRegistrados - minutosTrabalhados;
-  
+
         totalMinutosTrabalhados += diferencaMinutos;
       });
-  
+
       const horas = Math.floor(totalMinutosTrabalhados / 60);
       const minutos = totalMinutosTrabalhados % 60;
       const segundos = 0;
       const mes = this.obterMes(registros[0].date);
       let hora = `${Math.abs(horas).toString().padStart(2, '0')}:${Math.abs(minutos).toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-  
+
       if (horas < 0 || minutos < 0) {
         hora = '-' + hora;
       }
-   
-      this.salvarHoraMesTrabalhada(hora, userId, mes);
+      const horTrab = registros[0].horTrab;
+      const barradeProgresso = this.getProgressBar(hora, horTrab);
+      this.registros.push({ userId, mes, hora, barradeProgresso });
+      this.salvarHoraMesTrabalhada(userId, hora, mes);
     });
   }
-  
+  getProgressBar(hora: string, horTrab: string) {
+    const cargaHorariaDiaria = parseInt(horTrab.split(':')[0]) * 60 + parseInt(horTrab.split(':')[1]);
+    const cargaHorariaMensal = cargaHorariaDiaria * 25;
+    const [horas, minutos, segundos] = hora.split(':').map(Number);
+    const totalMinutos = horas * 60 + minutos;
+    let percentual = (totalMinutos / cargaHorariaMensal) * 100;
+
+    if (percentual >= 0) {
+      percentual = 100;
+    }
+
+    if (percentual < 0) {
+      percentual = 100 + (percentual / 100) * 100;
+    }
+    const progressBar = `${percentual.toFixed(2)}%`;
+
+    console.log(`Hora: ${hora}, Horário de trabalho diário: ${horTrab}, Carga horária mensal: ${cargaHorariaMensal} minutos, Percentual da barra de progresso: ${progressBar}`);
+
+    return progressBar;
+  }
+  parsePercentageToInt(percentage: string): number {
+    return parseInt(percentage.replace('%', ''));
+  }
+
   obterMes(data: string): number {
     const [ano, mes, dia] = data.split('-');
     return parseInt(mes);
