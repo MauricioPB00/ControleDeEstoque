@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TemplateRef } from '@angular/core';
 import { PainelService } from '../AuthService/painel.service';
-import { startOfMonth, endOfMonth, eachDayOfInterval, isSaturday, isSunday } from 'date-fns';
+import { startOfMonth, endOfMonth, eachDayOfInterval, isSaturday, isSunday, parseISO } from 'date-fns';
 
 
 interface Registro {
@@ -161,28 +161,19 @@ export class PainelComponent implements OnInit {
 
     //await this.getHorasCalculadas();
   }
-  verificaFinalSemana(date: string, usuario: string, hora: string) {
-    const weekends = this.getWeekendsOfMonth(); 
-    const formattedDate = date.split(' ')[0];
-    
-    if (weekends.includes(formattedDate)) {
-      console.log(`O dia ${formattedDate} é final de semana para o usuário ${usuario} (${hora}).`);
-    } else {
-      console.log(`O dia ${formattedDate} não é final de semana para o usuário ${usuario} (${hora}).`);
-      this.salvarHoraCalculada(date, usuario, hora);
-    }
-  }
   
-  getWeekendsOfMonth(): string[] {
-    const startOfMonthDate = startOfMonth(new Date());
-    const endOfMonthDate = endOfMonth(new Date());
-    const daysOfMonth = eachDayOfInterval({ start: startOfMonthDate, end: endOfMonthDate });
-    const weekends = daysOfMonth
-      .filter(day => isSaturday(day) || isSunday(day))
-      .map(day => day.toISOString().split('T')[0]);
-    return weekends;
-  }
+  verificaFinalSemana(date: string, usuario: string, hora: string){
+    const dateToCheck = parseISO(date); // Converte a string para um objeto Date
 
+    if (isSaturday(dateToCheck)) {
+        console.log(`O dia ${date} é sábado para o usuário ${usuario} (${hora}).`);
+    } else if (isSunday(dateToCheck)) {
+        console.log(`O dia ${date} é domingo para o usuário ${usuario} (${hora}).`);
+    } else {
+        console.log(`O dia ${date} não é final de semana para o usuário ${usuario} (${hora}).`);
+        this.salvarHoraCalculada(date,usuario,hora)
+    }
+}
 
   salvarHoraCalculada(date: any, usuario: any, hora: any) {
     this.painelService.postHorasCalculadas(date, usuario, hora).subscribe(
