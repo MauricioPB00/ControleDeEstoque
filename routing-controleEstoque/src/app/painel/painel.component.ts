@@ -3,6 +3,8 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TemplateRef } from '@angular/core';
 import { PainelService } from '../AuthService/painel.service';
+import { startOfMonth, endOfMonth, eachDayOfInterval, isSaturday, isSunday } from 'date-fns';
+
 
 interface Registro {
   id: number;
@@ -35,7 +37,18 @@ export class PainelComponent implements OnInit {
     private painelService: PainelService) { }
 
   ngOnInit(): void {
-    this.carregarUsuarios()
+    //this.carregarUsuarios()
+    //this.testedata()
+  }
+
+  testedata() {
+    const startOfMonthDate = startOfMonth(new Date());
+    const endOfMonthDate = endOfMonth(new Date());
+    const daysOfMonth = eachDayOfInterval({ start: startOfMonthDate, end: endOfMonthDate });
+    const weekends = daysOfMonth
+      .filter(day => isSaturday(day) || isSunday(day))
+      .map(day => day.toISOString().split('T')[0]);
+    console.log('Weekends:', weekends);
   }
 
   carregarUsuarios() {
@@ -141,16 +154,35 @@ export class PainelComponent implements OnInit {
       const hora = registrosPorUsuario.totalHorasTrabalhadas;
 
 
-      console.log(usuario, date, hora);
+      console.log('xxxxxx', usuario, date, hora);
 
-      // aqui colocar verificação de final de semana //
-
-
-      this.salvarHoraCalculada(date, usuario, hora);
+      this.verificaFinalSemana(date, usuario, hora);
     });
 
     //await this.getHorasCalculadas();
   }
+  verificaFinalSemana(date: string, usuario: string, hora: string) {
+    const weekends = this.getWeekendsOfMonth(); 
+    const formattedDate = date.split(' ')[0];
+    
+    if (weekends.includes(formattedDate)) {
+      console.log(`O dia ${formattedDate} é final de semana para o usuário ${usuario} (${hora}).`);
+    } else {
+      console.log(`O dia ${formattedDate} não é final de semana para o usuário ${usuario} (${hora}).`);
+      this.salvarHoraCalculada(date, usuario, hora);
+    }
+  }
+  
+  getWeekendsOfMonth(): string[] {
+    const startOfMonthDate = startOfMonth(new Date());
+    const endOfMonthDate = endOfMonth(new Date());
+    const daysOfMonth = eachDayOfInterval({ start: startOfMonthDate, end: endOfMonthDate });
+    const weekends = daysOfMonth
+      .filter(day => isSaturday(day) || isSunday(day))
+      .map(day => day.toISOString().split('T')[0]);
+    return weekends;
+  }
+
 
   salvarHoraCalculada(date: any, usuario: any, hora: any) {
     this.painelService.postHorasCalculadas(date, usuario, hora).subscribe(
