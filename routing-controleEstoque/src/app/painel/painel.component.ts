@@ -37,8 +37,6 @@ export class PainelComponent implements OnInit {
     private painelService: PainelService) { }
 
   ngOnInit(): void {
-    //this.carregarUsuarios()
-    //this.testedata()
   }
 
   testedata() {
@@ -48,11 +46,6 @@ export class PainelComponent implements OnInit {
     const weekends = daysOfMonth
       .filter(day => isSaturday(day) || isSunday(day))
       .map(day => day.toISOString().split('T')[0]);
-    console.log('Weekends:', weekends);
-  }
-
-  carregarUsuarios() {
-    console.log('carregarUsuarios')
   }
 
   atualizarHoraTrabalhista() {
@@ -161,22 +154,24 @@ export class PainelComponent implements OnInit {
 
     //await this.getHorasCalculadas();
   }
-  
-  verificaFinalSemana(date: string, usuario: string, hora: string){
+
+  verificaFinalSemana(date: string, usuario: string, hora: string) {
     const dateToCheck = parseISO(date); // Converte a string para um objeto Date
 
     if (isSaturday(dateToCheck)) {
-        console.log(`O dia ${date} é sábado para o usuário ${usuario} (${hora}).`);
+      const weekend = '2'
+      this.salvarHoraCalculada(date, usuario, hora, weekend)
     } else if (isSunday(dateToCheck)) {
-        console.log(`O dia ${date} é domingo para o usuário ${usuario} (${hora}).`);
+      const weekend = '3'
+      this.salvarHoraCalculada(date, usuario, hora, weekend)
     } else {
-        console.log(`O dia ${date} não é final de semana para o usuário ${usuario} (${hora}).`);
-        this.salvarHoraCalculada(date,usuario,hora)
+      const weekend = '1'
+      this.salvarHoraCalculada(date, usuario, hora, weekend)
     }
-}
+  }
 
-  salvarHoraCalculada(date: any, usuario: any, hora: any) {
-    this.painelService.postHorasCalculadas(date, usuario, hora).subscribe(
+  salvarHoraCalculada(date: any, usuario: any, hora: any, weekend: any) {
+    this.painelService.postHorasCalculadas(date, usuario, hora, weekend).subscribe(
       (data) => {
         this.response = data;
         this.toastr.success('Usuario Atualizado');
@@ -192,7 +187,6 @@ export class PainelComponent implements OnInit {
     this.painelService.getHorasCalculadas().subscribe(
       (data) => {
         this.response = data;
-        console.log('response getHorasCalculadas', this.response);
         this.calcularHoraMes();
       },
       (error) => {
@@ -201,9 +195,7 @@ export class PainelComponent implements OnInit {
     );
   }
 
-
   calcularHoraMes() {
-    console.log('calcula hora mes');
     const registrosPorUsuarioMap = new Map<string, any[]>();
 
     this.response.forEach(registro => {
@@ -244,6 +236,7 @@ export class PainelComponent implements OnInit {
       this.salvarHoraMesTrabalhada(hora, userId, mes);
     });
   }
+
   getProgressBar(hora: string, horTrab: string) {
     const cargaHorariaDiaria = parseInt(horTrab.split(':')[0]) * 60 + parseInt(horTrab.split(':')[1]);
     const cargaHorariaMensal = cargaHorariaDiaria * 25;
@@ -264,7 +257,9 @@ export class PainelComponent implements OnInit {
 
     return progressBar;
   }
+
   parsePercentageToInt(percentage: string): number {
+    //html usa
     return parseInt(percentage.replace('%', ''));
   }
 

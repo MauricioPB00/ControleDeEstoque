@@ -27,8 +27,8 @@ export class PainelService {
                 catchError(this.handleError)
             );
     }
-    postHorasCalculadas(date: any, usuario: any, hora: any): Observable<any> {
-        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarhoras`, { date, usuario, hora }, this.httpOptions)
+    postHorasCalculadas(date: any, usuario: any, hora: any, weekend: any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarhoras`, { date, usuario, hora, weekend }, this.httpOptions)
             .pipe(
                 retry(0),
                 catchError(this.handleError)
