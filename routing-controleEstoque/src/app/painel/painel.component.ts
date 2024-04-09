@@ -39,15 +39,6 @@ export class PainelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  testedata() {
-    const startOfMonthDate = startOfMonth(new Date());
-    const endOfMonthDate = endOfMonth(new Date());
-    const daysOfMonth = eachDayOfInterval({ start: startOfMonthDate, end: endOfMonthDate });
-    const weekends = daysOfMonth
-      .filter(day => isSaturday(day) || isSunday(day))
-      .map(day => day.toISOString().split('T')[0]);
-  }
-
   atualizarHoraTrabalhista() {
     this.painelService.getHoras().subscribe(
       (data) => {
@@ -225,6 +216,7 @@ export class PainelComponent implements OnInit {
       const minutos = totalMinutosTrabalhados % 60;
       const segundos = 0;
       const mes = this.obterMes(registros[0].date);
+      const ano = this.obterAno(registros[0].date);
       let hora = `${Math.abs(horas).toString().padStart(2, '0')}:${Math.abs(minutos).toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
 
       if (horas < 0 || minutos < 0) {
@@ -232,8 +224,8 @@ export class PainelComponent implements OnInit {
       }
       const horTrab = registros[0].horTrab;
       const barradeProgresso = this.getProgressBar(hora, horTrab);
-      this.registros.push({ userId, mes, hora, barradeProgresso });
-      this.salvarHoraMesTrabalhada(hora, userId, mes);
+      this.registros.push({ userId, mes, hora, barradeProgresso, ano });
+      this.salvarHoraMesTrabalhada(hora, userId, mes, ano);
     });
   }
 
@@ -267,9 +259,13 @@ export class PainelComponent implements OnInit {
     const [ano, mes, dia] = data.split('-');
     return parseInt(mes);
   }
+  obterAno(data: string): number {
+    const [ano, mes, dia] = data.split('-');
+    return parseInt(ano);
+  }
 
-  salvarHoraMesTrabalhada(hora: any, userId: any, mes: any) {
-    this.painelService.salvarHoraMesTrabalhado(hora, userId, mes).subscribe(
+  salvarHoraMesTrabalhada(hora: any, userId: any, mes: any, ano:any) {
+    this.painelService.salvarHoraMesTrabalhado(hora, userId, mes, ano).subscribe(
       (data) => {
         this.toastr.success('Sucesso ! Horas calculadas');
       },

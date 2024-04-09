@@ -11,7 +11,7 @@
           <thead>
             <tr>
               <th>User ID</th>
-              <th>Mês</th>
+              <th>Mês/Ano</th>
               <th>Horas Extra</th>
               <th>Progresso</th>
               <th>Progresso</th>
@@ -20,7 +20,7 @@
           <tbody>
             <tr *ngFor="let registro of registros">
               <td>{{ registro.userId }}</td>
-              <td>{{ registro.mes }}</td>
+              <td>{{ registro.mes }} / {{ registro.ano }}</td>
               <td>{{ registro.hora }}</td>
               <td>{{registro.barradeProgresso}}</td>
               <td>
