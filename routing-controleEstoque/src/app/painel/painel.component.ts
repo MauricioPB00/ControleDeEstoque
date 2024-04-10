@@ -175,13 +175,14 @@ export class PainelComponent implements OnInit {
   getHorasCalculadas() {
     this.painelService.getHorasCalculadas().subscribe(
       (data) => {
-        const dataIgualDois = this.filtrarWeekendsIgualDois(data);
-        const dataIgualTreis = this.filtrarWeekendsIgualTreis(data);
         const dataIgualUm = this.filtrarWeekendsIgualUm(data);
-        console.log(dataIgualUm);
-        console.log(dataIgualDois);
-        console.log(dataIgualTreis);
-        this.calcularHoraMes(dataIgualUm)
+        const dataIgualDois = this.filtrarWeekendsIgualDois(data);
+        const dataIgualTres = this.filtrarWeekendsIgualTres(data);
+
+        const sabado = this.calcularHoraMesDois(dataIgualDois)
+        console.log('sab', sabado)
+        const domingo = this.calcularHoraMesTres(dataIgualTres)
+        this.calcularHoraMes(dataIgualUm, sabado, domingo)
       },
       (error) => {
         this.toastr.error('Erro ao buscar');
@@ -189,7 +190,7 @@ export class PainelComponent implements OnInit {
     );
   }
 
-  filtrarWeekendsIgualTreis(data: any[]): any[] {
+  filtrarWeekendsIgualTres(data: any[]): any[] {
     return data.filter(objeto => objeto.weekend === "3");
   }
 
@@ -204,10 +205,82 @@ export class PainelComponent implements OnInit {
 
 
 
+  calcularHoraMesDois(data: any[]) {
+    const registrosPorUsuarioMap = new Map<string, any[]>();
+    const horasFormatadas: string[] = [];
+    data.forEach(registro => {
+      const userId = registro.user_id;
+      console.log(userId)
+      if (!registrosPorUsuarioMap.has(userId)) {
+        registrosPorUsuarioMap.set(userId, []);
+      }
+
+      registrosPorUsuarioMap.get(userId)!.push(registro);
+
+    });
+    registrosPorUsuarioMap.forEach((registros, userId) => {
+      let totalMinutosTrabalhados = 0;
+
+      registros.forEach(registro => {
+        const horaRegistrada = registro.time.split(':').map(Number);
+
+        const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
+
+        totalMinutosTrabalhados += minutosRegistrados;
+      });
+
+      const horas = Math.floor(totalMinutosTrabalhados / 60);
+      const minutos = totalMinutosTrabalhados % 60;
+      const segundos = 0;
+      const horaFormatada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+      console.log('total de horas trabalhadas dom:', horaFormatada, userId);
+      horasFormatadas.push(horaFormatada, userId);
+    });
+    return horasFormatadas;
+  }
+
+  calcularHoraMesTres(data: any[]) {
+    const horasFormatadas: string[] = [];
+    const registrosPorUsuarioMap = new Map<string, any[]>();
+    data.forEach(registro => {
+      const userId = registro.user_id;
+      console.log(userId)
+      if (!registrosPorUsuarioMap.has(userId)) {
+        registrosPorUsuarioMap.set(userId, []);
+      }
+      registrosPorUsuarioMap.get(userId)!.push(registro);
+
+    });
+    registrosPorUsuarioMap.forEach((registros, userId) => {
+      let totalMinutosTrabalhados = 0;
+
+      registros.forEach(registro => {
+        const horaRegistrada = registro.time.split(':').map(Number);
+        const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
+
+        totalMinutosTrabalhados += minutosRegistrados;
+      });
+
+      const horas = Math.floor(totalMinutosTrabalhados / 60);
+      const minutos = totalMinutosTrabalhados % 60;
+      const segundos = 0;
+      const horaFormatada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+      console.log('total de horas trabalhadas sab:', horaFormatada, userId);
+      horasFormatadas.push(horaFormatada , userId); 
+    });
+    return horasFormatadas;
+  }
 
 
 
-  calcularHoraMes(data: any[]) {
+
+
+
+
+
+
+  calcularHoraMes(data: any[], sabado:any, domingo:any) {
+    console.log(sabado)
     const registrosPorUsuarioMap = new Map<string, any[]>();
 
     data.forEach(registro => {
@@ -257,10 +330,11 @@ export class PainelComponent implements OnInit {
       }
 
       if (diasUteis === numeroDeItens) {
+        const falta = 0
         const horTrab = registros[0].horTrab;
         const barradeProgresso = this.getProgressBar(hora, horTrab, diasUteis);
-        this.registros.push({ userId, mes, hora, barradeProgresso, ano });
-        this.salvarHoraMesTrabalhada(hora, userId, mes, ano);
+        this.registros.push({ userId, mes, hora, barradeProgresso, ano, falta });
+        this.salvarHoraMesTrabalhada(hora, userId, mes, ano, falta);
       }
       else {
         const horTrab = registros[0].horTrab;
@@ -284,8 +358,8 @@ export class PainelComponent implements OnInit {
         hora = '0'
         hora = horaCalculada
         const barradeProgresso = this.getProgressBar(hora, horTrab, diasUteis);
-        this.registros.push({ userId, mes, hora, barradeProgresso, ano });
-        this.salvarHoraMesTrabalhada(hora, userId, mes, ano);
+        this.registros.push({ userId, mes, hora, barradeProgresso, ano, falta });
+        this.salvarHoraMesTrabalhada(hora, userId, mes, ano, falta);
       }
     });
   }
@@ -325,8 +399,8 @@ export class PainelComponent implements OnInit {
     return parseInt(ano);
   }
 
-  salvarHoraMesTrabalhada(hora: any, userId: any, mes: any, ano: any) {
-    this.painelService.salvarHoraMesTrabalhado(hora, userId, mes, ano).subscribe(
+  salvarHoraMesTrabalhada(hora: any, userId: any, mes: any, ano: any, falta: any) {
+    this.painelService.salvarHoraMesTrabalhado(hora, userId, mes, ano, falta).subscribe(
       (data) => {
         this.toastr.success('Sucesso ! Horas calculadas');
       },

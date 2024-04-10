@@ -42,8 +42,8 @@ export class PainelService {
                 catchError(this.handleError)
             );
     }
-    salvarHoraMesTrabalhado(hora: any, userId: any, mes: any, ano:any): Observable<any> {
-        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarHoraMesTrabalhado`, { hora, userId, mes, ano}, this.httpOptions)
+    salvarHoraMesTrabalhado(hora: any, userId: any, mes: any, ano:any, falta:any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarHoraMesTrabalhado`, { hora, userId, mes, ano, falta}, this.httpOptions)
             .pipe(
                 retry(0),
                 catchError(this.handleError)
