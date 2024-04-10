@@ -50,6 +50,14 @@ export class PainelService {
             );
     }
 
+    salvarSabado(horaFormatada:any, userId:any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarSabado`, { horaFormatada, userId}, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
+
     handleError(error: HttpErrorResponse) {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {

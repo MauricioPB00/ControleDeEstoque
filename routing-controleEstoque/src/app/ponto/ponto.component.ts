@@ -51,14 +51,17 @@ export class PontoComponent implements OnInit {
           (data) => {
             this.toastr.success('Hora apontada');
             this.getRegistros();
-            this.response = data;
-
-            const dateTime = data.dateTime;
-            this.successMessage = `Hora registrada com sucesso! Data e hora: ${dateTime}`;
+            if (Array.isArray(data)) {
+              // Se data for um array de objetos, você pode decidir o que fazer com eles aqui.
+            } else if (typeof data === 'object' && data.hasOwnProperty('dateTime')) {
+              // Se data for um objeto com uma propriedade dateTime, você pode exibi-la aqui.
+              const dateTime = data.dateTime;
+              this.successMessage = `Hora registrada com sucesso! Data e hora: ${dateTime}`;
+            } else {
+              // Se data não estiver no formato esperado, trate o erro aqui.
+              this.toastr.error('Erro ao Apontar');
+            }
           },
-          (error) => {
-            this.toastr.error('Erro ao Apontar');
-          }
         );
     } catch (erro) {
       this.toastr.error('Erro ao Apontar');
