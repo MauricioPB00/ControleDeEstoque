@@ -6,6 +6,7 @@ import { PainelService } from '../AuthService/painel.service';
 import { startOfMonth, endOfMonth, eachDayOfInterval, isSaturday, isSunday, parseISO, isWeekend, getDaysInMonth } from 'date-fns';
 
 
+
 interface Registro {
   id: number;
   date: string;
@@ -36,6 +37,7 @@ export class PainelComponent implements OnInit {
     this.painelService.getHorasCalculadas().subscribe(
       (data) => {
         this.calcularHoraMes(data)
+        console.log(data)
       },
       (error) => {
         this.toastr.error('Erro ao buscar');
@@ -44,88 +46,114 @@ export class PainelComponent implements OnInit {
   }
 
   calcularHoraMes(data: any[]) {
-    const registrosPorUsuarioMap = new Map<string, any[]>();
+    const registrosPorUsuarioMap = new Map<string, {
+      weekend1: any[]
+      weekend2: any[]
+      weekend3: any[]
+      totalHorasWeekend1: number;
+      totalHorasWeekend2: number;
+      totalHorasWeekend3: number;
+      diasUteis:number
+    }>();
 
     data.forEach(registro => {
       const userId = registro.user_id;
 
       if (!registrosPorUsuarioMap.has(userId)) {
-        registrosPorUsuarioMap.set(userId, []);
+        registrosPorUsuarioMap.set(userId, {
+          weekend1: [],
+          weekend2: [],
+          weekend3: [],
+          totalHorasWeekend1: 0,
+          totalHorasWeekend2: 0,
+          totalHorasWeekend3: 0,
+          diasUteis: 0,
+        });
       }
 
-      registrosPorUsuarioMap.get(userId)!.push(registro);
+      const userRegistros = data.filter(reg => reg.user_id === userId);
+
+      registrosPorUsuarioMap.get(userId)!.weekend1 = userRegistros.filter(reg => reg.weekend === '1');
+      registrosPorUsuarioMap.get(userId)!.weekend2 = userRegistros.filter(reg => reg.weekend === '2');
+      registrosPorUsuarioMap.get(userId)!.weekend3 = userRegistros.filter(reg => reg.weekend === '3');
     });
-    let numeroDeItens = 0;
-    registrosPorUsuarioMap.forEach((registros, userId) => {
-      numeroDeItens += registros.length;
-      let totalMinutosTrabalhados = 0;
 
-      registros.forEach(registro => {
-        const horaTrabalhada = registro.horTrab.split(':').map(Number);
-        const minutosTrabalhados = horaTrabalhada[0] * 60 + horaTrabalhada[1];
-        const horaRegistrada = registro.time.split(':').map(Number);
-        const minutosRegistrados = horaRegistrada[0] * 60 + horaRegistrada[1];
-        const diferencaMinutos = minutosRegistrados - minutosTrabalhados;
 
-        totalMinutosTrabalhados += diferencaMinutos;
+    /*--------------------------------- 2 -------------------------------- */
+    registrosPorUsuarioMap.forEach((value, userId) => {
+      let totalHorasWeekend2 = 0;
+      value.weekend2.forEach(registro => {
+
+        const timeParts = registro.time.split(':');
+        const horas = parseInt(timeParts[0]);
+        const minutos = parseInt(timeParts[1]);
+        const segundos = parseInt(timeParts[2]);
+
+        totalHorasWeekend2 += horas + (minutos / 60) + (segundos / 3600);
       });
-
-      const horas = Math.floor(totalMinutosTrabalhados / 60);
-      const minutos = totalMinutosTrabalhados % 60;
-      const segundos = 0;
-      const mes = this.obterMes(registros[0].date);
-      const ano = this.obterAno(registros[0].date);
-      let hora = `${Math.abs(horas).toString().padStart(2, '0')}:${Math.abs(minutos).toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
-
-      if (horas < 0 || minutos < 0) {
-        hora = '-' + hora;
-      }
-      console.log('hora 1', hora)
-      const primeiroDiaDoMes = new Date(ano, mes - 1, 1);
-      const totalDiasNoMes = getDaysInMonth(primeiroDiaDoMes);
-      let diasUteis = 0;
-
-      for (let i = 1; i <= totalDiasNoMes; i++) {
-        const diaAtual = new Date(ano, mes - 1, i);
-        if (!isWeekend(diaAtual)) {
-          diasUteis++;
-        }
-      }
-
-      if (diasUteis === numeroDeItens) {
-        const falta = 0
-        const horTrab = registros[0].horTrab;
-        const barradeProgresso = this.getProgressBar(hora, horTrab, diasUteis);
-        this.registros.push({ userId, mes, hora, barradeProgresso, ano, falta });
-        this.salvarHoraMesTrabalhada(hora, userId, mes, ano, falta);
-      }
-      else {
-        const horTrab = registros[0].horTrab;
-        const horaTrabArray = horTrab.split(':').map(Number);
-        const horTrabMinutos = horaTrabArray[0] * 60 + horaTrabArray[1];
-        const falta = diasUteis - numeroDeItens;
-
-        let horaArray = hora.split(':').map(Number);
-        let totalMinutos = horaArray[0] * 60 + horaArray[1];
-
-        totalMinutos -= horTrabMinutos * falta;
-
-        let horas = Math.floor(Math.abs(totalMinutos) / 60);
-        let minutos = Math.abs(totalMinutos) % 60;
-
-        let horaCalculada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:00`;
-
-        if (totalMinutos < 0) {
-          horaCalculada = '-' + horaCalculada;
-        }
-        hora = '0'
-        hora = horaCalculada
-        const barradeProgresso = this.getProgressBar(hora, horTrab, diasUteis);
-        this.registros.push({ userId, mes, hora, barradeProgresso, ano, falta });
-        this.salvarHoraMesTrabalhada(hora, userId, mes, ano, falta);
-      }
+      value.totalHorasWeekend2 = totalHorasWeekend2;
+      // console.log(`Total de horas no weekend2 para o usuário ${userId}: ${totalHorasWeekend2.toFixed(2)}`);
     });
+
+
+    /*--------------------------------- 1 -------------------------------- */
+    registrosPorUsuarioMap.forEach((value, userId) => {
+      let totalHorasWeekend1 = 0;
+      let diasmes
+      value.weekend1.forEach(registro => {
+  
+        const timeParts = registro.time.split(':');
+        const horas = parseInt(timeParts[0]);
+        const minutos = parseInt(timeParts[1]);
+        const segundos = parseInt(timeParts[2]);
+        const diasUteis = this.calcularDiasUteisNoMes(value.weekend1)
+        const totalHorasRegistro = horas + (minutos / 60) + (isNaN(segundos) ? 0 : segundos / 3600);
+        const horTrabParts = registro.horTrab.split(':');
+        const horasTrabalhadas = parseInt(horTrabParts[0]);
+        const minutosTrabalhados = parseInt(horTrabParts[1]);
+        const segundosTrabalhados = parseInt(horTrabParts[2]);
+        const totalHorasTrabalhadas = horasTrabalhadas + (minutosTrabalhados / 60) + (isNaN(segundosTrabalhados) ? 0 : segundosTrabalhados / 3600);
+
+        totalHorasWeekend1 += totalHorasRegistro - totalHorasTrabalhadas;
+        value.diasUteis = diasUteis;
+      });
+      value.totalHorasWeekend1 = totalHorasWeekend1;
+    });
+
+    registrosPorUsuarioMap.forEach((value, userId) => {
+      console.log(`weekend1 - usuário ${userId} - totalHoras${value.totalHorasWeekend1.toFixed(2)} - dias uteis  ${value.diasUteis}`);
+    });
+
+
+
+
+
+    /*---------------------------------   console   -------------------------------- */
+    const registrosPorUsuarioObjeto: { [userId: string]: any } = {};
+    registrosPorUsuarioMap.forEach((value, userId) => {
+      registrosPorUsuarioObjeto[userId] = value;
+    });
+    console.log('bbbbb', registrosPorUsuarioObjeto);
+
+    //   registrosPorUsuarioMap.forEach((value, userId) => {
+    //     console.log(value)
+    //     console.log(`aaaaaaaaTotal de horas no weekend2 para o usuário ${userId}: ${value.totalHorasWeekend2.toFixed(2)}`);
+    //     console.log(`aaaaaaaaTotal de horas no weekend3 para o usuário ${userId}: ${value.totalHorasWeekend3.toFixed(2)}`);
+    // });
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
   getProgressBar(hora: string, horTrab: string, diasUteis: any) {
     const cargaHorariaDiaria = parseInt(horTrab.split(':')[0]) * 60 + parseInt(horTrab.split(':')[1]);
@@ -151,6 +179,23 @@ export class PainelComponent implements OnInit {
   parsePercentageToInt(percentage: string): number {
     //html usa
     return parseInt(percentage.replace('%', ''));
+  }
+
+  calcularDiasUteisNoMes(registros: any[]) {
+    const primeiroRegistro = registros[0];
+    const mes = this.obterMes(primeiroRegistro.date);
+    const ano = this.obterAno(primeiroRegistro.date);
+    const totalDiasNoMes = getDaysInMonth(new Date(ano, mes - 1));
+
+    let diasUteis = 0;
+
+    for (let i = 1; i <= totalDiasNoMes; i++) {
+      const diaAtual = new Date(ano, mes - 1, i);
+      if (!isWeekend(diaAtual)) {
+        diasUteis++;
+      }
+    }
+    return diasUteis;
   }
 
   obterMes(data: string): number {
