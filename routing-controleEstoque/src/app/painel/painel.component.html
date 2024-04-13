@@ -2,43 +2,7 @@
   <app-side-bar></app-side-bar>
   <div class="container2">
     <div class="container3">
-      
       <button (click)="getHorasCalculadas()">Hora Calculada</button>
-    </div>
-    <div class="registros">
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Mês/Ano</th>
-              <th>Hora Mes</th>
-              <th>Faltas</th>
-              <th>Progresso</th>
-              <th>Progresso</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let registro of registros">
-              <td>{{ registro.userId }}</td>
-              <td>{{ registro.mes }} / {{ registro.ano }}</td>
-              <td>{{ registro.hora }}</td>
-              <td>{{registro.falta}}</td>
-              <td>{{registro.barradeProgresso}}</td>
-              <td>
-                <div class="progress-bar-container">
-                  <div class="progress-bar" [style.width]="registro.barradeProgresso" [ngClass]="{
-                              'vermelho': parsePercentageToInt(registro.barradeProgresso) <= 50,
-                              'amarelo': parsePercentageToInt(registro.barradeProgresso) > 50 && parsePercentageToInt(registro.barradeProgresso) < 100,
-                              'verde': parsePercentageToInt(registro.barradeProgresso) === 100
-                            }">
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 </div>
