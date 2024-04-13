@@ -135,13 +135,9 @@ export class EmpresaComponent {
       const usuario = registrosPorUsuario.userId;
       const hora = registrosPorUsuario.totalHorasTrabalhadas;
 
-
-      console.log('xxxxxx', usuario, date, hora);
-
       this.verificaFinalSemana(date, usuario, hora);
     });
-
-    //await this.getHorasCalculadas();
+    this.toastr.success('Usuario Atualizado');
   }
 
   verificaFinalSemana(date: string, usuario: string, hora: string) {
@@ -162,7 +158,7 @@ export class EmpresaComponent {
     this.painelService.postHorasCalculadas(date, usuario, hora, weekend).subscribe(
       (data) => {
         this.response = data;
-        this.toastr.success('Usuario Atualizado');
+       
       },
       (error) => {
         this.toastr.error('Usuario Ja atualizado');

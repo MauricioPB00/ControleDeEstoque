@@ -13,20 +13,22 @@
             <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
         </div>
         <div class="registros">
-            <table class="table" *ngIf="response">
-                <thead>
+            <div class="table-container">
+                <table class="table" *ngIf="response">
+                  <thead>
                     <tr>
-                        <th>Data</th>
-                        <th>Hora</th>
+                      <th>Data</th>
+                      <th>Hora</th>
                     </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
                     <tr *ngFor="let registro of response">
-                        <td class="text-center">{{ registro.date }}</td>
-                        <td class="text-center">{{ registro.time }}</td>
+                      <td class="text-center">{{ registro.date }}</td>
+                      <td class="text-center">{{ registro.time }}</td>
                     </tr>
-                </tbody>
-            </table>
+                  </tbody>
+                </table>
+              </div>
         </div>
     </div>
 </div>

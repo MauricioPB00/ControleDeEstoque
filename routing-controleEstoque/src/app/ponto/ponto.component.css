@@ -14,7 +14,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 150px;
+  padding-top: 70px;
 }
 
 .clock-container h1 {
@@ -98,4 +98,18 @@
   border: 1px solid green;
   border-radius: 5px;
   background-color: #dff0d8;
+}
+.table-container {
+  max-height: 300px; /* Defina a altura máxima desejada */
+  overflow-y: auto; /* Adicione uma barra de rolagem vertical quando necessário */
+}
+
+@media screen and (max-width: 1580px) {
+  .clock-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+  }
 }
