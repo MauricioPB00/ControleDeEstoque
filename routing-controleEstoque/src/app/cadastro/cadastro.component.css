@@ -218,3 +218,46 @@ fieldset {
   width: auto;
   height: auto;
 }
+@media screen and (max-width: 1880px) {
+  #imagePreview img {
+    max-width: 500px;
+    max-height: 450px;
+    width: auto;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  #imagePreview img {
+    max-width: 500px;
+    max-height: 450px;
+    width: auto;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #imagePreview img {
+    max-width: 200px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .aviso p {
+    font-size: 14px;
+    margin-top: 30px;
+    padding: 10px;
+    max-width: 90%;
+  }
+
+  .aviso button {
+    font-size: 10px;
+    padding: 3px 6px;
+    top: 70%;
+    left: 70%;
+  }
+}

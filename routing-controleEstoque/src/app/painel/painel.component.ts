@@ -30,6 +30,7 @@ interface RegistroPorUsuario {
 })
 export class PainelComponent implements OnInit {
   mostrarAviso: boolean = true;
+  botoesHabilitados: boolean = false;
   registrosPorUsuarioObjeto: any;
   response: Registro[] = [];
   registros: any[] = [];
@@ -68,6 +69,7 @@ export class PainelComponent implements OnInit {
     );
   }
   ocultarAviso() {
+    this.botoesHabilitados = true;
     this.mostrarAviso = false;
   }
 

@@ -8,15 +8,15 @@
     <div class="container3">
       <div>
         <h2 style="margin-left: 35px; text-align: center;">Feriado</h2>
-        <button> <i class="fa fa-calendar"></i></button>
+        <button [disabled]="!botoesHabilitados" [ngClass]="{'botao-desabilitado': !botoesHabilitados}"> <i class="fa fa-calendar"></i></button>
       </div>
       <div>
         <h2 style="margin-left: 35px; text-align: center;">Horas Dias</h2>
-        <button (click)="atualizarHoraTrabalhista()"><i class="fas fa-clock"></i></button>
+        <button (click)="atualizarHoraTrabalhista()" [disabled]="!botoesHabilitados" [ngClass]="{'botao-desabilitado': !botoesHabilitados}"><i class="fas fa-clock"></i></button>
       </div>
       <div>
-        <h2 style="margin-left: 35px; text-align: center;">Horas Mes</h2>
-        <button (click)="getHorasCalculadas()"><i class="fa-solid fa-calculator"></i></button>
+        <h2 style="margin-left: 30px; text-align: center;">Horas Mes</h2>
+        <button (click)="getHorasCalculadas()" [disabled]="!botoesHabilitados" [ngClass]="{'botao-desabilitado': !botoesHabilitados}"><i class="fa-solid fa-calculator"></i></button>
       </div>
     </div>
   </div>
