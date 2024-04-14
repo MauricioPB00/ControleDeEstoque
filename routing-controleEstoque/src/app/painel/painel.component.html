@@ -1,9 +1,23 @@
 <div class="container">
   <app-side-bar></app-side-bar>
   <div class="container2">
+    <div class="aviso" *ngIf="mostrarAviso">
+      <p id="avisoTexto">Atenção! <br>Esta área é reservada para o cálculo de horas e implementação de feriados</p>
+      <button (click)="ocultarAviso()">Entendi</button>
+    </div>
     <div class="container3">
-      <button (click)="atualizarHoraTrabalhista()">Atualizar Horas de Trabalho</button>
-      <button (click)="getHorasCalculadas()">Hora Calculada</button>
+      <div>
+        <h2 style="margin-left: 35px; text-align: center;">Feriado</h2>
+        <button> <i class="fa fa-calendar"></i></button>
+      </div>
+      <div>
+        <h2 style="margin-left: 35px; text-align: center;">Horas Dias</h2>
+        <button (click)="atualizarHoraTrabalhista()"><i class="fas fa-clock"></i></button>
+      </div>
+      <div>
+        <h2 style="margin-left: 35px; text-align: center;">Horas Mes</h2>
+        <button (click)="getHorasCalculadas()"><i class="fa-solid fa-calculator"></i></button>
+      </div>
     </div>
   </div>
 </div>

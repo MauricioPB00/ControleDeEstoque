@@ -29,6 +29,7 @@ interface RegistroPorUsuario {
   styleUrls: ['./painel.component.css']
 })
 export class PainelComponent implements OnInit {
+  mostrarAviso: boolean = true;
   registrosPorUsuarioObjeto: any;
   response: Registro[] = [];
   registros: any[] = [];
@@ -65,6 +66,9 @@ export class PainelComponent implements OnInit {
         this.toastr.error('Erro ao buscar');
       }
     );
+  }
+  ocultarAviso() {
+    this.mostrarAviso = false;
   }
 
   

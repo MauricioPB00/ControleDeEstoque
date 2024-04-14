@@ -4,20 +4,55 @@
 }
 
 .container2 {
+  font-family: 'Open Sans', sans-serif !important;
   width: 100%;
   height: 100%;
   margin-left: 45px;
+}
+.aviso {
+  position: relative; 
+  text-align: center; 
+}
+
+.aviso p {
+  font-family: open;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 20px;
+  margin-top: 80px;
+  background-color: rgb(245, 95, 95);
+  padding: 20px 10px;
+  border-radius: 5px;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; 
+}
+
+.aviso button {
+  font-family: 'Open Sans', sans-serif !important;
+  position: absolute; 
+  top: 80%;
+  left: 78%; 
+  transform: translate(-50%, -50%); 
+  z-index: 1;
+  background-color: white;
+  font-size: 14px;
+  border: none;
+  color: black;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
 .container3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 5%;
 }
 
 .container3 button {
-  padding: 10px 20px;
+  margin-left: 30px; 
+  padding: 20px 40px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -25,6 +60,7 @@
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s ease;
+  font-size: 56px;
 }
 
 .container3 button:hover {
@@ -90,4 +126,70 @@ tr:hover {
 
 .verde {
   background-color: #00ff00;
+}
+
+
+@media screen and (max-width: 1880px) {
+  .aviso p {
+    font-size: 16px;
+    margin-top: 40px;
+    padding: 15px;
+    max-width: 80%;
+  }
+
+  .aviso button {
+    font-size: 12px;
+    padding: 4px 8px;
+    top: 75%;
+    left: 85%;
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  .aviso p {
+    font-size: 16px;
+    margin-top: 40px;
+    padding: 15px;
+    max-width: 80%;
+  }
+
+  .aviso button {
+    font-size: 12px;
+    padding: 4px 8px;
+    top: 75%;
+    left: 85%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aviso p {
+    font-size: 16px;
+    margin-top: 40px;
+    padding: 15px;
+    max-width: 80%;
+  }
+
+  .aviso button {
+    font-size: 12px;
+    padding: 4px 8px;
+    top: 75%;
+    left: 75%;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .aviso p {
+    font-size: 14px;
+    margin-top: 30px;
+    padding: 10px;
+    max-width: 90%;
+  }
+
+  .aviso button {
+    font-size: 10px;
+    padding: 3px 6px;
+    top: 70%;
+    left: 70%;
+  }
 }
