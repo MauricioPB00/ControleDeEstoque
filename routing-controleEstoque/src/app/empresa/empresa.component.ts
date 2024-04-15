@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
-
+import { FeriadoService } from '../AuthService/feriado.service';
 
 @Component({
   selector: 'app-empresa',
   templateUrl: './empresa.component.html',
   styleUrls: ['./empresa.component.css']
 })
-export class EmpresaComponent {
- 
+export class EmpresaComponent implements OnInit {
 
-  constructor(
-   ) { }
 
-  ngOnInit(): void {
+  constructor(private feriadoService: FeriadoService) {
+   
   }
-  
+
+  ngOnInit() {
+    
+  }
+ 
 }

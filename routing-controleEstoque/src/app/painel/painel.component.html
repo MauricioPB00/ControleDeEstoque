@@ -8,16 +8,55 @@
     <div class="container3">
       <div>
         <h2 style="margin-left: 35px; text-align: center;">Feriado</h2>
-        <button [disabled]="!botoesHabilitados" [ngClass]="{'botao-desabilitado': !botoesHabilitados}"> <i class="fa fa-calendar"></i></button>
+        <button (click)="openEditModal(editModal)" [disabled]="!botoesHabilitados"
+          [ngClass]="{'botao-desabilitado': !botoesHabilitados}"> <i class="fa fa-calendar"></i></button>
       </div>
       <div>
         <h2 style="margin-left: 35px; text-align: center;">Horas Dias</h2>
-        <button (click)="atualizarHoraTrabalhista()" [disabled]="!botoesHabilitados" [ngClass]="{'botao-desabilitado': !botoesHabilitados}"><i class="fas fa-clock"></i></button>
+        <button (click)="atualizarHoraTrabalhista()" [disabled]="!botoesHabilitados"
+          [ngClass]="{'botao-desabilitado': !botoesHabilitados}"><i class="fas fa-clock"></i></button>
       </div>
       <div>
         <h2 style="margin-left: 30px; text-align: center;">Horas Mes</h2>
-        <button (click)="getHorasCalculadas()" [disabled]="!botoesHabilitados" [ngClass]="{'botao-desabilitado': !botoesHabilitados}"><i class="fa-solid fa-calculator"></i></button>
+        <button (click)="getHorasCalculadas()" [disabled]="!botoesHabilitados"
+          [ngClass]="{'botao-desabilitado': !botoesHabilitados}"><i class="fa-solid fa-calculator"></i></button>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #editModal>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="calendario">
+          <h2><button (click)="mesAnterior()">
+              <i class="fa-solid fa-angles-left">‌</i> </button>{{ mesesDoAno[mesAtual].nome }} {{ ano }} <button
+              (click)="proximoMes()"> <i class="fa-solid fa-angles-right">‌</i> </button></h2>
+          <div class="nomes-dias">
+            <div class="dia nome-dia">Dom</div>
+            <div class="dia nome-dia">Seg</div>
+            <div class="dia nome-dia">Ter</div>
+            <div class="dia nome-dia">Qua</div>
+            <div class="dia nome-dia">Qui</div>
+            <div class="dia nome-dia">Sex</div>
+            <div class="dia nome-dia">Sáb</div>
+          </div>
+          <div class="dias">
+            <div *ngFor="let dia of diasNoMes" class="dia" [class.hoje]="dia !== null && isDiaAtual(dia)"
+              [class.fim-de-semana]="dia !== null && isFimDeSemana(dia)"
+              [class.dia-clicado]="dia !== null && isDiaClicado(ano, mesAtual, dia)"
+              [class.dia-selecionado]="dia !== null && isDiaClicado(ano, mesAtual, dia)">
+              <span *ngIf="dia !== null" class="dia-span" (click)="onDayClick(ano, mesAtual, dia)">{{ dia }}</span>
+              <span *ngIf="dia === null" class="dia-vazio"></span>
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <button type="button" class="buttonClose" (click)="closeModal()"><i class="fa-solid fa-xmark">‌</i></button>
+          <button class="salvar-button" (click)="salvarDiasSelecionados()">Salvar Feriado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

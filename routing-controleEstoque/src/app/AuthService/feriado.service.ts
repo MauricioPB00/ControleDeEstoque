@@ -8,7 +8,7 @@ import { retry, catchError } from 'rxjs/operators';
     providedIn: 'root'
 })
 
-export class PainelService {
+export class FeriadoService {
 
     constructor(
         private httpClient: HttpClient,
@@ -20,30 +20,15 @@ export class PainelService {
         })
     }
 
-    getHoras(): Observable<any> {
-        return this.httpClient.get<any>(`${API_CONFIG.baseUrl}/user/painel/buscahoras`, this.httpOptions)
+    salvarDiasSelecionados(feriados:any): Observable<any> {
+        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/feriado/salvarFeriados`, feriados, this.httpOptions)
             .pipe(
                 retry(0),
                 catchError(this.handleError)
             );
     }
-    postHorasCalculadas(date: any, usuario: any, hora: any, weekend: any): Observable<any> {
-        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarhoras`, { date, usuario, hora, weekend }, this.httpOptions)
-            .pipe(
-                retry(0),
-                catchError(this.handleError)
-            );
-    }
-
-    getHorasCalculadas(): Observable<any> {
-        return this.httpClient.get<any>(`${API_CONFIG.baseUrl}/user/painel/buscahorasCalculadas`, this.httpOptions)
-            .pipe(
-                retry(0),
-                catchError(this.handleError)
-            );
-    }
-    salvarHoraMesTrabalhado(registrosPorUsuario:any): Observable<any> {
-        return this.httpClient.post<any>(`${API_CONFIG.baseUrl}/user/painel/salvarHoraMesTrabalhado`, registrosPorUsuario, this.httpOptions)
+    buscarFeriados(): Observable<any> {
+        return this.httpClient.get<any>(`${API_CONFIG.baseUrl}/user/feriado/getFeriado`, this.httpOptions)
             .pipe(
                 retry(0),
                 catchError(this.handleError)
