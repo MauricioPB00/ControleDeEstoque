@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { EmpresaService } from '../AuthService/empresa.service';
 
-import { FeriadoService } from '../AuthService/feriado.service';
+interface Registro {
+  id: number;
+  date: string;
+  time: string;
+  user_id: string;
+  horTrab: string;
+  barradeProgresso: string;
+}
 
 @Component({
   selector: 'app-empresa',
@@ -8,14 +16,26 @@ import { FeriadoService } from '../AuthService/feriado.service';
   styleUrls: ['./empresa.component.css']
 })
 export class EmpresaComponent implements OnInit {
+  response: Registro[] = [];
 
-
-  constructor(private feriadoService: FeriadoService) {
+  constructor(private empresaService: EmpresaService) {
    
   }
 
   ngOnInit() {
+    this.getHorasTrabalhadas()
     
+  }
+  getHorasTrabalhadas(){
+    this.empresaService.getHorasTrabalhadas().subscribe(
+      (data) => {
+        this.response = data;
+        console.log(this.response);
+      },
+      (error) => {
+        // this.toastr.error('Erro ao buscar');
+      }
+    );
   }
  
 }
