@@ -18,10 +18,6 @@ interface FormData {
   horTrab: string;
   wage: string;
   job: string;
-  horini1: string;
-  horini2: string;
-  horini3: string;
-  horini4: string;
   permi: string;
 }
 
@@ -76,10 +72,6 @@ export class CadastroComponent {
     horTrab: '8:30',
     wage: '',
     job: '',
-    horini1: '8:00',
-    horini2: '12:00',
-    horini3: '13:30',
-    horini4: '18:00',
     permi: '2',
   };
 
@@ -124,10 +116,6 @@ export class CadastroComponent {
       horTrab: '8:30',
       wage: '',
       job: '',
-      horini1: '8:00',
-      horini2: '12:00',
-      horini3: '13:30',
-      horini4: '18:00',
       permi: '2',
     };
   }

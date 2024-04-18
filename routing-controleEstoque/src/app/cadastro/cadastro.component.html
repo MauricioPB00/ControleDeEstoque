@@ -58,14 +58,6 @@
           <input type="text" name="wage" id="wage" placeholder="Wage" [(ngModel)]="formData.wage" autocomplete="off">
           <input type="text" name="horTrab" id="horTrab" placeholder="HorasTrab" [(ngModel)]="formData.horTrab"
             autocomplete="off">
-          <input type="text" name="horini1" id="horini1" placeholder="horini1" [(ngModel)]="formData.horini1"
-            autocomplete="off">
-          <input type="text" name="horini2" id="horini2" placeholder="horini2" [(ngModel)]="formData.horini2"
-            autocomplete="off">
-          <input type="text" name="horini3" id="horini3" placeholder="horini3" [(ngModel)]="formData.horini3"
-            autocomplete="off">
-          <input type="text" name="horini4" id="horini4" placeholder="horini4" [(ngModel)]="formData.horini4"
-            autocomplete="off">
           <div class="button-group">
             <div class="button" *ngIf="currentStep >= 0" (click)="previousStep()">Back</div>
             <div class="button" (click)="nextStep()">Next</div>

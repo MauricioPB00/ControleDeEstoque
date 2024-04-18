@@ -1,7 +1,43 @@
 <div class="container">
   <app-side-bar></app-side-bar>
   <div class="container2">
-
-
+    <table class="table">
+      <thead>
+        <tr>
+          <tr>
+            <th class="th-user">Usuário</th>
+            <th class="th-dias-trabalhados">Dias<br>Trabalhados</th>
+            <th class="th-dias">Faltas</th>
+            <th class="th-horas-faltando">Horas<br>Faltando</th>
+            <th class="th-horas-extras">Horas<br>Extras</th>
+            <th class="th-horas-domingo">Horas<br>Domingo</th>
+            <th class="th-horas-sabado">Horas<br>Sábado</th>
+          <th>Progresso do mês</th>
+          <th>#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of response">
+          <td>{{ registro.user }}</td>
+          <td>{{ registro.diasTrabalhados }}</td>
+          <td>{{ registro.diasFaltados }}</td>
+          <td>{{ registro.horasFaltando }}</td>
+          <td>{{ registro.totalHorasDiasSemana }}</td>
+          <td>{{ registro.totalHorasDomingo }}</td>
+          <td>{{ registro.totalHorasSabado }}</td>
+          <td>
+            <div class="progress-bar-container">
+              <div class="progress-bar" [style.width]="registro.progressBar" [ngClass]="{
+                  'vermelho': parsePercentageToInt(registro.progressBar) <= 50,
+                  'amarelo': parsePercentageToInt(registro.progressBar) > 50 && parsePercentageToInt(registro.progressBar) < 100,
+                  'verde': parsePercentageToInt(registro.progressBar) === 100
+                }">
+              </div>
+            </div>
+          </td>
+          <td>#</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

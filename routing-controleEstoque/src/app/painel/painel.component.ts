@@ -56,7 +56,7 @@ export class PainelComponent implements OnInit {
     this.ano = hoje.getFullYear();
     this.mesAtual = hoje.getMonth();
     this.mesesDoAno = this.getMesesDoAno();
-    this.atualizarDiasNoMes(); 
+    this.atualizarDiasNoMes();
   }
 
   ngOnInit(): void {
@@ -101,115 +101,116 @@ export class PainelComponent implements OnInit {
 
 
   openEditModal(template: TemplateRef<any>) {
-      this.modalRef = this.modalService.show(template);
-    }
-    buscarDatasSalvas() {
-      this.feriadoService.buscarFeriados().subscribe(
-        (datas: string[]) => {
-          this.feriados = datas;
-          console.log('Datas salvas:', this.feriados);
-        },
-        (error) => {
-          console.error('Erro ao buscar datas salvas:', error);
-        }
-      );
-    }
+    this.modalRef = this.modalService.show(template);
+  }
   
-    mesAnterior() {
-      if (this.mesAtual === 0) {
-        this.mesAtual = 11;
-        this.ano--;
-      } else {
-        this.mesAtual--;
+  buscarDatasSalvas() {
+    this.feriadoService.buscarFeriados().subscribe(
+      (datas: string[]) => {
+        this.feriados = datas;
+        console.log('Datas salvas:', this.feriados);
+      },
+      (error) => {
+        console.error('Erro ao buscar datas salvas:', error);
       }
-      this.atualizarDiasNoMes();
+    );
+  }
+
+  mesAnterior() {
+    if (this.mesAtual === 0) {
+      this.mesAtual = 11;
+      this.ano--;
+    } else {
+      this.mesAtual--;
     }
-  
-    proximoMes() {
-      if (this.mesAtual === 11) {
-        this.mesAtual = 0;
-        this.ano++;
-      } else {
-        this.mesAtual++;
+    this.atualizarDiasNoMes();
+  }
+
+  proximoMes() {
+    if (this.mesAtual === 11) {
+      this.mesAtual = 0;
+      this.ano++;
+    } else {
+      this.mesAtual++;
+    }
+    this.atualizarDiasNoMes();
+  }
+
+  getMesesDoAno(): { nome: string, numero: number }[] {
+    return [
+      { nome: 'Janeiro', numero: 0 },
+      { nome: 'Fevereiro', numero: 1 },
+      { nome: 'Março', numero: 2 },
+      { nome: 'Abril', numero: 3 },
+      { nome: 'Maio', numero: 4 },
+      { nome: 'Junho', numero: 5 },
+      { nome: 'Julho', numero: 6 },
+      { nome: 'Agosto', numero: 7 },
+      { nome: 'Setembro', numero: 8 },
+      { nome: 'Outubro', numero: 9 },
+      { nome: 'Novembro', numero: 10 },
+      { nome: 'Dezembro', numero: 11 }
+    ];
+  }
+
+  isFimDeSemana(dia: number): boolean {
+    const data = new Date(this.ano, this.mesAtual, dia);
+    const diaDaSemana = data.getDay();
+    return diaDaSemana === 0 || diaDaSemana === 6;
+  }
+
+  isDiaAtual(dia: number): boolean {
+    const hoje = new Date();
+    return dia === hoje.getDate() && this.mesAtual === hoje.getMonth();
+  }
+
+  atualizarDiasNoMes() {
+    const diasNoMes = new Date(this.ano, this.mesAtual + 1, 0).getDate();
+    const primeiroDiaSemana = new Date(this.ano, this.mesAtual, 1).getDay();
+
+    this.diasNoMes = [];
+
+    for (let i = 0; i < primeiroDiaSemana; i++) {
+      this.diasNoMes.push(null);
+    }
+
+    for (let dia = 1; dia <= diasNoMes; dia++) {
+      this.diasNoMes.push(dia);
+    }
+  }
+
+  formatDate(ano: number, mes: number, dia: number): string {
+    return ano + '-' + ('0' + (mes + 1)).slice(-2) + '-' + ('0' + dia).slice(-2);
+  }
+
+  isDiaClicado(ano: number, mes: number, dia: number): boolean {
+    const formattedDate = this.formatDate(ano, mes, dia);
+    return this.feriados.includes(formattedDate);
+  }
+
+
+  onDayClick(ano: number, mes: number, dia: number) {
+    const formattedDate = this.formatDate(ano, mes, dia);
+    const index = this.feriados.indexOf(formattedDate);
+    if (index !== -1) {
+      this.feriados.splice(index, 1);
+    } else {
+      this.feriados.push(formattedDate);
+    }
+    console.log('Datas clicadas:', this.feriados);
+  }
+
+
+  salvarDiasSelecionados() {
+    console.log('Dias selecionados:', this.feriados);
+    // Por exemplo:
+    this.feriadoService.salvarDiasSelecionados(this.feriados).subscribe(
+      (response) => {
+        console.log('Dias salvos com sucesso!');
+      },
+      (error) => {
+        console.error('Erro ao salvar os dias:', error);
       }
-      this.atualizarDiasNoMes();
-    }
-  
-    getMesesDoAno(): { nome: string, numero: number }[] {
-      return [
-        { nome: 'Janeiro', numero: 0 },
-        { nome: 'Fevereiro', numero: 1 },
-        { nome: 'Março', numero: 2 },
-        { nome: 'Abril', numero: 3 },
-        { nome: 'Maio', numero: 4 },
-        { nome: 'Junho', numero: 5 },
-        { nome: 'Julho', numero: 6 },
-        { nome: 'Agosto', numero: 7 },
-        { nome: 'Setembro', numero: 8 },
-        { nome: 'Outubro', numero: 9 },
-        { nome: 'Novembro', numero: 10 },
-        { nome: 'Dezembro', numero: 11 }
-      ];
-    }
-  
-    isFimDeSemana(dia: number): boolean {
-      const data = new Date(this.ano, this.mesAtual, dia);
-      const diaDaSemana = data.getDay();
-      return diaDaSemana === 0 || diaDaSemana === 6;
-    }
-  
-    isDiaAtual(dia: number): boolean {
-      const hoje = new Date();
-      return dia === hoje.getDate() && this.mesAtual === hoje.getMonth();
-    }
-  
-    atualizarDiasNoMes() {
-      const diasNoMes = new Date(this.ano, this.mesAtual + 1, 0).getDate();
-      const primeiroDiaSemana = new Date(this.ano, this.mesAtual, 1).getDay();
-  
-      this.diasNoMes = [];
-  
-      for (let i = 0; i < primeiroDiaSemana; i++) {
-        this.diasNoMes.push(null);
-      }
-  
-      for (let dia = 1; dia <= diasNoMes; dia++) {
-        this.diasNoMes.push(dia);
-      }
-    }
-  
-    formatDate(ano: number, mes: number, dia: number): string {
-      return ano + '-' + ('0' + (mes + 1)).slice(-2) + '-' + ('0' + dia).slice(-2);
-    }
-  
-    isDiaClicado(ano: number, mes: number, dia: number): boolean {
-      const formattedDate = this.formatDate(ano, mes, dia);
-      return this.feriados.includes(formattedDate);
-    }
-  
-  
-    onDayClick(ano: number, mes: number, dia: number) {
-      const formattedDate = this.formatDate(ano, mes, dia);
-      const index = this.feriados.indexOf(formattedDate);
-      if (index !== -1) {
-        this.feriados.splice(index, 1);
-      } else {
-        this.feriados.push(formattedDate);
-      }
-      console.log('Datas clicadas:', this.feriados);
-    }
-  
-  
-    salvarDiasSelecionados() {
-      console.log('Dias selecionados:', this.feriados);
-      // Por exemplo:
-      this.feriadoService.salvarDiasSelecionados(this.feriados).subscribe(
-        (response) => {
-          console.log('Dias salvos com sucesso!');
-        },
-        (error) => {
-          console.error('Erro ao salvar os dias:', error);
-        }
-      );
-    }
+    );
+  }
 }

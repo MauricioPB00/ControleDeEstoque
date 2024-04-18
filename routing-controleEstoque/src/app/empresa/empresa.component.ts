@@ -2,12 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from '../AuthService/empresa.service';
 
 interface Registro {
-  id: number;
-  date: string;
-  time: string;
-  user_id: string;
-  horTrab: string;
-  barradeProgresso: string;
+  user: number;
+  mes: string;
+  ano: string;
+  diasFaltados: string;
+  diasTrabalhados: string;
+  diasUteis: string;
+  horasFaltando: string;
+  horasNoMesTrabalhadas: string;
+  totalHorasDiasSemana: string;
+  totalHorasDomingo: string;
+  totalHorasSabado: string;
+  progressBar: string;
 }
 
 @Component({
@@ -18,24 +24,39 @@ interface Registro {
 export class EmpresaComponent implements OnInit {
   response: Registro[] = [];
 
-  constructor(private empresaService: EmpresaService) {
-   
-  }
+  constructor(private empresaService: EmpresaService) {}
 
   ngOnInit() {
-    this.getHorasTrabalhadas()
-    
+    this.getHorasTrabalhadas();
   }
-  getHorasTrabalhadas(){
+  
+  getHorasTrabalhadas() {
     this.empresaService.getHorasTrabalhadas().subscribe(
-      (data) => {
-        this.response = data;
-        console.log(this.response);
+      (data: Registro[]) => {
+        this.response = this.formatarHoras(data);
+        console.log('Dados recebidos:', this.response);
       },
       (error) => {
-        // this.toastr.error('Erro ao buscar');
+        console.error('Erro ao buscar horas trabalhadas:', error);
       }
     );
   }
- 
+
+  formatarHoras(data: Registro[]): Registro[] {
+    return data.map(registro => ({
+      ...registro,
+      horasNoMesTrabalhadas: this.formatarNumero(registro.horasNoMesTrabalhadas),
+      totalHorasDiasSemana: this.formatarNumero(registro.totalHorasDiasSemana),
+      totalHorasDomingo: this.formatarNumero(registro.totalHorasDomingo),
+      totalHorasSabado: this.formatarNumero(registro.totalHorasSabado),
+    }));
+  }
+
+  formatarNumero(numero: string): string {
+    return parseFloat(numero).toFixed(2);
+  }
+  parsePercentageToInt(percentage: string): number {
+    console.log(percentage.replace('%', ''), 10)
+    return parseInt(percentage.replace('%', ''), 10);
+  }
 }

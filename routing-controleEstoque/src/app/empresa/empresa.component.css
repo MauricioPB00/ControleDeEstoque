@@ -1,87 +1,64 @@
 .container{
-    display: flex;
-    background-color: rgb(250, 247, 247);
-}
-.container2{
-    margin-left: 45px;
-    width: 30%;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.calendario {
-    text-align: center;
-
-  }
-  
-  .nomes-dias {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .dia {
-    padding: 10px;
-  }
-  
-
-  
-  .dias {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-  }
-  
-  .dia span {
-    width: 100%; /* Define a largura do span como 100% do elemento pai */
-    height: 100%; /* Define a altura do span como 100% do elemento pai */
-    
-    /* background-color: red; */
-  }
-
-  /* Estilo para realçar o dia atual */
-  .dia.hoje {
-    background-color: #ffcc00;
-  }
-  
-  /* Estilo para fins de semana */
-  .dia.fim-de-semana {
-    background-color: #f0f0f0;
-    color: #888;
-  }
-
-  .dia-selecionado {
-    background-color: green !important;
-    color: white; /* Altere a cor do texto conforme necessário */
-  }
-.dia-span {
-  display: block;
-  
-  font-size: 20px; /* Exemplo de aumento do tamanho da fonte */
-  cursor: pointer;
-/* background-color: black; */
-}
-  
-
-.calendario h2 {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+  background-color: rgb(250, 247, 247);
 }
 
-.calendario h2 button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 0 10px;
+.container2{
+  margin-left: 45px;
+  width: 100%;
+}
+
+.table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 6px; /* Reduzindo o padding para diminuir o tamanho da célula */
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+  
+}
+.th-user,
+.th-dias,
+.th-dias-trabalhados,
+.th-horas-faltando,
+.th-horas-extras,
+.th-horas-domingo,
+.th-horas-sabado {
+  width: 10%; /* Ajuste o tamanho conforme necessário */
+ 
+}
+
+.progress-bar-container {
+  width: calc(100% - 12px); /* Ajustando para o tamanho da célula da tabela */
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 20px; /* Aumentando a altura da barra de progresso */
+  background-color: #4caf50;
+  transition: width 0.5s ease-in-out;
+}
+
+.vermelho {
+  background-color: #f44336;
+}
+
+.amarelo {
+  background-color: #ffeb3b;
+}
+
+.verde {
+  background-color: #4caf50;
 }
