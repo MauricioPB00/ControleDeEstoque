@@ -6,10 +6,10 @@
         <tr>
           <tr>
             <th class="th-user">Usuário</th>
-            <th class="th-dias-trabalhados">Dias<br>Trabalhados</th>
+            <!-- <th class="th-dias-trabalhados">Dias<br>Trabalhados</th> -->
             <th class="th-dias">Faltas</th>
             <th class="th-horas-faltando">Horas<br>Faltando</th>
-            <th class="th-horas-extras">Horas<br>Extras</th>
+            <th class="th-horas-extras">Horas<br>Total Mes</th>
             <th class="th-horas-domingo">Horas<br>Domingo</th>
             <th class="th-horas-sabado">Horas<br>Sábado</th>
           <th>Progresso do mês</th>
@@ -19,7 +19,7 @@
       <tbody>
         <tr *ngFor="let registro of response">
           <td>{{ registro.user }}</td>
-          <td>{{ registro.diasTrabalhados }}</td>
+          <!-- <td>{{ registro.diasTrabalhados }}</td> -->
           <td>{{ registro.diasFaltados }}</td>
           <td>{{ registro.horasFaltando }}</td>
           <td>{{ registro.totalHorasDiasSemana }}</td>
@@ -35,7 +35,7 @@
               </div>
             </div>
           </td>
-          <td>#</td>
+          <td><button><i class="fa-solid fa-eye"></i></button></td>
         </tr>
       </tbody>
     </table>
