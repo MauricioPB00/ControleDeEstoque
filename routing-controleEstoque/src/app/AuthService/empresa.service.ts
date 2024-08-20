@@ -27,6 +27,14 @@ export class EmpresaService {
                 catchError(this.handleError)
             );
     }
+
+    getDadosPorUsuario(userId: any): Observable<any> {
+        return this.httpClient.get<any>(`${API_CONFIG.baseUrl}/user/empresa/${userId}/usuario`, this.httpOptions)
+            .pipe(
+                retry(0),
+                catchError(this.handleError)
+            );
+    }
     
     handleError(error: HttpErrorResponse) {
         let errorMessage = '';

@@ -1,0 +1,19 @@
+Empresa
+
+cnpj 
+razao social 
+endereço 
+quinai 
+codigo do gps 
+cod de terceiros
+
+
+filial 
+
+cnpj 
+razao social 
+endereço 
+quinai 
+codigo do gps 
+cod de terceiros
+

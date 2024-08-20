@@ -35,9 +35,40 @@
               </div>
             </div>
           </td>
-          <td><button><i class="fa-solid fa-eye"></i></button></td>
+          <td>
+            <button (click)="onEyeClick(registro.user.toString(), editModal)">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+
+<ng-template #editModal let-modal>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2 class="modal-title">Detalhes do Usuário</h2>
+        <div class="user-info">
+          <div class="user-info-block">
+            <div class="user-info-item"><strong>Nome:</strong> {{ registros?.nome }}</div>
+            <div class="user-info-item"><strong>CPF:</strong> {{ registros?.cpf }}</div>
+            <div class="user-info-item"><strong>RG:</strong> {{ registros?.rg }}</div>
+            <div class="user-info-item"><strong>Email:</strong> {{ registros?.email }}</div>
+            <div class="user-info-item"><strong>Cidade:</strong> {{ registros?.cidade }}</div>
+            <div class="user-info-item"><strong>Cargo:</strong> {{ registros?.job }}</div>
+          </div>
+          <div class="user-info-block">
+            <div class="user-info-item"><strong>Hora Trabalho:</strong> {{ registros?.horTrab }}</div>
+          </div>
+        </div>
+      </div>
+      <button class="buttonClose" aria-label="Close" (click)="closeModal()">
+        &times;
+      </button>
+    </div>
+  </div>
+</ng-template>
