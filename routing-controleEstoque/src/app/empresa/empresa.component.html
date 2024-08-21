@@ -65,6 +65,43 @@
             <div class="user-info-item"><strong>Hora Trabalho:</strong> {{ registros?.horTrab }}</div>
           </div>
         </div>
+
+
+
+
+        <table id="modal-time-table" *ngIf="groupedTimes">
+          <thead>
+            <tr>
+              <th>Dia da Semana</th>
+              <th>Data</th>
+              <th>Horário 1</th>
+              <th>Horário 2</th>
+              <th>Horário 3</th>
+              <th>Horário 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let date of objectKeys(groupedTimes)">
+              <td>{{ groupedTimes[date].dayOfWeek }}</td>
+              <td>{{ date }}</td>
+              <td *ngFor="let time of groupedTimes[date].times">
+                {{ time || '-' }}
+              </td>
+              <td *ngFor="let empty of [].constructor(4 - groupedTimes[date].times.length)">
+                -
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="user-info">
+          <div class="user-info-block">
+          <div class="user-info-item"><strong>Dias Faltados:</strong> {{ horasCalculadas?.diasFaltados }}</div>
+          <div class="user-info-item"><strong>Dias Trabalhados:</strong> {{ horasCalculadas?.diasTrabalhados }}</div>
+          <div class="user-info-item"><strong>Horas Faltando:</strong> {{ horasCalculadas?.horasFaltando }}</div>
+          <div class="user-info-item"><strong>Total Horas Domingo:</strong> {{ horasCalculadas?.totalHorasDomingo }}</div>
+          <div class="user-info-item"><strong>Total Horas Sábado:</strong> {{ horasCalculadas?.totalHorasSabado }}</div>
+        </div>
+        </div>
       </div>
       <button class="buttonClose" aria-label="Close" (click)="closeModal()">
         &times;

@@ -73,25 +73,25 @@ th {
   left: 20%;
   width: 60%;
   height: auto;
-  top: 5%;
+  top: 1%;
 }
 
 .modal-content {
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 10px;
 }
 
 .modal-body {
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
+  padding-top: 0px;
 }
 
 .modal-title {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  margin-bottom: 0px;
   font-weight: bold;
   text-align: center;
   width: 100%;
@@ -107,15 +107,14 @@ th {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd; /* Linha separando os blocos */
+  padding: 0px 0;
+  border-bottom: 1px solid #ddd; 
 }
 
 .user-info-item {
   font-size: 16px;
   line-height: 1.5;
-  flex: 1 1 30%; /* Ocupa até 45% da largura, ajustando conforme o espaço disponível */
+  flex: 1 1 30%; /* Ocupa até 30% da largura, ajustando conforme o espaço disponível */
 }
 
 .buttonClose {
@@ -133,3 +132,36 @@ th {
   color: #333;
 }
 
+#modal-time-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 12px; 
+}
+
+#modal-time-table th, #modal-time-table td {
+  border: 1px solid #ddd;
+  padding: 3px; 
+  text-align: center;
+}
+
+#modal-time-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+#modal-time-table td {
+  background-color: #fff;
+}
+
+#modal-time-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#modal-time-table tbody tr:hover {
+  background-color: #eaeaea;
+}
+
+#modal-time-table td {
+  font-size: 12px; 
+}
